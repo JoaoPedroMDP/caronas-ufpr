@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
 import RoundSquareButton from './src/components/RoundSquareButton';
+import CustomSwitch from './src/components/CustomSwitch';
 import {useFonts} from 'expo-font'
 
 
@@ -19,7 +20,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <RoundSquareButton char="A" onClickHandler={setClicked}/>
+      <CustomSwitch switchValue={clicked} onSwitchHandler={setClicked}/>
       <Text>{clicked ? "Clicado" : "Não clicado"}</Text>
     </View>
   );
