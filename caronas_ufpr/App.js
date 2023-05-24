@@ -3,10 +3,12 @@ import { useState } from 'react';
 import RoundSquareButton from './src/components/RoundSquareButton';
 import CustomSwitch from './src/components/CustomSwitch';
 import {useFonts} from 'expo-font'
+import CustomTextInput from './src/components/CustomTextInput';
 
 
 export default function App() {
   const [clicked, setClicked] = useState(false);
+  const [text, setText] = useState("");
 
   const [fontsLoaded] = useFonts({
     InterBold: require("./assets/fonts/Inter-Bold.ttf"),
@@ -20,8 +22,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <CustomSwitch switchValue={clicked} onSwitchHandler={setClicked}/>
-      <Text>{clicked ? "Clicado" : "Não clicado"}</Text>
+      <CustomTextInput text={text} setText={setText} placeholder={"Digite o texto"}/>
+      <Text>{text}</Text>
     </View>
   );
 }
