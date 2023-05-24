@@ -1,11 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import RoundSquareButton from './src/components/RoundSquareButton';
+import {useFonts} from 'expo-font'
+
 
 export default function App() {
+  const [clicked, setClicked] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    InterBold: require("./assets/fonts/Inter-Bold.ttf"),
+    InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
+    InterRegular: require("./assets/fonts/Inter-Regular.ttf")
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <RoundSquareButton char="A" onClickHandler={setClicked}/>
+      <Text>{clicked ? "Clicado" : "Não clicado"}</Text>
     </View>
   );
 }
