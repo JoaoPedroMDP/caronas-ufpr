@@ -1,5 +1,5 @@
 import { Switch } from 'react-native';
-import { LightGray, Black } from '../../assets/colors';
+import { LightGray, Black } from '../../../assets/colors';
 
 const CustomSwitch = ({switchValue, onSwitchHandler}) => {
 

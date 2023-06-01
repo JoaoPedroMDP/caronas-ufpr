@@ -1,10 +1,15 @@
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
-import RoundSquareButton from './src/components/RoundSquareButton';
-import CustomSwitch from './src/components/CustomSwitch';
-import {useFonts} from 'expo-font'
-import CustomTextInput from './src/components/CustomTextInput';
+import RoundSquareButton from './src/components/inputs/RoundSquareButton';
+import CustomSwitch from './src/components/inputs/CustomSwitch';
+import { useFonts } from 'expo-font'
+import CustomTextInput from './src/components/inputs/CustomTextInput';
+import RegisterRouteScreen from './src/screens/RegisterRouteScreen';
+import {NavigationContainer} from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [clicked, setClicked] = useState(false);
@@ -21,10 +26,18 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <CustomTextInput text={text} setText={setText} placeholder={"Digite o texto"}/>
-      <Text>{text}</Text>
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+    // <View style={styles.container}>
+    //   <RoundSquareButton char="A" onClickHandler={setClicked}/>
+    //   <CustomSwitch switchValue={clicked} onSwitchHandler={setClicked} />
+    //   <Text>{clicked ? "Clicado" : "Não clicado"}</Text>
+    //   <CustomTextInput text={text} setText={setText} placeholder={"Digite o texto"} />
+    //   <Text>{text}</Text>
+    // </View>
   );
 }
 

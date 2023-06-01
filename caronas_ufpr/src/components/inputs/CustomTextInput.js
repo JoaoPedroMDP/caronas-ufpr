@@ -1,5 +1,5 @@
 import { TextInput, StyleSheet } from 'react-native';
-import { LightGray, PlaceholderGray } from '../../assets/colors';
+import { LightGray, PlaceholderGray } from '../../../assets/colors';
 
 const CustomTextInput = ({placeholder, text, setText}) => {
     return (

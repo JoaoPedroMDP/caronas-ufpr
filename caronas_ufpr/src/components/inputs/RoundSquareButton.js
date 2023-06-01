@@ -1,6 +1,6 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { useState } from 'react';
-import { Black, LightGray } from '../../assets/colors';
+import { Black, LightGray } from '../../../assets/colors';
 
 const RoundSquareButton = ({char, onClickHandler}) => {
     const [clicked, setClicked] = useState(false);
