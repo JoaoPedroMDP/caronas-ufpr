@@ -4,29 +4,28 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import RoundSquareButton from "../components/inputs/RoundSquareButton";
 
-const LoginScreen = ({ navigation }) => {
+const ForgetPassword = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Login</Text>
+            <Text style={styles.text}>Recuperar Senha</Text>
+            <Text style={styles.text2}>Acontece nas melhores famílias</Text>
+            <Text>
+                Faz assim: conte para gente qual endereço de email você usou para se `{"\n"}`
+                cadastrar aqui, e te enviaremos um email de recuperação de senha ;)
+            </Text>
             <View style={styles.input}>
                 <CustomTextInput
-                    placeholder={"Email Institucional"}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Senha"}
+                    placeholder={"Email"}
                 />
             </View>
             <View style={styles.button}>
                 <RoundSquareButton
-                    char={"Entrar"}
-                    onClickHandler={() => { navigation.navigate("RegisterRoute") }}
+                    char={"Recuperar"}
+                    onClickHandler={() => { }}
                 />
             </View>
             <View style={styles.buttons2}>
-                <TouchableOpacity onPress={() => { navigation.navigate("RegisterScreen") }}>Não possui conta? Cadastre-se!</TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("ForgetPassword") }}>Esqueceu a senha?</TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>Ih lembrei a senha</TouchableOpacity>
             </View>
         </View>
     );
@@ -45,6 +44,10 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold'
     },
+    text2: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
     input: {
         padding: 10,
     },
@@ -59,4 +62,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreen;
+export default ForgetPassword;
