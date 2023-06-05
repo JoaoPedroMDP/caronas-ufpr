@@ -37,13 +37,6 @@ export default function App() {
         <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
-    /* <View style={styles.container}>
-       <RoundSquareButton char="A" onClickHandler={setClicked} />
-       <CustomSwitch switchValue={clicked} onSwitchHandler={setClicked} />
-       <Text>{clicked ? "Clicado" : "Não clicado"}</Text>
-       <CustomTextInput text={text} setText={setText} placeholder={"Digite o texto"} />
-       <Text>{text}</Text>
-     </View>*/
   );
 }
 

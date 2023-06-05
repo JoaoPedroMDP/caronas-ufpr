@@ -2,13 +2,13 @@ import { View, Text, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     screen: {
-        paddingHorizontal: "30px",
-        paddingTop: "40px",
+        paddingHorizontal: 30,
+        paddingTop: 40,
     }
 })
 
-const Screen = ({children}) => {
-    return(
+const Screen = ({ children }) => {
+    return (
         <View style={styles.screen}>
             {children}
         </View>

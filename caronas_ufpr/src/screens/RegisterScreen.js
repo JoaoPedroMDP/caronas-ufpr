@@ -8,26 +8,18 @@ const RegisterScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Cadastro</Text>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Email Institucional"}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"WhatsApp"}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Senha"}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Confirmar Senha"}
-                />
-            </View>
+            <CustomTextInput
+                placeholder={"Email Institucional"}
+            />
+            <CustomTextInput
+                placeholder={"WhatsApp"}
+            />
+            <CustomTextInput
+                placeholder={"Senha"}
+            />
+            <CustomTextInput
+                placeholder={"Confirmar Senha"}
+            />
             <View style={styles.button}>
                 <RoundSquareButton
                     char={"Cadastrar"}

@@ -8,16 +8,12 @@ const LoginScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Login</Text>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Email Institucional"}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Senha"}
-                />
-            </View>
+            <CustomTextInput
+                placeholder={"Email Institucional"}
+            />
+            <CustomTextInput
+                placeholder={"Senha"}
+            />
             <View style={styles.button}>
                 <RoundSquareButton
                     char={"Entrar"}
