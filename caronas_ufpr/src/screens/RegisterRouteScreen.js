@@ -2,18 +2,17 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import PageTitle from '../components/textual/PageTitle';
 import Section from '../components/layout/Section';
-import Picker from '../components/inputs/Picker';
+import ListPicker from '../components/inputs/ListPicker';
 import Screen from '../components/layout/Screen';
-import { dropdownize } from '../contrib';
+import { pickablelize } from '../contrib';
 import CustomSwitch from '../components/inputs/CustomSwitch';
+import TimePicker from '../components/inputs/TimePicker';
 
 const EndpointLayout = ({ endpointOptions, setEndpoint, endpointType, switchEndpointType }) => {
-    const [open, setOpen] = useState(false);
-
     return (
         <View style={styles.endpoint}>
-            <Picker
-                items={dropdownize(endpointOptions[endpointType])}
+            <ListPicker
+                items={pickablelize(endpointOptions[endpointType])}
                 returnValue={setEndpoint}
                 placeholder="Selecione um local"
             />
@@ -37,6 +36,7 @@ const RegisterRouteScreen = ({ navigation }) => {
     const [originType, setOriginType] = useState("campus");
     const [destiny, setDestiny] = useState("");
     const [destinyType, setDestinyType] = useState("campus");
+    const [destinyTime, setDestinyTime] = useState(new Date());
 
     function getEndpointType(currentType) {
         return currentType === "campus" ? "neighborhood" : "campus";
@@ -52,6 +52,8 @@ const RegisterRouteScreen = ({ navigation }) => {
                     endpointType={originType}
                     switchEndpointType={() => { setOriginType(getEndpointType(originType)) }}
                 />
+                <Text>{origin.label}</Text>
+                <TimePicker time={destinyTime} returnTime={setDestinyTime} />
             </Section>
             <Section title="Chegada">
                 <EndpointLayout

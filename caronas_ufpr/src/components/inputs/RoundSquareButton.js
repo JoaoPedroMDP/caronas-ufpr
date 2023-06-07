@@ -2,7 +2,7 @@ import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { useState } from 'react';
 import { Black, LightGray } from '../../../assets/colors';
 
-const RoundSquareButton = ({ char, onClickHandler }) => {
+const RoundSquareButton = ({ label, onClickHandler }) => {
     const [clicked, setClicked] = useState(false);
 
     function clickButton() {
@@ -13,7 +13,7 @@ const RoundSquareButton = ({ char, onClickHandler }) => {
     return (
         <Pressable onPressOut={clickButton} >
             <View style={[styles.button, { backgroundColor: clicked ? Black : LightGray }]}>
-                <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{char}</Text>
+                <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{label}</Text>
             </View>
         </Pressable>
     );
@@ -22,13 +22,12 @@ const RoundSquareButton = ({ char, onClickHandler }) => {
 const styles = StyleSheet.create({
     button: {
         borderRadius: 10,
-        height: 35,
-        width: 85,
         justifyContent: 'center',
         alignItems: 'center'
     },
     text: {
-        fontFamily: "InterBold"
+        fontFamily: "InterBold",
+        margin: 10
     }
 })
 
