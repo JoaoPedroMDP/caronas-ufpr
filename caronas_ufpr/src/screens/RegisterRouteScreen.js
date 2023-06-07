@@ -2,25 +2,20 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import PageTitle from '../components/textual/PageTitle';
 import Section from '../components/layout/Section';
-import Dropdown from '../components/inputs/Dropdown';
+import Picker from '../components/inputs/Picker';
 import Screen from '../components/layout/Screen';
 import { dropdownize } from '../contrib';
 import CustomSwitch from '../components/inputs/CustomSwitch';
 
-const EndpointLayout = ({ endpointOptions, setEndpoint, endpointType, switchEndpointType, index, count }) => {
+const EndpointLayout = ({ endpointOptions, setEndpoint, endpointType, switchEndpointType }) => {
     const [open, setOpen] = useState(false);
 
     return (
         <View style={styles.endpoint}>
-            <Dropdown
-                dropdownIndex={index}
-                dropdownCount={count}
-                open={open}
-                setOpen={setOpen}
-                containerStyle={styles.endpointDropdown}
+            <Picker
                 items={dropdownize(endpointOptions[endpointType])}
                 returnValue={setEndpoint}
-                placeholder={"Selecione um local"}
+                placeholder="Selecione um local"
             />
             <View style={styles.endpointType}>
                 <Text style={styles.endpointTypeText}>{endpointType === "campus" ? "Campus" : "Bairro"}</Text>
@@ -52,8 +47,6 @@ const RegisterRouteScreen = ({ navigation }) => {
             <PageTitle title={"Cadastrar Rota"} />
             <Section title="Saída">
                 <EndpointLayout
-                    index={1}
-                    count={3}
                     endpointOptions={teste}
                     setEndpoint={setOrigin}
                     endpointType={originType}
@@ -62,18 +55,6 @@ const RegisterRouteScreen = ({ navigation }) => {
             </Section>
             <Section title="Chegada">
                 <EndpointLayout
-                    index={2}
-                    count={3}
-                    endpointOptions={teste}
-                    setEndpoint={setDestiny}
-                    endpointType={destinyType}
-                    switchEndpointType={() => { setDestinyType(getEndpointType(destinyType)) }}
-                />
-            </Section>
-            <Section title="Teste">
-                <EndpointLayout
-                    index={3}
-                    count={3}
                     endpointOptions={teste}
                     setEndpoint={setDestiny}
                     endpointType={destinyType}

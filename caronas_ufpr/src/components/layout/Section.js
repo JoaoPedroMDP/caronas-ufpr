@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     section: {
-        marginTop: 20
+        marginTop: 20,
+        position: "relative"
     }
 })
 
