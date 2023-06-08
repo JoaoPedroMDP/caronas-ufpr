@@ -13,6 +13,7 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
+    InterExtraBold: require("./assets/fonts/Inter-ExtraBold.ttf"),
     InterBold: require("./assets/fonts/Inter-Bold.ttf"),
     InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
     InterRegular: require("./assets/fonts/Inter-Regular.ttf")

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
 
 const LoginScreen = ({ navigation }) => {
     return (
@@ -15,7 +15,7 @@ const LoginScreen = ({ navigation }) => {
                 placeholder={"Senha"}
             />
             <View style={styles.button}>
-                <RoundSquareButton
+                <CustomButton
                     char={"Entrar"}
                     onClickHandler={() => { navigation.navigate("RegisterRoute") }}
                 />

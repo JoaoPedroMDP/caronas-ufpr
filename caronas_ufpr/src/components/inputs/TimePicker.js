@@ -1,9 +1,9 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { useState } from 'react';
-import RoundSquareButton from './RoundSquareButton';
+import CustomButton from './CustomButton';
 
-const TimePicker = ({ returnTime }) => {
+const TimePicker = ({ returnTime, pickerLabel }) => {
     const [time, setTime] = useState(new Date());
     const [show, setShow] = useState(false);
 
@@ -12,11 +12,12 @@ const TimePicker = ({ returnTime }) => {
         const currentTime = selectedTime || time;
         setShow(false);
         setTime(currentTime);
+        returnTime(currentTime);
     }
 
     return (
         <View>
-            <RoundSquareButton label="Horário" onClickHandler={() => setShow(true)} />
+            <CustomButton label={pickerLabel ?? "Horário"} onClickHandler={() => setShow(true)} uiFeedback={false} />
             {show &&
                 <DateTimePicker
                     mode="time"

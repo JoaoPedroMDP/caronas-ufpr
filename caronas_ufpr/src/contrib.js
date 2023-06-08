@@ -1,12 +1,4 @@
-
-function keify(items) {
-    let finalItems = [];
-    for (let i = 0; i < items.length; i++) {
-        finalItems.push({ key: i, value: items[i] });
-    }
-
-    return finalItems;
-}
+import { Black, White } from '../assets/colors';
 
 function pickablelize(items) {
     let finalItems = [];
@@ -17,4 +9,24 @@ function pickablelize(items) {
     return finalItems;
 }
 
-export { keify, pickablelize };
+function toCheckboxGroupFormat(data) {
+    let finalData = [];
+    for (let i = 0; i < data.length; i++) {
+        finalData.push({
+            id: i,
+            text: data[i].label,
+            value: data[i].value,
+            size: 25,
+            bouncinessIn: 0,
+            bouncinessOut: 0,
+            fillColor: Black,
+            unfillColor: White,
+            innerIconStyle: { borderWidth: 2 },
+            textStyle: { "fontFamily": "InterMedium", "color": Black }
+        });
+    }
+
+    return finalData;
+}
+
+export { pickablelize, toCheckboxGroupFormat };

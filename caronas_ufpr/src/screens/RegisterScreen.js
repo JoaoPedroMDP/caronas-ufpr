@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
 
 const RegisterScreen = ({ navigation }) => {
     return (
@@ -21,7 +21,7 @@ const RegisterScreen = ({ navigation }) => {
                 placeholder={"Confirmar Senha"}
             />
             <View style={styles.button}>
-                <RoundSquareButton
+                <CustomButton
                     char={"Cadastrar"}
                     onClickHandler={() => { }}
                 />

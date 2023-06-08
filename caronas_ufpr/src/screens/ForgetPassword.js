@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
 
 const ForgetPassword = ({ navigation }) => {
     return (
@@ -19,7 +19,7 @@ const ForgetPassword = ({ navigation }) => {
                 />
             </View>
             <View style={styles.button}>
-                <RoundSquareButton
+                <CustomButton
                     char={"Recuperar"}
                     onClickHandler={() => { }}
                 />

@@ -1,6 +1,6 @@
 import ModalSelector from 'react-native-modal-selector';
 import { useState } from 'react';
-import RoundSquareButton from './RoundSquareButton';
+import CustomButton from './CustomButton';
 
 const ListPicker = ({ items, returnValue, placeholder }) => {
 
@@ -15,8 +15,10 @@ const ListPicker = ({ items, returnValue, placeholder }) => {
     return (
         <ModalSelector
             data={items}
-            onChange={changeValue}>
-            <RoundSquareButton
+            onChange={changeValue}
+            multiple={false}
+        >
+            <CustomButton
                 label={value}
             />
         </ModalSelector>
