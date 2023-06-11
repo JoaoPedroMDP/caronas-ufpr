@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import PageTitle from "../textual/PageTitle";
+import Title from "../textual/Title";
 
 const styles = StyleSheet.create({
     screen: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 const Screen = ({ children, title, centralized }) => {
     return (
         <View style={styles.screen}>
-            <PageTitle title={title} centralized={centralized} />
+            <Title title={title} centralized={centralized} />
             {children}
         </View>
     )

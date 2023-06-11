@@ -4,13 +4,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import Screen from "../components/layout/Screen";
-import PageTitle from "../components/textual/PageTitle";
+import Title from "../components/textual/Title";
 import { Blue } from "../../assets/colors";
+import TextButton from "../components/inputs/TextButton";
 
 const LoginScreen = ({ navigation }) => {
     return (
         <Screen>
-            <PageTitle title="Login" centralized={true} />
+            <Title title="Login" centralized={true} />
             <CustomTextInput
                 placeholder={"Email Institucional"}
             />
@@ -19,8 +20,8 @@ const LoginScreen = ({ navigation }) => {
             />
             <View style={styles.buttons}>
                 <View>
-                    <TouchableOpacity onPress={() => { navigation.navigate("RegisterScreen") }}><Text style={styles.option}>Não possui conta? Cadastre-se!</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { navigation.navigate("ForgetPassword") }}><Text style={styles.option}>Esqueceu a senha?</Text></TouchableOpacity>
+                    <TextButton onPressHandler={() => { navigation.navigate("Login") }} text={"Não possui conta? Cadastre-se!"} />
+                    <TextButton onPressHandler={() => { navigation.navigate("Login") }} text={"Esqueceu a senha?"} />
                 </View>
                 <CustomButton
                     label={"Entrar"}
@@ -38,8 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignSelf: "flex-end",
-        paddingHorizontal: 10
+        alignSelf: "flex-end"
     },
     option: {
         color: Blue

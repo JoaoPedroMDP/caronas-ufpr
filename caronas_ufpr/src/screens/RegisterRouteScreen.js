@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useState } from 'react';
-import PageTitle from '../components/textual/PageTitle';
+import Title from '../components/textual/Title';
 import Section from '../components/layout/Section';
 import ListPicker from '../components/inputs/ListPicker';
 import Screen from '../components/layout/Screen';

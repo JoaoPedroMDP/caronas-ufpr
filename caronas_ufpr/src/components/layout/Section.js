@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { PlaceholderGray } from "../../../assets/colors";
+import SectionDescription from "../textual/SectionDescription";
 
 const styles = StyleSheet.create({
     sectionTitle: {
@@ -24,7 +25,7 @@ const Section = ({ children, title, description }) => {
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>{title}</Text>
             {description != null &&
-                <Text style={styles.sectionDescription}>{description}</Text>
+                <SectionDescription comment={description} />
             }
             {children}
         </View>
