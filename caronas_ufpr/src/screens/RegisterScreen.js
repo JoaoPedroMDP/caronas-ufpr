@@ -3,11 +3,13 @@ import { View, Text, StyleSheet } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
+import Screen from "../components/layout/Screen";
+import PageTitle from "../components/textual/PageTitle";
 
 const RegisterScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Cadastro</Text>
+        <Screen>
+            <PageTitle title="Cadastro" centralized={true} />
             <CustomTextInput
                 placeholder={"Email Institucional"}
             />
@@ -23,31 +25,21 @@ const RegisterScreen = ({ navigation }) => {
             <View style={styles.button}>
                 <CustomButton
                     label={"Cadastrar"}
-                    onClickHandler={() => { }}
                 />
             </View>
-        </View>
+        </Screen>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%'
-    },
-    text: {
-        fontSize: 40,
-        fontWeight: 'bold'
-    },
-    input: {
-        padding: 10,
-    },
     button: {
-        left: 83
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignSelf: "flex-end",
+        paddingHorizontal: 10
     },
 });
 
