@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import Screen from "../components/layout/Screen";
@@ -23,10 +23,12 @@ const RegisterScreen = ({ navigation }) => {
             <CustomTextInput
                 placeholder={"Confirmar Senha"}
             />
-            <CustomButton
-                label={"Cadastrar"}
-                alignment="end"
-            />
+            <View>
+                <CustomButton
+                    label={"Cadastrar"}
+                    alignment="end"
+                />
+            </View>
         </Screen>
     );
 }

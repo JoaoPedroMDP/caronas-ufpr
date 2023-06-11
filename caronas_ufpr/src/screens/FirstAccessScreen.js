@@ -6,14 +6,7 @@ import Comment from "../components/textual/Comment";
 import SubTitle from "../components/textual/Subtitle";
 import { StyleSheet, View } from "react-native";
 
-const styles = StyleSheet.create({
-    button: {
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'flex-end',
-        flexDirection: 'row'
-    },
-});
+const styles = StyleSheet.create({});
 
 const FirstAccessScreen = ({ navigation }) => {
     let vocative = "Acabou de chegar?? Veja como funciona o app:";
@@ -56,7 +49,7 @@ const FirstAccessScreen = ({ navigation }) => {
             })}
             <Vspacer h={10} />
             <SubTitle subtitle={end} justify />
-            <View style={styles.button}>
+            <View>
                 <CustomButton label="Começar" alignment="end" />
             </View>
         </Screen>
