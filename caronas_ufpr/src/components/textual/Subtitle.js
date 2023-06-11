@@ -7,11 +7,12 @@ const style = StyleSheet.create({
     }
 })
 
-const SubTitle = ({ subtitle, centralized }) => {
+const SubTitle = ({ subtitle, centralized, justify }) => {
     return (
         <Text style={[
             style.subtitle,
-            { alignSelf: (centralized != null) && centralized ? "center" : null }
+            { alignSelf: (centralized != null) && centralized ? "center" : null },
+            { textAlign: justify != null ? "justify" : null }
         ]}>{subtitle}</Text>
     )
 }

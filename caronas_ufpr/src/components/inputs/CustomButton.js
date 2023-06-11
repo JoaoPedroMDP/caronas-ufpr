@@ -2,8 +2,12 @@ import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'rea
 import { useState } from 'react';
 import { Black, LightGray } from '../../../assets/colors';
 
-const CustomButton = ({ label, onClickHandler, disabled, containerStyle }) => {
+const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignment }) => {
     const [clicked, setClicked] = useState(false);
+    const alignmentStyle = alignment != null ? "flex-" + alignment : null;
+    let aligStyle = {
+        justifyContent: alignmentStyle
+    };
 
     function clickButton() {
         setClicked(false);
@@ -11,16 +15,18 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle }) => {
     }
 
     return (
-        <Pressable
-            disabled={disabled}
-            onPressIn={() => setClicked(true)}
-            onPressOut={clickButton}
-            style={[styles.container, containerStyle]}
-        >
-            <View style={[styles.button, { backgroundColor: clicked ? Black : LightGray }]}>
-                <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{label}</Text>
-            </View>
-        </Pressable>
+        <View style={[styles.teste, aligStyle]}>
+            <Pressable
+                disabled={disabled}
+                onPressIn={() => setClicked(true)}
+                onPressOut={clickButton}
+                style={[styles.container, containerStyle]}
+            >
+                <View style={[styles.button, { backgroundColor: clicked ? Black : LightGray }]}>
+                    <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{label}</Text>
+                </View>
+            </Pressable>
+        </View>
     );
 }
 
@@ -37,6 +43,11 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: "InterBold",
         margin: 10
+    },
+    teste: {
+        display: 'flex',
+        flexGrow: 1,
+        flexDirection: 'row'
     }
 })
 

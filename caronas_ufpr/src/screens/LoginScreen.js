@@ -26,6 +26,7 @@ const LoginScreen = ({ navigation }) => {
                 <CustomButton
                     label={"Entrar"}
                     onClickHandler={() => { navigation.navigate("RegisterRoute") }}
+                    alignment="end"
                 />
             </View>
         </Screen>
@@ -38,12 +39,8 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignSelf: "flex-end"
-    },
-    option: {
-        color: Blue
-    },
+        justifyContent: 'space-between'
+    }
 });
 
 export default LoginScreen;

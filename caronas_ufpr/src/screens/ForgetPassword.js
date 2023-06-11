@@ -23,10 +23,8 @@ const ForgetPassword = ({ navigation }) => {
                 placeholder={"Email"}
             />
             <View style={styles.buttons}>
-                <View>
-                    <TextButton onPressHandler={() => { navigation.navigate("RegisterRoute") }} text="Ih, lembrei!" />
-                </View>
-                <CustomButton label={"Recuperar"} onClickHandler={() => { navigation.navigate("RegisterRoute") }} />
+                <TextButton onPressHandler={() => { navigation.navigate("RegisterRoute") }} text="Ih, lembrei!" />
+                <CustomButton label={"Recuperar"} onClickHandler={() => { navigation.navigate("RegisterRoute") }} alignment="end" />
             </View>
         </Screen>
     );
@@ -35,11 +33,8 @@ const ForgetPassword = ({ navigation }) => {
 const styles = StyleSheet.create({
     buttons: {
         display: 'flex',
-        width: '100%',
-        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignSelf: "flex-end"
+        alignItems: 'center',
     },
 });
 

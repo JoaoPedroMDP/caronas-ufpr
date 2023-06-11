@@ -127,13 +127,12 @@ const RegisterRouteScreen = ({ navigation }) => {
                         })}
                     </View>
                 </Section>
-                <View style={styles.registerButton}>
-                    <CustomButton
-                        containerStyle={{ alignSelf: "flex-end" }}
-                        label="Cadastrar"
-                        onClickHandler={registerRoute}
-                    />
-                </View>
+                <CustomButton
+                    containerStyle={{ marginBottom: 10 }}
+                    label="Cadastrar"
+                    onClickHandler={registerRoute}
+                    alignment="end"
+                />
             </Screen>
         </ScrollView>
     );

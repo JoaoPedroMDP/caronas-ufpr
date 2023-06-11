@@ -17,7 +17,7 @@ const TimePicker = ({ returnTime, pickerLabel }) => {
 
     return (
         <View>
-            <CustomButton label={pickerLabel ?? "Horário"} onClickHandler={() => setShow(true)} uiFeedback={false} />
+            <CustomButton label={pickerLabel ?? "Horário"} onClickHandler={() => setShow(true)} />
             {show &&
                 <DateTimePicker
                     mode="time"

@@ -7,6 +7,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import ForgetPassword from './src/screens/ForgetPassword';
+import FirstAccessScreen from './src/screens/FirstAccessScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,10 +26,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} />
         <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
         <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
         <Drawer.Screen name="Login" component={LoginScreen} />
-        {/* <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} /> */}
+        <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

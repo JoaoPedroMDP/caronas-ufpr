@@ -25,7 +25,7 @@ const Section = ({ children, title, description }) => {
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>{title}</Text>
             {description != null &&
-                <SectionDescription comment={description} />
+                <SectionDescription description={description} />
             }
             {children}
         </View>
