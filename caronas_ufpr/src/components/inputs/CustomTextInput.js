@@ -1,26 +1,31 @@
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, View } from 'react-native';
 import { LightGray, PlaceholderGray } from '../../../assets/colors';
-
-const CustomTextInput = ({placeholder, text, setText}) => {
-    return (
-        <TextInput 
-            style={styles.input}
-            onChangeText={setText}
-            value={text}
-            placeholder={placeholder} 
-            placeholderTextColor={PlaceholderGray}
-        />
-    )
-}
 
 const styles = StyleSheet.create({
     input: {
-        borderRadius: '8px',
+        borderRadius: 8,
         backgroundColor: LightGray,
         fontFamily: "InterRegular",
-        height: '35px',
+        height: 45,
         padding: 10
+    },
+    inputView: {
+        paddingVertical: 10
     }
 })
+
+const CustomTextInput = ({ placeholder, text, setText }) => {
+    return (
+        <View style={styles.inputView}>
+            <TextInput
+                style={styles.input}
+                onChangeText={setText}
+                value={text}
+                placeholder={placeholder}
+                placeholderTextColor={PlaceholderGray}
+            />
+        </View>
+    )
+}
 
 export default CustomTextInput;

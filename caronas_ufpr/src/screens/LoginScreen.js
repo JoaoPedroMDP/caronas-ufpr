@@ -2,60 +2,44 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
+import Screen from "../components/layout/Screen";
+import Title from "../components/textual/Title";
+import { Blue } from "../../assets/colors";
+import TextButton from "../components/inputs/TextButton";
 
 const LoginScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Login</Text>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Email Institucional"}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Senha"}
-                />
-            </View>
-            <View style={styles.button}>
-                <RoundSquareButton
-                    char={"Entrar"}
+        <Screen>
+            <Title title="Login" centralized={true} />
+            <CustomTextInput
+                placeholder={"Email Institucional"}
+            />
+            <CustomTextInput
+                placeholder={"Senha"}
+            />
+            <View style={styles.buttons}>
+                <View>
+                    <TextButton onPressHandler={() => { navigation.navigate("Login") }} text={"Não possui conta? Cadastre-se!"} />
+                    <TextButton onPressHandler={() => { navigation.navigate("Login") }} text={"Esqueceu a senha?"} />
+                </View>
+                <CustomButton
+                    label={"Entrar"}
                     onClickHandler={() => { navigation.navigate("RegisterRoute") }}
+                    alignment="end"
                 />
             </View>
-            <View style={styles.buttons2}>
-                <TouchableOpacity onPress={() => { navigation.navigate("RegisterScreen") }}>Não possui conta? Cadastre-se!</TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("ForgetPassword") }}>Esqueceu a senha?</TouchableOpacity>
-            </View>
-        </View>
+        </Screen>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+    buttons: {
+        display: 'flex',
         width: '100%',
-        height: '100%'
-    },
-    text: {
-        fontSize: 40,
-        fontWeight: 'bold'
-    },
-    input: {
-        padding: 10,
-    },
-    button: {
-        left: 83
-    },
-    buttons2: {
-        fontSize: 11,
-        right: 50,
-        top: -30,
-        color: 'blue'
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });
 

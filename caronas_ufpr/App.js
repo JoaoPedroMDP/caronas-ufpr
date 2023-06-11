@@ -1,24 +1,19 @@
 import 'react-native-gesture-handler';
-import { StyleSheet, Text, View } from 'react-native';
-import { useState } from 'react';
-import RoundSquareButton from './src/components/inputs/RoundSquareButton';
-import CustomSwitch from './src/components/inputs/CustomSwitch';
+import { StyleSheet, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font'
-import CustomTextInput from './src/components/inputs/CustomTextInput';
 import RegisterRouteScreen from './src/screens/RegisterRouteScreen';
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import ForgetPassword from './src/screens/ForgetPassword';
+import FirstAccessScreen from './src/screens/FirstAccessScreen';
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const [clicked, setClicked] = useState(false);
-  const [text, setText] = useState("");
-
   const [fontsLoaded] = useFonts({
+    InterExtraBold: require("./assets/fonts/Inter-ExtraBold.ttf"),
     InterBold: require("./assets/fonts/Inter-Bold.ttf"),
     InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
     InterRegular: require("./assets/fonts/Inter-Regular.ttf")
@@ -31,21 +26,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Login" component={LoginScreen} />
-        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} />
         <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
+        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Drawer.Screen name="Login" component={LoginScreen} />
         <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
-    /* <View style={styles.container}>
-       <RoundSquareButton char="A" onClickHandler={setClicked} />
-       <CustomSwitch switchValue={clicked} onSwitchHandler={setClicked} />
-       <Text>{clicked ? "Clicado" : "Não clicado"}</Text>
-       <CustomTextInput text={text} setText={setText} placeholder={"Digite o texto"} />
-       <Text>{text}</Text>
-     </View>*/
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
