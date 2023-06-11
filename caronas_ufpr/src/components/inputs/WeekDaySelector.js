@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import CustomSwitchButton from './CustomSwitchButton';
 import { availableWeekDays } from '../../consts';
 
@@ -15,22 +15,29 @@ const WeekDaySelector = ({ weekDays, returnWeekDays }) => {
     }
 
     return (
-        <View>
-            <FlatList
-                horizontal={true}
-                data={availableWeekDays}
-                renderItem={({ item }) => {
-                    return (
-                        <CustomSwitchButton
-                            label={item.label}
-                            onClickHandler={() => selectDay(item.key)}
-                            containerStyle={{ marginHorizontal: 5, minWidth: 40 }}
-                        />
-                    );
-                }}
-            />
+        <View style={styles.days}>
+            {availableWeekDays.map((item) => {
+                return (
+                    <CustomSwitchButton
+                        key={item.key}
+                        label={item.label}
+                        onClickHandler={() => selectDay(item.key)}
+                        containerStyle={{ marginHorizontal: 2, minWidth: 40, width: 40 }}
+                    />
+                );
+            })}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    days: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginVertical: 5,
+        width: "100%"
+    }
+});
 
 export default WeekDaySelector;

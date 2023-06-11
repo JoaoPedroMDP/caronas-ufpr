@@ -22,7 +22,7 @@ function toCheckboxGroupFormat(data) {
             fillColor: Black,
             unfillColor: White,
             innerIconStyle: { borderWidth: 2 },
-            textStyle: { "fontFamily": "InterMedium", "color": Black }
+            textStyle: { fontFamily: "InterBold", fontSize: 10, color: Black, textDecorationLine: "none" },
         });
     }
 

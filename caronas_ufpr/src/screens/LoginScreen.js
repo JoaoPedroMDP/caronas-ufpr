@@ -21,8 +21,8 @@ const LoginScreen = ({ navigation }) => {
                 />
             </View>
             <View style={styles.buttons2}>
-                <TouchableOpacity onPress={() => { navigation.navigate("RegisterScreen") }}>Não possui conta? Cadastre-se!</TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("ForgetPassword") }}>Esqueceu a senha?</TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("RegisterScreen") }}><Text>Não possui conta? Cadastre-se!</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("ForgetPassword") }}><Text>Esqueceu a senha?</Text></TouchableOpacity>
             </View>
         </View>
     );

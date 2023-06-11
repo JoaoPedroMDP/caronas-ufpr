@@ -25,7 +25,7 @@ const ForgetPassword = ({ navigation }) => {
                 />
             </View>
             <View style={styles.buttons2}>
-                <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>Ih lembrei a senha</TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("Login") }}><Text>Ih lembrei a senha</Text></TouchableOpacity>
             </View>
         </View>
     );

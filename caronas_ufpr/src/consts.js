@@ -8,15 +8,11 @@ const availableWeekDays = [
     { "key": "Sáb", "label": "S" }
 ];
 
-// Coloco o ID para usar no RadioGroup
-const uniqueIntentions = [
-    { "id": "offer_ride", "label": "Oferecer Carona", "value": "offer_ride" },
-    { "id": "receive_ride", "label": "Procurar Carona", "value": "receive_ride" }
-];
-
 const intentions = [
+    { "id": "offer_ride", "label": "Ofereço Carona", "value": "offer_ride" },
+    { "id": "receive_ride", "label": "Busco Carona", "value": "receive_ride" },
     { "id": "split_app", "label": "Rachar aplicativo", "value": "split_app" },
     { "id": "bus_pal", "label": "Companhia de busão", "value": "bus_pal" }
 ];
 
-export { availableWeekDays, uniqueIntentions, intentions };
+export { availableWeekDays, intentions };

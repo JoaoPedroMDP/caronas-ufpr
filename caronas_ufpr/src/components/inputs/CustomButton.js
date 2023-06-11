@@ -2,7 +2,7 @@ import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'rea
 import { useState } from 'react';
 import { Black, LightGray } from '../../../assets/colors';
 
-const CustomButton = ({ label, onClickHandler, disabled }) => {
+const CustomButton = ({ label, onClickHandler, disabled, containerStyle }) => {
     const [clicked, setClicked] = useState(false);
 
     function clickButton() {
@@ -15,6 +15,7 @@ const CustomButton = ({ label, onClickHandler, disabled }) => {
             disabled={disabled}
             onPressIn={() => setClicked(true)}
             onPressOut={clickButton}
+            style={[styles.container, containerStyle]}
         >
             <View style={[styles.button, { backgroundColor: clicked ? Black : LightGray }]}>
                 <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{label}</Text>
@@ -24,12 +25,13 @@ const CustomButton = ({ label, onClickHandler, disabled }) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        alignSelf: "flex-start",
+        marginVertical: 5,
+    },
     button: {
         borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 5,
-        width: "fit-content",
         minWidth: 45,
     },
     text: {

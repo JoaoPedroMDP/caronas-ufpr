@@ -1,0 +1,1 @@
+config.module.strictExportPresence = false;

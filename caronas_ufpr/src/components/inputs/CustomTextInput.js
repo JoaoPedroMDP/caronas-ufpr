@@ -17,10 +17,10 @@ const CustomTextInput = ({ placeholder, text, setText }) => {
 
 const styles = StyleSheet.create({
     input: {
-        borderRadius: '8px',
+        borderRadius: 8,
         backgroundColor: LightGray,
         fontFamily: "InterRegular",
-        height: '35px',
+        height: 35,
         padding: 10
     },
     inputView: {

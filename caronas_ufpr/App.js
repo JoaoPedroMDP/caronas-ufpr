@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
-import { StyleSheet, Text, View } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font'
 import RegisterRouteScreen from './src/screens/RegisterRouteScreen';
 import { NavigationContainer } from '@react-navigation/native'
@@ -26,9 +25,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
-        {/* <Drawer.Screen name="Login" component={LoginScreen} /> */}
-        {/* <Drawer.Screen name="RegisterScreen" component={RegisterScreen} /> */}
-        {/* <Drawer.Screen name="ForgetPassword" component={ForgetPassword} /> */}
+        <Drawer.Screen name="Login" component={LoginScreen} />
+        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
         <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
       </Drawer.Navigator>
     </NavigationContainer>

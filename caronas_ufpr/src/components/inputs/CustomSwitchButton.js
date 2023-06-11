@@ -1,4 +1,4 @@
-import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { useState } from 'react';
 import { Black, LightGray } from '../../../assets/colors';
 
@@ -14,6 +14,7 @@ const CustomSwitchButton = ({ label, onClickHandler, disabled, containerStyle })
         <Pressable
             disabled={disabled}
             onPressOut={clickButton}
+            style={[styles.container, containerStyle]}
         >
             <View style={[styles.button, { backgroundColor: clicked ? Black : LightGray }, containerStyle]}>
                 <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{label}</Text>
@@ -28,12 +29,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 5,
-        width: "fit-content",
+        width: "auto",
         minWidth: 30,
     },
     text: {
         fontFamily: "InterBold",
         padding: 10
+    },
+    container: {
+        width: "auto"
     }
 })
 
