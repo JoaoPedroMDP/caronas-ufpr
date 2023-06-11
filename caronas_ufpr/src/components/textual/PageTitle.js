@@ -8,9 +8,9 @@ const style = StyleSheet.create({
     }
 })
 
-const PageTitle = ({ title }) => {
+const PageTitle = ({ title, centralized }) => {
     return (
-        <Text style={style.title}>{title}</Text>
+        <Text style={[style.title, { alignSelf: (centralized != null) && centralized ? "center" : null }]}>{title}</Text>
     )
 }
 

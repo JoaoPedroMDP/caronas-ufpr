@@ -20,7 +20,7 @@ const ForgetPassword = ({ navigation }) => {
             </View>
             <View style={styles.button}>
                 <CustomButton
-                    char={"Recuperar"}
+                    label={"Recuperar"}
                     onClickHandler={() => { }}
                 />
             </View>

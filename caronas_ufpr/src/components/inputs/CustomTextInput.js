@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: LightGray,
         fontFamily: "InterRegular",
-        height: 35,
+        height: 45,
         padding: 10
     },
     inputView: {

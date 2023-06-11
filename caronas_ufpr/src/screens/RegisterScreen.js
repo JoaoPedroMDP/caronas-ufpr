@@ -22,7 +22,7 @@ const RegisterScreen = ({ navigation }) => {
             />
             <View style={styles.button}>
                 <CustomButton
-                    char={"Cadastrar"}
+                    label={"Cadastrar"}
                     onClickHandler={() => { }}
                 />
             </View>

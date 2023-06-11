@@ -89,8 +89,7 @@ const RegisterRouteScreen = ({ navigation }) => {
 
     return (
         <ScrollView>
-            <Screen>
-                <PageTitle title={"Cadastrar Rota"} />
+            <Screen title="Cadastrar Rota">
                 <Section title="A ideia é simples: nos conte de onde sai, e pra onde vai :)" description="Ps: nos horários, dê preferência para múltiplos de meia hora. Ex: 18h30, 19h, 19h30, 20h. Vai ser mais fácil de achar alguém :D" />
                 <Section title="Saída">
                     <EndpointLayout
