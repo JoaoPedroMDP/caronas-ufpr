@@ -2,64 +2,40 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
+import Screen from "../components/layout/Screen";
+import Title from "../components/textual/Title";
+import SectionDescription from "../components/textual/SectionDescription";
+import SubTitle from "../components/textual/Subtitle";
+import Comment from "../components/textual/Comment";
+import TextButton from "../components/inputs/TextButton";
 
 const ForgetPassword = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Recuperar Senha</Text>
-            <Text style={styles.text2}>Acontece nas melhores famílias</Text>
-            <Text>
-                Faz assim: conte para gente qual endereço de email você usou para se `{"\n"}`
-                cadastrar aqui, e te enviaremos um email de recuperação de senha ;)
-            </Text>
-            <View style={styles.input}>
-                <CustomTextInput
-                    placeholder={"Email"}
-                />
+        <Screen>
+            <Title title="Recuperar Senha" centralized={true} expand />
+            <SubTitle subtitle="Acontece nas melhores famílias" centralized={true} />
+            <Comment
+                centralized={true}
+                comment="Faz assim: conte para gente qual endereço de email você usou para se cadastrar aqui, e te enviaremos um email de recuperação de senha ;)"
+            />
+            <CustomTextInput
+                placeholder={"Email"}
+            />
+            <View style={styles.buttons}>
+                <TextButton onPressHandler={() => { navigation.navigate("RegisterRoute") }} text="Ih, lembrei!" />
+                <CustomButton label={"Recuperar"} onClickHandler={() => { navigation.navigate("RegisterRoute") }} alignment="end" />
             </View>
-            <View style={styles.button}>
-                <RoundSquareButton
-                    char={"Recuperar"}
-                    onClickHandler={() => { }}
-                />
-            </View>
-            <View style={styles.buttons2}>
-                <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>Ih lembrei a senha</TouchableOpacity>
-            </View>
-        </View>
+        </Screen>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
+    buttons: {
+        display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%'
     },
-    text: {
-        fontSize: 40,
-        fontWeight: 'bold'
-    },
-    text2: {
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    input: {
-        padding: 10,
-    },
-    button: {
-        left: 83
-    },
-    buttons2: {
-        fontSize: 11,
-        right: 50,
-        top: -30,
-        color: 'blue'
-    }
 });
 
 export default ForgetPassword;

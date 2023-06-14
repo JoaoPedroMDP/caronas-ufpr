@@ -1,20 +1,32 @@
+import { Black, White } from '../assets/colors';
 
-function keify(items) {
+function pickablelize(items) {
     let finalItems = [];
-    for(let i=0; i< items.length; i++){
-        finalItems.push({key: i, value: items[i]});
+    for (let i = 0; i < items.length; i++) {
+        finalItems.push({ label: items[i], key: items[i] });
     }
 
     return finalItems;
 }
 
-function dropdownize(items){
-    let finalItems = [];
-    for(let i=0; i< items.length; i++){
-        finalItems.push({label: items[i], value: items[i]});
+function toCheckboxGroupFormat(data) {
+    let finalData = [];
+    for (let i = 0; i < data.length; i++) {
+        finalData.push({
+            id: i,
+            text: data[i].label,
+            value: data[i].value,
+            size: 25,
+            bouncinessIn: 0,
+            bouncinessOut: 0,
+            fillColor: Black,
+            unfillColor: White,
+            innerIconStyle: { borderWidth: 2 },
+            textStyle: { fontFamily: "InterBold", fontSize: 10, color: Black, textDecorationLine: "none" },
+        });
     }
 
-    return finalItems;
+    return finalData;
 }
 
-export {keify, dropdownize};
+export { pickablelize, toCheckboxGroupFormat };

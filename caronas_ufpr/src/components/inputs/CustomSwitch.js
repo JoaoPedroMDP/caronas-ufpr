@@ -1,16 +1,25 @@
-import { Switch } from 'react-native';
+import { Switch } from 'react-native-switch';
 import { LightGray, Black } from '../../../assets/colors';
 
-const CustomSwitch = ({switchValue, onSwitchHandler}) => {
-
-    function onToggleSwitch() {
-        onSwitchHandler(!switchValue);
+const CustomSwitch = ({ switchValue, onSwitchHandler }) => {
+    if (switchValue === undefined) {
+        switchValue = false;
     }
 
-    return(
-        <Switch 
-            trackColor={{false: LightGray, true: Black}}
-            onValueChange={onToggleSwitch}
+    function changeValue() {
+        switchValue = !switchValue;
+        onSwitchHandler();
+    }
+
+    return (
+        <Switch
+            onValueChange={changeValue}
+            circleActiveColor={LightGray}
+            circleInActiveColor={Black}
+            backgroundActive={Black}
+            backgroundInactive={LightGray}
+            renderActiveText={false}
+            renderInActiveText={false}
             value={switchValue}
         ></Switch>
     );

@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
+import Screen from "../components/layout/Screen";
+import Title from "../components/textual/Title";
+import { Blue } from "../../assets/colors";
+import TextButton from "../components/inputs/TextButton";
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
@@ -61,20 +65,13 @@ const LoginScreen = ({ navigation }) => {
                     onClickHandler={handleSignIn}
                 />
             </View>
-            <View style={styles.buttons2}>
-                <TouchableOpacity onPress={() => { navigation.navigate("RegisterScreen") }}>Não possui conta? Cadastre-se!</TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("ForgetPassword") }}>Esqueceu a senha?</TouchableOpacity>
-            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+    buttons: {
+        display: 'flex',
         width: '100%',
         height: '100%'
     },
@@ -99,7 +96,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'LightGray',
         fontFamily: "InterRegular",
         height: 35,
-        padding: 10
+        padding: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
+    "@react-native-community/datetimepicker": "6.7.3",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
     "expo": "~48.0.15",
@@ -20,9 +21,14 @@
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-native": "0.71.8",
+    "react-native-bouncy-checkbox": "^3.0.7",
+    "react-native-bouncy-checkbox-group": "^0.1.1",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-gesture-handler": "~2.9.0",
-    "react-native-reanimated": "^2.17.0",
+    "react-native-modal-selector": "^2.1.2",
+    "react-native-radio-buttons-group": "^3.0.2",
+    "react-native-reanimated": "~2.14.4",
+    "react-native-switch": "^1.5.1",
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {

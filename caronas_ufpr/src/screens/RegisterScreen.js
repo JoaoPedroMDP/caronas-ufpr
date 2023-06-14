@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import RoundSquareButton from "../components/inputs/RoundSquareButton";
+import CustomButton from "../components/inputs/CustomButton";
+import Screen from "../components/layout/Screen";
+import Title from "../components/textual/Title";
 
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
