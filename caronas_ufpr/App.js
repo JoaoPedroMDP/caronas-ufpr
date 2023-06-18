@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler';
+// import 'react-native-gesture-handler';
 import { StyleSheet, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font'
 import RegisterRouteScreen from './src/screens/RegisterRouteScreen';
@@ -9,6 +9,7 @@ import RegisterScreen from './src/screens/RegisterScreen';
 import ForgetPassword from './src/screens/ForgetPassword';
 import FirstAccessScreen from './src/screens/FirstAccessScreen';
 import NewPasswordScreen from './src/screens/NewPasswordScreen';
+import HomeScreen from './src/screens/HomeScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,12 +27,13 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
+      <Drawer.Navigator initialRouteName="HomeScreen">
+        <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+        {/* <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
         <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} />
         <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
         <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Drawer.Screen name="Login" component={LoginScreen} />
+        <Drawer.Screen name="Login" component={LoginScreen} /> */}
         <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
