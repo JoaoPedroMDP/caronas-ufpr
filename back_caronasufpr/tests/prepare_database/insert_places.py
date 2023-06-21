@@ -95,3 +95,6 @@ def insert_places():
     for campus in campi_ufpr:
         response = post(places_url, data=campus)
         print(response, response.json(), response.status_code)
+
+if __name__ == '__main__':
+    insert_places()

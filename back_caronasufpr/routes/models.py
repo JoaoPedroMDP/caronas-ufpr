@@ -51,7 +51,7 @@ class Endpoint(TimestampedModel):
     """
         Um modelo que representa um endpoint de uma rota.
     """
-    arrive_time = models.DateTimeField(null=True, blank=True)
+    arrive_time = models.DateTimeField(null=True)
     type = models.CharField(max_length=20)
     route = models.ForeignKey(Route, on_delete=models.CASCADE)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)

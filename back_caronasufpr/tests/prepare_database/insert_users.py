@@ -6,9 +6,13 @@ def insert_users():
 
     users = [
         {"name": "João", "firebase_id": "1234567890"},
-        {"name": "Tainá", "firebase_id": "0987654321"},
+        {"name": "André", "firebase_id": "0987654321"},
     ]
 
     for user in users:
         response = post(users_url, data=user)
         print(response, response.json(), response.status_code)
+
+
+if __name__ == '__main__':
+    insert_users()
