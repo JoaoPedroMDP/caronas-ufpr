@@ -95,9 +95,12 @@ const RegisterRouteScreen = ({ navigation }) => {
 
 
     function activateSnackbar(message, time){
+        console.log("Chamou activateSnackbar com a mensagem: " + message + " e tempo: " + time??toString());
         setValidationMessage(message);
         setShowSnackbar(true);
+        console.log("Já deveria ter aparecido");
         setTimeout(() => {
+            console.log("Removendo snackbar");
             setShowSnackbar(false);
             setValidationMessage(message);
         }, time ?? 3000);
