@@ -61,35 +61,30 @@ const RegisterRouteScreen = ({ navigation }) => {
 
     useFocusEffect(
         useCallback(() => {
-          let isActive = true;
-      
-          const fetchData = async () => {
-            let allEndpoints = [];
-            try{
-                allEndpoints = await getPlaces();
-            }catch(error){
-                activateSnackbar(error.message, 5000);
-            }
-            let classified = {}
-            allEndpoints.forEach((endpoint) => {
-                if(!classified[endpoint.type]) {
-                    classified[endpoint.type] = [];
+            async function fetchData (){
+                let allEndpoints = [];
+                try{
+                    allEndpoints = await getPlaces();
+                }catch(error){
+                    activateSnackbar(error.message, 5000);
                 }
+                let classified = {}
+                allEndpoints.forEach((endpoint) => {
+                    if(!classified[endpoint.type]) {
+                        classified[endpoint.type] = [];
+                    }
 
-                // Preciso adicionar o label e o key para o ListPicker
-                classified[endpoint.type].push({
-                    ...endpoint,
-                    label: endpoint.name,
-                    key: endpoint.id
-                });
-            })
-            setPlaces(classified);
-          };
+                    // Preciso adicionar o label e o key para o ListPicker
+                    classified[endpoint.type].push({
+                        ...endpoint,
+                        label: endpoint.name,
+                        key: endpoint.id
+                    });
+                })
+                setPlaces(classified);
+            };
 
-          fetchData();      
-          return () => {
-            isActive = false;
-          };
+            fetchData();      
         }, [])
       );
 
@@ -128,10 +123,11 @@ const RegisterRouteScreen = ({ navigation }) => {
     }
 
     async function registerRoute() {
-        console.log("Salvando dados");
         try{
             validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, testUser);
             await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, testUser);
+            activateSnackbar("Rota salva!!", 5000);
+            navigation.navigate("Home");
         }catch(error){
             console.log("Deu ruim: " + error.message);
             activateSnackbar(error.message);
@@ -169,12 +165,12 @@ const RegisterRouteScreen = ({ navigation }) => {
                     />
                     <TimePicker time={destinyTime} returnTime={saveTime} pickerLabel={formattedDestinyTime} />
                 </Section>
-                <Section title={"Dias da semana"}>
+                {/* <Section title={"Dias da semana"}>
                     <WeekDaySelector
                         weekDays={weekDays}
                         returnWeekDays={setWeekDays}
                     />
-                </Section>
+                </Section> */}
                 <Section title={"Intenção"} description="Agora, nos diga o que você deseja para essa rota. Você pode selecionar mais de uma opção ;)">
                     <View>
                         {intentions.map((item, index) => {

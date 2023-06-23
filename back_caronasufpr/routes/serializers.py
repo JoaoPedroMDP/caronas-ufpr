@@ -39,6 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
         Um serializador para o modelo User.
     """
+    photo = serializers.ImageField(required=False)
     class Meta:
         model = User
-        fields = ['id', 'name', 'firebase_id']
+        fields = ['id', 'name', 'contact', 'bio', 'firebase_id', 'photo']

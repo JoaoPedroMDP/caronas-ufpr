@@ -19,6 +19,9 @@ class TimestampedModel(models.Model):
 class User(TimestampedModel):
     name = models.CharField(max_length=250)
     firebase_id = models.CharField(max_length=250)
+    contact = models.CharField(max_length=250)
+    bio = models.CharField(max_length=600, null=True)
+    photo = models.ImageField(upload_to='users', null=True)
 
     class Meta:
         ordering = ['name']

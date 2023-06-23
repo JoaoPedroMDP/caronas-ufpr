@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const caronasApi = axios.create({
-    baseURL: "https://joaopedromdp-reimagined-space-system-7rr6w7475rqcxgw-8000.preview.app.github.dev"
+    baseURL: "http://localhost:8000"
 })
 
 async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions, userId) {
@@ -51,26 +51,32 @@ async function saveEndpoint (placeId, routeId, type, arriveTime){
 }
 
 async function getRoutes(){
-    let response = await caronasApi
+    let routes = await caronasApi
         .get("/routes/routes/")
+        .then((response) => {
+            return response.data;
+        })
         .catch((error) => {
             console.log(error.response.data);
             console.log(error.response.status);
             throw Error("Não foi possível carregar as rotas.");
         });
-    let routes = response.data;
     return routes;
 }
 
-async function getUsersByRoute(route){
-    let response = await caronasApi
-        .get("/routes/routes/")
+async function getUsersByRoute(route_id){
+    let users = await caronasApi
+        .get(`/routes/routes/${route_id}/get_route_users`)
+        .then((response) => {
+            return response.data;
+        })
         .catch((error) => {
             console.log(error.response.data);
             console.log(error.response.status);
             throw Error("Não foi possível buscar usuários para essa rota.");
         });
-    let routes = response.data;
+    
+    return users;
 }
 
 async function getPlaces(){
@@ -110,4 +116,4 @@ function validateData(origin, destiny, arriveTime, weekDays, userIntentions, use
     }
 }
 
-export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData };
+export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute };

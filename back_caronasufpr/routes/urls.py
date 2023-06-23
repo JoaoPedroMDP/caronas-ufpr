@@ -8,4 +8,6 @@ router.register(r'endpoints', views.EndpointViewSet, basename='endpoints')
 router.register(r'places', views.PlaceViewSet, basename='places')
 router.register(r'users', views.UserViewSet, basename='users')
 
-urlpatterns = [path('', include(router.urls))]
+urlpatterns = [
+    path('', include(router.urls))
+]
