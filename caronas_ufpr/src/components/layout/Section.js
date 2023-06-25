@@ -10,6 +10,16 @@ const styles = StyleSheet.create({
     },
     sectionDescription: {
         fontFamily: "InterBold",
+<<<<<<< HEAD
+        fontSize: 15
+    },
+    section: {
+        marginTop: 20
+    }
+})
+
+const Section = ({ children, title }) => {
+=======
         fontSize: 12,
         marginBottom: 5,
         color: PlaceholderGray
@@ -21,6 +31,7 @@ const styles = StyleSheet.create({
 })
 
 const Section = ({ children, title, description }) => {
+>>>>>>> 3004c573115a0e6a061db6952082c7b6f70fd8d2
     return (
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>{title}</Text>
