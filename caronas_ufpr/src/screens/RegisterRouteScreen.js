@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Section from '../components/layout/Section';
 import ListPicker from '../components/inputs/ListPicker';
@@ -14,6 +14,7 @@ import { saveRoute, getPlaces, validateData } from '../components/apis/caronasAp
 import { getFormattedDateTimeString } from '../contrib';
 import CustomTextInput from '../components/inputs/CustomTextInput';
 import { Snackbar, Portal } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState("Selecione um local");
@@ -55,9 +56,21 @@ const RegisterRouteScreen = ({ navigation }) => {
     const [formattedDestinyTime, setFormattedDestinyTime] = useState(null);
     const [weekDays, setWeekDays] = useState([]);
     const [userIntentions, setUserIntentions] = useState([]);
-    const [testUser, setTestUser] = useState(2);
     const [validationMessage, setValidationMessage] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false);
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+      getUser();
+    }, []);
+
+    const getUser = async () => {
+      const id = await AsyncStorage.getItem('userId');
+
+      if (id) {
+        setUserId(id);
+      }
+    };
 
     useFocusEffect(
         useCallback(() => {
@@ -124,8 +137,8 @@ const RegisterRouteScreen = ({ navigation }) => {
 
     async function registerRoute() {
         try{
-            validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, testUser);
-            await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, testUser);
+            validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, userId);
+            await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, userId);
             activateSnackbar("Rota salva!!", 5000);
             navigation.navigate("Home");
         }catch(error){
@@ -135,19 +148,10 @@ const RegisterRouteScreen = ({ navigation }) => {
         }
     }
 
-    function setTestUserToInt(text){
-        if(text === ""){
-            setTestUser(0);
-            return;
-        }
-        setTestUser(parseInt(text));
-    }
-
     return (
         <ScrollView>
             <Screen title="Cadastrar Rota">
                 <Section title="A ideia é simples: nos conte de onde sai, e pra onde vai :)" description="Ps: nos horários, dê preferência para múltiplos de meia hora. Ex: 18h30, 19h, 19h30, 20h. Vai ser mais fácil de achar alguém :D" />
-                <CustomTextInput text={testUser.toString()} setText={setTestUserToInt} />
                 <Section title="Saída">
                     <EndpointLayout
                         placesOptions={places}

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
@@ -22,10 +23,16 @@ const LoginScreen = ({ navigation }) => {
             setError(error.message);
         }
     }
-    
-    if(user){
-        return console.log(user);
-    }
+
+    useEffect(() => {
+        if (user) {
+            AsyncStorage.setItem('token', user.user.accessToken);
+            AsyncStorage.setItem('userId', user.user.uid);
+            setEmail("");
+            setPassword("");
+            navigation.navigate('Home');
+        }
+    }, [user, navigation]);
 
     return (
         <View style={styles.container}>

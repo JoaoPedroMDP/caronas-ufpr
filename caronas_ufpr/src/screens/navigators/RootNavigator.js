@@ -6,10 +6,29 @@ import ForgetPassword from "../ForgetPassword";
 import LoginScreen from "../LoginScreen";
 import RegisterRouteScreen from "../RegisterRouteScreen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
 const RootNavigator = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = async () => {
+    const token = await AsyncStorage.getItem('token');
+
+    if (token) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Login');
+    }
+  };
+
     return (
         <Drawer.Navigator>
             <Drawer.Screen name="Home" component={HomeScreen} />
