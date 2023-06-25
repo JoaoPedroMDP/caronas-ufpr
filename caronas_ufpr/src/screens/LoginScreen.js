@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Screen from '../components/layout/Screen';
+import CustomTextInput from '../components/inputs/CustomTextInput';
+import CustomButton from '../components/inputs/CustomButton';
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
 
@@ -33,35 +35,14 @@ const LoginScreen = ({ navigation }) => {
     }, [user, navigation]);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Login</Text>
-            <View style={styles.input}>
-                <TextInput
-                    style={styles.input2}
-                    placeholder={"Email"}
-                    value={email}
-                    onChangeText={(value) => setEmail(value)}
-                />
+        <Screen title="Login" centralized>
+            <CustomTextInput text={email} setText={setEmail} placeholder="Email"/>
+            <CustomTextInput text={password} setText={setPassword} placeholder="Senha" secureTextEntry={true}/>
+            <View style={{display: "flex"}}>
+                <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" grow={0.5}/>
+                <CustomButton label="Criar cadastro" onClickHandler={() => {navigation.navigate("RegisterScreen")}} alignment="start" grow={0.5}/>
             </View>
-            <View style={styles.input}>
-                <TextInput
-                    style={styles.input2}
-                    placeholder={"Senha"}
-                    value={password}
-                    onChangeText={(value) => setPassword(value)}
-                />
-            </View>
-            <View style={styles.button}>
-                <Button
-                    title={"Entrar"}
-                    onPress={handleSignIn}
-                />
-                <Button 
-                    title={"Criar Cadastro"}
-                    onPress={() => {navigation.navigate("RegisterScreen")}}
-                />
-            </View>
-        </View>
+        </Screen>
     );
 }
 
@@ -79,7 +60,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     button: {
-        left: 83
+        flexShrink: "shrink"
     },
     input2: {
         borderRadius: 8,

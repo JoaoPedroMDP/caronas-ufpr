@@ -22,7 +22,6 @@ const LogoutButton = () => {
       <CustomButton
         label="Sair"
         onClickHandler={handleLogout}
-        containerStyle={styles.buttonContainer}
         alignment="start"
       />
     </View>
@@ -31,13 +30,7 @@ const LogoutButton = () => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    margin: 16,
-  },
-  buttonContainer: {
-    alignSelf: 'flex-start',
+    marginRight: 10,
   },
 });
 

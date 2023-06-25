@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
-
+import Screen from "../components/layout/Screen";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
+import CustomButton from "../components/inputs/CustomButton";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
+33
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
   async function handleRegister() {
@@ -26,36 +27,26 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Cadastro</Text>
-      <View style={styles.input}>
-        <TextInput
-          style={styles.input2}
-          placeholder={"Nome"}
-          value={name}
-          onChangeText={(value) => setName(value)}
+    <Screen title="Cadastro" centralized>
+        <CustomTextInput
+          placeholder="Nome"
+          text={name}
+          setText={(value) => setName(value)}
         />
-      </View>
-      <View style={styles.input}>
-        <TextInput
-          style={styles.input2}
-          placeholder={"Email"}
-          value={email}
-          onChangeText={(value) => setEmail(value)}
+        <CustomTextInput
+          placeholder="Email"
+          text={email}
+          setText={(value) => setEmail(value)}
         />
-      </View>
-      <View style={styles.input}>
-        <TextInput
-          style={styles.input2}
-          placeholder={"Senha"}
-          value={password}
-          onChangeText={(value) => setPassword(value)}
+        <CustomTextInput
+          placeholder="Senha"
+          text={password}
+          setText={(value) => setPassword(value)}
         />
+      <View>
+        <CustomButton label={"Cadastrar"} onClickHandler={handleRegister} alignment="end"/>
       </View>
-      <View style={styles.button}>
-        <Button title={"Cadastrar"} onPress={handleRegister} />
-      </View>
-    </View>
+    </Screen>
   );
 };
 

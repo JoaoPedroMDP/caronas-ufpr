@@ -1,7 +1,7 @@
 import { TextInput, StyleSheet, View } from 'react-native';
 import { LightGray, PlaceholderGray } from '../../../assets/colors';
 
-const CustomTextInput = ({ placeholder, text, setText }) => {
+const CustomTextInput = ({ placeholder, text, setText, secureTextEntry}) => {
     return (
         <TextInput
             style={styles.input}
@@ -9,6 +9,7 @@ const CustomTextInput = ({ placeholder, text, setText }) => {
             value={text}
             placeholder={placeholder}
             placeholderTextColor={PlaceholderGray}
+            secureTextEntry={secureTextEntry ?? false}
         />
     )
 }

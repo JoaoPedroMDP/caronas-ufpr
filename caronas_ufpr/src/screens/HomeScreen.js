@@ -7,7 +7,6 @@ import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import LogoutButton from '../components/logout/LogoutButton';
 
 const Drawer = createDrawerNavigator();
 
@@ -84,7 +83,6 @@ const HomeScreen = ({navigation}) => {
 
     return(
         <Screen title={"Olá, Fulano!"}>
-          <LogoutButton />
             <ListPicker value={selectedRoute?.name} list={routes} returnValue={fetchRouteUsers}/>
             {users.length > 0 && 
               <View>
