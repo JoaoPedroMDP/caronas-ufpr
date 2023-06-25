@@ -32,10 +32,22 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
         basta envelopar o botão em um View, sem necessidade de estilos
     */
     const [clicked, setClicked] = useState(false);
-    const alignmentStyle = alignment != null ? "flex-" + alignment : null;
+    const alignmentStyle = determineAlignment();
     let aligStyle = {
         justifyContent: alignmentStyle
     };
+
+    function determineAlignment() {
+        if (alignment != null) {
+            if (alignment === "center") {
+                return "center";
+            }else{
+                return "flex-" + alignment;
+            }
+        } else {
+            return null;
+        }
+    }
 
     function clickButton() {
         setClicked(false);

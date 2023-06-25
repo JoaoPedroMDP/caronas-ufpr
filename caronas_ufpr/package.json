@@ -38,7 +38,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-snackbar": "^2.6.2",
     "react-native-switch": "^1.5.1",
-    "react-native-web": "~0.18.10"
+    "react-native-web": "~0.18.10",
+    "expo-image-picker": "~14.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

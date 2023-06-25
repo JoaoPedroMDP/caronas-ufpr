@@ -5,3 +5,4 @@ djangorestframework==3.14.0
 pytest==7.3.2
 pytest-django==4.5.2
 Pillow==9.5.0
+drf_extra_fields==3.5.0

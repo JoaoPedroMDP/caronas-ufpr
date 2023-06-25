@@ -6,7 +6,6 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from routes.models import Place, Endpoint, Route, User
-
 from routes.serializers import PlaceSerializer, EndpointSerializer, RouteSerializer, UserSerializer
 
 class PlaceViewSet(viewsets.ModelViewSet):
@@ -71,3 +70,15 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
+    # Rota que recebe um firebase_id e retorna o usuário
+    def get_user_by_firebase_id(self, request, firebase_id):
+        try:
+            user: User = User.objects.get(firebase_id=firebase_id)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)
+
+        return Response(UserSerializer(user).data)
+    
+    def update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().update(request, *args, **kwargs)

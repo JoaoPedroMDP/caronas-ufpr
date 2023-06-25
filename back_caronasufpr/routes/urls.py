@@ -9,5 +9,6 @@ router.register(r'places', views.PlaceViewSet, basename='places')
 router.register(r'users', views.UserViewSet, basename='users')
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('users/firebase/<str:firebase_id>/', views.UserViewSet.as_view({'get': 'get_user_by_firebase_id'}), name='get_user_by_firebase_id'),
 ]

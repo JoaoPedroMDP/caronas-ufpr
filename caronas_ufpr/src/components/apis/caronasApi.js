@@ -64,6 +64,28 @@ async function getRoutes(){
     return routes;
 }
 
+function validateData(origin, destiny, arriveTime, weekDays, userIntentions, userId){
+    if(origin === null || origin == ""){
+        console.log("Origem não pode ser nula");
+        throw new Error("Origem não pode ser nula");
+    }
+
+    if(destiny === null || destiny == ""){
+        console.log("Destino não pode ser nulo");
+        throw new Error("Destino não pode ser nulo");
+    }
+
+    if(arriveTime === null || arriveTime == ""){
+        console.log("Horário de chegada não pode ser nulo");
+        throw new Error("Horário de chegada não pode ser nulo");
+    }
+
+    if(userIntentions == []){
+        console.log("Intenções não podem ser nulas");
+        throw new Error("Intenções não podem ser nulas");
+    }
+}
+
 async function getUsersByRoute(route_id){
     let users = await caronasApi
         .get(`/routes/routes/${route_id}/get_route_users`)
@@ -98,26 +120,36 @@ async function getPlaces(){
     return data;
 }
 
-function validateData(origin, destiny, arriveTime, weekDays, userIntentions, userId){
-    if(origin === null || origin == ""){
-        console.log("Origem não pode ser nula");
-        throw new Error("Origem não pode ser nula");
-    }
-
-    if(destiny === null || destiny == ""){
-        console.log("Destino não pode ser nulo");
-        throw new Error("Destino não pode ser nulo");
-    }
-
-    if(arriveTime === null || arriveTime == ""){
-        console.log("Horário de chegada não pode ser nulo");
-        throw new Error("Horário de chegada não pode ser nulo");
-    }
-
-    if(userIntentions == []){
-        console.log("Intenções não podem ser nulas");
-        throw new Error("Intenções não podem ser nulas");
-    }
+async function getUserByFirebaseId(firebaseId){
+    let data = await caronasApi
+        .get(`/routes/users/firebase/${firebaseId}`)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            throw Error("Impossível carregar o usuário");
+        });
+    
+    return data;
 }
 
-export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute, getImage };
+async function updateUser(userFormData, userId){
+    console.log(userFormData);
+
+    let data = await caronasApi
+        .put(`/routes/users/${userId}/`, userFormData)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            throw Error("Impossível atualizar o usuário");
+        });
+    
+    return data;
+}
+
+export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute, getImage, getUserByFirebaseId, updateUser };

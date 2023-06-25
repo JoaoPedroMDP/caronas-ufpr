@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         backgroundColor: LightGray,
         fontFamily: "InterRegular",
         height: 35,
-        padding: 10
+        padding: 10,
+        marginVertical: 5
     },
     inputView: {
         paddingVertical: 10

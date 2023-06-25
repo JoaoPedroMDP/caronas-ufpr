@@ -3,7 +3,7 @@
 """
 from rest_framework import serializers
 from routes.models import Route, Endpoint, Place, User
-
+from drf_extra_fields.fields import Base64ImageField
 
 class PlaceSerializer(serializers.ModelSerializer):
     """
@@ -39,7 +39,8 @@ class UserSerializer(serializers.ModelSerializer):
     """
         Um serializador para o modelo User.
     """
-    photo = serializers.ImageField(required=False)
+    photo = Base64ImageField(required=False)
+
     class Meta:
         model = User
         fields = ['id', 'name', 'contact', 'bio', 'firebase_id', 'photo']

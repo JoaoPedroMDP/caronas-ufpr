@@ -9,6 +9,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import EditProfileScreen from "../EditProfileScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +32,7 @@ const RootNavigator = () => {
 
     return (
         <Drawer.Navigator>
+            <Drawer.Screen name="EditProfile" component={EditProfileScreen} />
             <Drawer.Screen name="Home" component={HomeScreen} />
             <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
             <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
