@@ -6,21 +6,28 @@ import { useCallback, useState, useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+const Drawer = createDrawerNavigator();
 
 const IntentionSection = ({intention, users, navigation}) => {
+  if(users.length == 0) return null;
+
   return(
     <Section title={intention}>
       <FlatList
+        horizontal={true}
         data={users}
         keyExtractor={(item) => item.user.id.toString()}
+        ItemSeparatorComponent={() => <View style={{width: 10}}/>}
         renderItem={({item}) => {
           return(
-            <CustomButton 
-              label={item.user.name}
-              onClickHandler={() => {
-                navigation.navigate("ResultProfile", {user: item.user});
-              }}
-            />
+              <CustomButton 
+                label={item.user.name}
+                onClickHandler={() => {
+                  navigation.navigate("ResultProfile", {user: item.user});
+                }}
+              />
           );
         }}
       />
