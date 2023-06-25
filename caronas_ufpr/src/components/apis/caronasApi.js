@@ -79,6 +79,10 @@ async function getUsersByRoute(route_id){
     return users;
 }
 
+function getImage(partialUrl){
+    return `http://localhost:8000${partialUrl}`;
+}
+
 async function getPlaces(){
     let data = await caronasApi
         .get("/routes/places/")
@@ -110,10 +114,10 @@ function validateData(origin, destiny, arriveTime, weekDays, userIntentions, use
         throw new Error("Horário de chegada não pode ser nulo");
     }
 
-    if(userIntentions === []){
+    if(userIntentions == []){
         console.log("Intenções não podem ser nulas");
         throw new Error("Intenções não podem ser nulas");
     }
 }
 
-export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute };
+export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute, getImage };

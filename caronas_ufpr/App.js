@@ -32,11 +32,11 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="HomeScreen">
           <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-          {/* <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
+          <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
           <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} />
           <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
           <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
-          <Drawer.Screen name="Login" component={LoginScreen} /> */}
+          <Drawer.Screen name="Login" component={LoginScreen} />
           <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
           <Drawer.Screen name="ResultProfile" component={ResultProfileScreen} options={{drawerItemStyle: { height: 0 }}}/>
         </Drawer.Navigator>

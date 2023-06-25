@@ -5,14 +5,13 @@ const styles = StyleSheet.create({
     screen: {
         paddingHorizontal: 30,
         paddingTop: 40,
-        height: "100%",
-        justifyContent: "center"
+        height: "100%"
     }
 })
 
 const Screen = ({ children, title, centralized }) => {
     return (
-        <View style={styles.screen}>
+        <View style={[styles.screen, {justifyContent: centralized != undefined ? "center" : "flex-start"}]}>
             <Title title={title} centralized={centralized} />
             {children}
         </View>
