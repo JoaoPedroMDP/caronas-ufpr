@@ -32,8 +32,6 @@ export default function App() {
         <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
         <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} />
         <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
-        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Drawer.Screen name="Login" component={LoginScreen} />
         <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} />
       </Drawer.Navigator>
     </NavigationContainer>

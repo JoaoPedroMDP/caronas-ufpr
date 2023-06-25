@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-
-import CustomTextInput from "../components/inputs/CustomTextInput";
-import CustomButton from "../components/inputs/CustomButton";
-import Screen from "../components/layout/Screen";
-import Title from "../components/textual/Title";
-import { Blue } from "../../assets/colors";
-import TextButton from "../components/inputs/TextButton";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from "react-native";
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
@@ -14,30 +7,23 @@ import auth from "../firebase/FireBaseConfig";
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const [
         signInWithEmailAndPassword,
-        user,
-        loading,
-        firebaseError,
+        user
     ] = useSignInWithEmailAndPassword(auth);
 
     function handleSignIn() {
         try {
             signInWithEmailAndPassword(email, password);
-        } catch (errorCatch) {
-            console.log(errorCatch);
+        } catch (error) {
+            setError(error.message);
         }
     }
-
-    if (firebaseError) {
-        return <Text>Error: {firebaseError.message}</Text>
-    }
-
-    if (loading) {
-        return (
-            <Text>Entrando...</Text>
-        );
+    
+    if(user){
+        return console.log(user);
     }
 
     return (
@@ -60,20 +46,21 @@ const LoginScreen = ({ navigation }) => {
                 />
             </View>
             <View style={styles.button}>
-                <RoundSquareButton
-                    char={"Entrar"}
-                    onClickHandler={handleSignIn}
+                <Button
+                    title={"Entrar"}
+                    onPress={handleSignIn}
                 />
+
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    buttons: {
-        display: 'flex',
-        width: '100%',
-        height: '100%'
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     text: {
         fontSize: 40,
@@ -85,12 +72,6 @@ const styles = StyleSheet.create({
     button: {
         left: 83
     },
-    buttons2: {
-        fontSize: 11,
-        right: 50,
-        top: -30,
-        color: 'blue'
-    },
     input2: {
         borderRadius: 8,
         backgroundColor: 'LightGray',
@@ -100,7 +81,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between'
-    }
+    },
+    error: {
+        color: 'red',
+        marginTop: 10,
+    },
 });
 
 export default LoginScreen;
