@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import RootNavigator from './src/screens/navigators/RootNavigator';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 
 const Stack = createStackNavigator();
 Stack.Group
@@ -29,6 +30,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator >
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Root" component={RootNavigator} options={{headerShown: false}}/>
           <Stack.Screen name="ResultProfile" component={ResultProfileScreen} />

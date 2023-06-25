@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
-import CustomTextInput from "../components/inputs/CustomTextInput";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -57,7 +56,10 @@ const LoginScreen = ({ navigation }) => {
                     title={"Entrar"}
                     onPress={handleSignIn}
                 />
-
+                <Button 
+                    title={"Criar Cadastro"}
+                    onPress={() => {navigation.navigate("RegisterScreen")}}
+                />
             </View>
         </View>
     );
