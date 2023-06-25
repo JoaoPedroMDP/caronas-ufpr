@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-
-import CustomTextInput from "../components/inputs/CustomTextInput";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import CustomButton from "../components/inputs/CustomButton";
 import Screen from "../components/layout/Screen";
-import Title from "../components/textual/Title";
-import { Blue } from "../../assets/colors";
-import TextButton from "../components/inputs/TextButton";
-
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
+import CustomTextInput from "../components/inputs/CustomTextInput";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -41,31 +36,24 @@ const LoginScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Login</Text>
-            <View style={styles.input}>
-                <TextInput
-                    style={styles.input2}
-                    placeholder={"Email"}
-                    value={email}
-                    onChangeText={(value) => setEmail(value)}
-                />
-            </View>
-            <View style={styles.input}>
-                <TextInput
-                    style={styles.input2}
-                    placeholder={"Senha"}
-                    value={password}
-                    onChangeText={(value) => setPassword(value)}
-                />
-            </View>
-            <View style={styles.button}>
-                <RoundSquareButton
-                    char={"Entrar"}
+        <Screen title="Login" centralized>
+            <CustomTextInput
+                placeholder={"Email"}
+                value={email}
+                onChangeText={(value) => setEmail(value)}
+            />
+            <CustomTextInput
+                placeholder={"Senha"}
+                value={password}
+                onChangeText={(value) => setPassword(value)}
+            />
+            <View>
+                <CustomButton
+                    label={"Entrar"}
                     onClickHandler={handleSignIn}
                 />
             </View>
-        </View>
+        </Screen>
     );
 }
 

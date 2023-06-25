@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
-
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
-import CustomButton from "../components/inputs/CustomButton";
-import Screen from "../components/layout/Screen";
-import Title from "../components/textual/Title";
-
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import CustomButton from "../components/inputs/CustomButton";
+import Screen from "../components/layout/Screen";
 
 const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -61,35 +56,27 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Cadastro</Text>
-            <View style={styles.input}>
-                <TextInput
-                    style={styles.input2}
-                    placeholder={"Email"}
-                    value={email}
-                    onChangeText={(value) => setEmail(value)}
-                />
-            </View>
-            <View style={styles.input}>
-                <TextInput
-                    style={styles.input2}
-                    placeholder={"Senha"}
-                    value={password}
-                    onChangeText={(value) => setPassword(value)}
-                />
-            </View>
-            <View style={styles.input}>
-                <CustomTextInput placeholder={"Confirmar Senha"} />
-            </View>
-            <View style={styles.button}>
-                <RoundSquareButton
-                    char={"Cadastrar"}
+        <Screen title="Cadastro" centralized>
+            <CustomTextInput
+                placeholder={"Email"}
+                value={email}
+                onChangeText={(value) => setEmail(value)}
+            />
+            <CustomTextInput
+                placeholder={"Senha"}
+                value={password}
+                onChangeText={(value) => setPassword(value)}
+            />
+            <CustomTextInput placeholder={"Confirmar Senha"} />
+            <View>
+                <CustomButton
+                    label={"Cadastrar"}
                     onClickHandler={handleRegister}
+                    alignment="end"
                 />
             </View>
             <Text>{cadastrado()}</Text>
-        </View>
+        </Screen>
     );
 };
 
