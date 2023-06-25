@@ -6,6 +6,8 @@ import { PaperProvider } from 'react-native-paper';
 import ResultProfileScreen from './src/screens/ResultProfileScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import RootNavigator from './src/screens/navigators/RootNavigator';
+import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/HomeScreen';
 
 const Stack = createStackNavigator();
 Stack.Group
@@ -26,6 +28,8 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator >
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Root" component={RootNavigator} options={{headerShown: false}}/>
           <Stack.Screen name="ResultProfile" component={ResultProfileScreen} />
         </Stack.Navigator>

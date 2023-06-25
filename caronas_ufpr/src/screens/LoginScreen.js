@@ -9,7 +9,6 @@ import CustomTextInput from "../components/inputs/CustomTextInput";
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
 
     const [
         signInWithEmailAndPassword,
@@ -20,7 +19,7 @@ const LoginScreen = ({ navigation }) => {
         try {
             signInWithEmailAndPassword(email, password);
         } catch (error) {
-            setError(error.message);
+            console.log(error.message);
         }
     }
 
@@ -89,10 +88,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between'
-    },
-    error: {
-        color: 'red',
-        marginTop: 10,
     },
 });
 

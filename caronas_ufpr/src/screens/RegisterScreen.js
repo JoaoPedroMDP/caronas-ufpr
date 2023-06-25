@@ -17,7 +17,7 @@ const RegisterScreen = ({ navigation }) => {
         try {
             createUserWithEmailAndPassword(email, password);
         } catch (errorCatch) {
-            console.log(errorCatch);
+            console.log(errorCatch.message);
         }
     }
 
