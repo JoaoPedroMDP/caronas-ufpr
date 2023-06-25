@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from "rea
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/FireBaseConfig";
+import CustomTextInput from "../components/inputs/CustomTextInput";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");

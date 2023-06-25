@@ -11,7 +11,7 @@ const NewPasswordScreen = ({ navigation }) => {
     const [warn, setWarn] = useState(null);
 
     function checkPass(text) {
-        warn = null;
+        setWarn(null);
         if (text != password) {
             alert("As senhas não coincidem!");
             return;

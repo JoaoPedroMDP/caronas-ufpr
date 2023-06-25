@@ -1,30 +1,44 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useState } from 'react';
-import Title from '../components/textual/Title';
+import { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import Section from '../components/layout/Section';
 import ListPicker from '../components/inputs/ListPicker';
 import Screen from '../components/layout/Screen';
-import { pickablelize } from '../contrib';
 import CustomSwitch from '../components/inputs/CustomSwitch';
 import TimePicker from '../components/inputs/TimePicker';
 import WeekDaySelector from '../components/inputs/WeekDaySelector';
 import { intentions } from '../consts';
 import CustomCheckbox from '../components/inputs/CustomCheckbox';
 import CustomButton from '../components/inputs/CustomButton';
+import { saveRoute, getPlaces, validateData } from '../components/apis/caronasApi';
+import { getFormattedDateTimeString } from '../contrib';
+import CustomTextInput from '../components/inputs/CustomTextInput';
+import { Snackbar, Portal } from 'react-native-paper';
 
-const EndpointLayout = ({ endpointOptions, setEndpoint, endpointType, switchEndpointType }) => {
+const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
+    const [listPickerValue, setListPickerValue] = useState("Selecione um local");
+    function returnPlace(endpoint) {
+        setPlace(endpoint);
+        setListPickerValue(endpoint.name);
+    }
+
+    function changePlaceType(){
+        switchPlaceType();
+        setListPickerValue(null);
+    }
+
     return (
         <View style={styles.endpoint}>
             <ListPicker
-                items={pickablelize(endpointOptions[endpointType])}
-                returnValue={setEndpoint}
-                placeholder="Selecione um local"
+                value={listPickerValue}
+                list={placesOptions[placeType]}
+                returnValue={returnPlace}
             />
             <View style={styles.endpointType}>
-                <Text style={styles.endpointTypeText}>{endpointType === "campus" ? "Campus" : "Bairro"}</Text>
+                <Text style={styles.endpointTypeText}>{placeType === "campus" ? "Campus" : "Bairro"}</Text>
                 <CustomSwitch
-                    switchValue={endpointType === "campus"}
-                    onSwitchHandler={switchEndpointType}
+                    switchValue={placeType === "campus"}
+                    onSwitchHandler={changePlaceType}
                 />
             </View>
         </View>
@@ -32,11 +46,7 @@ const EndpointLayout = ({ endpointOptions, setEndpoint, endpointType, switchEndp
 }
 
 const RegisterRouteScreen = ({ navigation }) => {
-    const teste = {
-        "campus": ["Campus1", "Campus2", "Campus3", "Campus4", "Campus5", "Campus6", "Campus7", "Campus8"],
-        "neighborhood": ["Bairro1", "Bairro2", "Bairro3", "Bairro4", "Bairro5", "Bairro6", "Bairro7", "Bairro8"]
-    };
-
+    const [places, setPlaces] = useState({});
     const [origin, setOrigin] = useState("");
     const [originType, setOriginType] = useState("campus");
     const [destiny, setDestiny] = useState("");
@@ -45,22 +55,59 @@ const RegisterRouteScreen = ({ navigation }) => {
     const [formattedDestinyTime, setFormattedDestinyTime] = useState(null);
     const [weekDays, setWeekDays] = useState([]);
     const [userIntentions, setUserIntentions] = useState([]);
+    const [testUser, setTestUser] = useState(2);
+    const [validationMessage, setValidationMessage] = useState(null);
+    const [showSnackbar, setShowSnackbar] = useState(false);
+
+    useFocusEffect(
+        useCallback(() => {
+            async function fetchData (){
+                let allEndpoints = [];
+                try{
+                    allEndpoints = await getPlaces();
+                }catch(error){
+                    activateSnackbar(error.message, 5000);
+                }
+                let classified = {}
+                allEndpoints.forEach((endpoint) => {
+                    if(!classified[endpoint.type]) {
+                        classified[endpoint.type] = [];
+                    }
+
+                    // Preciso adicionar o label e o key para o ListPicker
+                    classified[endpoint.type].push({
+                        ...endpoint,
+                        label: endpoint.name,
+                        key: endpoint.id
+                    });
+                })
+                setPlaces(classified);
+            };
+
+            fetchData();      
+        }, [])
+      );
+
+
+    function activateSnackbar(message, time){
+        console.log("Chamou activateSnackbar com a mensagem: " + message + " e tempo: " + time??toString());
+        setValidationMessage(message);
+        setShowSnackbar(true);
+        console.log("Já deveria ter aparecido");
+        setTimeout(() => {
+            console.log("Removendo snackbar");
+            setShowSnackbar(false);
+            setValidationMessage(message);
+        }, time ?? 3000);
+    }
 
     function getEndpointType(currentType) {
         return currentType === "campus" ? "neighborhood" : "campus";
     }
 
-    function getTimeString(date) {
-        return date.getHours().toString() + ":" + date.getMinutes().toString();
-    }
-
-    function saveWeekDays(days) {
-        setWeekDays(days);
-    }
-
     function saveTime(date) {
         setDestinyTime(date.getTime());
-        setFormattedDestinyTime(getTimeString(date));
+        setFormattedDestinyTime(getFormattedDateTimeString(date));
     }
 
     function saveIntentions(intention) {
@@ -75,45 +122,55 @@ const RegisterRouteScreen = ({ navigation }) => {
         setUserIntentions(newIntentions);
     }
 
-    function registerRoute() {
-        console.log("Rota registrada!");
-        console.log("Origem: " + origin);
-        console.log("Tipo de origem: " + originType);
-        console.log("Destino: " + destiny);
-        console.log("Tipo de destino: " + destinyType);
-        console.log("Horário: " + formattedDestinyTime);
-        console.log("Dias da semana: " + weekDays);
-        console.log("Intenções: " + userIntentions);
-        navigation.navigate("Home");
+    async function registerRoute() {
+        try{
+            validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, testUser);
+            await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, testUser);
+            activateSnackbar("Rota salva!!", 5000);
+            navigation.navigate("Home");
+        }catch(error){
+            console.log("Deu ruim: " + error.message);
+            activateSnackbar(error.message);
+            return;
+        }
+    }
+
+    function setTestUserToInt(text){
+        if(text === ""){
+            setTestUser(0);
+            return;
+        }
+        setTestUser(parseInt(text));
     }
 
     return (
         <ScrollView>
             <Screen title="Cadastrar Rota">
                 <Section title="A ideia é simples: nos conte de onde sai, e pra onde vai :)" description="Ps: nos horários, dê preferência para múltiplos de meia hora. Ex: 18h30, 19h, 19h30, 20h. Vai ser mais fácil de achar alguém :D" />
+                <CustomTextInput text={testUser.toString()} setText={setTestUserToInt} />
                 <Section title="Saída">
                     <EndpointLayout
-                        endpointOptions={teste}
-                        setEndpoint={setOrigin}
-                        endpointType={originType}
-                        switchEndpointType={() => { setOriginType(getEndpointType(originType)) }}
+                        placesOptions={places}
+                        setPlace={setOrigin}
+                        placeType={originType}
+                        switchPlaceType={() => { setOriginType(getEndpointType(originType)) }}
                     />
                 </Section>
                 <Section title="Chegada">
                     <EndpointLayout
-                        endpointOptions={teste}
-                        setEndpoint={setDestiny}
-                        endpointType={destinyType}
-                        switchEndpointType={() => { setDestinyType(getEndpointType(destinyType)) }}
+                        placesOptions={places}
+                        setPlace={setDestiny}
+                        placeType={destinyType}
+                        switchPlaceType={() => { setDestinyType(getEndpointType(destinyType)) }}
                     />
                     <TimePicker time={destinyTime} returnTime={saveTime} pickerLabel={formattedDestinyTime} />
                 </Section>
-                <Section title={"Dias da semana"}>
+                {/* <Section title={"Dias da semana"}>
                     <WeekDaySelector
                         weekDays={weekDays}
-                        returnWeekDays={saveWeekDays}
+                        returnWeekDays={setWeekDays}
                     />
-                </Section>
+                </Section> */}
                 <Section title={"Intenção"} description="Agora, nos diga o que você deseja para essa rota. Você pode selecionar mais de uma opção ;)">
                     <View>
                         {intentions.map((item, index) => {
@@ -133,6 +190,17 @@ const RegisterRouteScreen = ({ navigation }) => {
                     onClickHandler={registerRoute}
                     alignment="end"
                 />
+                <Portal>
+                    <Snackbar
+                        visible={showSnackbar}
+                        onDismiss={() => setShowSnackbar(false)}
+                        action={{
+                            label: 'Fechar'
+                        }}
+                        >
+                        {validationMessage}
+                    </Snackbar>
+                </Portal>
             </Screen>
         </ScrollView>
     );

@@ -1,19 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import { View, StyleSheet} from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import Screen from "../components/layout/Screen";
-import Title from "../components/textual/Title";
-import SectionDescription from "../components/textual/SectionDescription";
 import SubTitle from "../components/textual/Subtitle";
 import Comment from "../components/textual/Comment";
 import TextButton from "../components/inputs/TextButton";
 
 const ForgetPassword = ({ navigation }) => {
     return (
-        <Screen>
-            <Title title="Recuperar Senha" centralized={true} expand />
+        <Screen title="Recuperar senha" centralized>
             <SubTitle subtitle="Acontece nas melhores famílias" centralized={true} />
             <Comment
                 centralized={true}

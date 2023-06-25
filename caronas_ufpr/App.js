@@ -1,14 +1,17 @@
-import 'react-native-gesture-handler';
+// import 'react-native-gesture-handler';
 import { StyleSheet, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font'
 import RegisterRouteScreen from './src/screens/RegisterRouteScreen';
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import ForgetPassword from './src/screens/ForgetPassword';
 import FirstAccessScreen from './src/screens/FirstAccessScreen';
 import NewPasswordScreen from './src/screens/NewPasswordScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import { PaperProvider } from 'react-native-paper';
+import ResultProfileScreen from './src/screens/ResultProfileScreen';
 
 const Drawer = createDrawerNavigator();
 
