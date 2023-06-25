@@ -36,11 +36,15 @@ class RouteViewSet(viewsets.ModelViewSet):
         originEndpoint: Endpoint = list(Endpoint.objects.filter(type="origin", route=route))[0]
         destinyEndpoint: Endpoint = list(Endpoint.objects.filter(type="destiny", route=route))[0]
         similarRoutes: List[Route] = list(Route.objects.filter(
-            endpoint__place=originEndpoint.place
-        ).filter(
-            endpoint__place=destinyEndpoint.place,
-            endpoint__arrive_time__gte=destinyEndpoint.arrive_time
-        ))
+                endpoint__place=originEndpoint.place
+            ).filter(
+                endpoint__place=destinyEndpoint.place,
+                endpoint__arrive_time__gte=destinyEndpoint.arrive_time
+            ).exclude(
+                id=route.id
+            ).distinct()
+        )
+
 
         users: List[User] = [
             {
