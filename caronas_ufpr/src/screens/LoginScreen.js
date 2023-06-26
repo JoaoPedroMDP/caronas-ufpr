@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { View, StyleSheet } from "react-native";
 import Screen from '../components/layout/Screen';
 import CustomTextInput from '../components/inputs/CustomTextInput';

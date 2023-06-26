@@ -1,26 +1,25 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { updateProfile } from "firebase/auth";
+import auth from "../firebase/FireBaseConfig"; 
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import Screen from "../components/layout/Screen";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import auth from "../firebase/FireBaseConfig";
 import CustomButton from "../components/inputs/CustomButton";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-33
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
   async function handleRegister() {
     try {
-      await createUserWithEmailAndPassword(email, password);
-      const user = auth.currentUser;
-      await user.updateProfile({
+      const { user } = await createUserWithEmailAndPassword(email, password);
+      await updateProfile(user,{
         displayName: name
       });
-      navigation.navigate("LoginScreen");
+      navigation.navigate("Login");
     } catch (errorCatch) {
       console.log(errorCatch.message);
     }
@@ -28,23 +27,27 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <Screen title="Cadastro" centralized>
-        <CustomTextInput
-          placeholder="Nome"
-          text={name}
-          setText={(value) => setName(value)}
-        />
-        <CustomTextInput
-          placeholder="Email"
-          text={email}
-          setText={(value) => setEmail(value)}
-        />
-        <CustomTextInput
-          placeholder="Senha"
-          text={password}
-          setText={(value) => setPassword(value)}
-        />
+      <CustomTextInput
+        placeholder="Nome"
+        text={name}
+        setText={(value) => setName(value)}
+      />
+      <CustomTextInput
+        placeholder="Email"
+        text={email}
+        setText={(value) => setEmail(value)}
+      />
+      <CustomTextInput
+        placeholder="Senha"
+        text={password}
+        setText={(value) => setPassword(value)}
+      />
       <View>
-        <CustomButton label={"Cadastrar"} onClickHandler={handleRegister} alignment="end"/>
+        <CustomButton
+          label="Cadastrar"
+          onClickHandler={handleRegister}
+          alignment="end"
+        />
       </View>
     </Screen>
   );
