@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, StyleSheet } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../inputs/CustomButton";
+import auth from '../../firebase/FireBaseConfig';
 
 const LogoutButton = () => {
-  const navigation = useNavigation();
 
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('token');
-      await AsyncStorage.removeItem('userId');
-      navigation.navigate('LoginScreen');
+      auth.signOut();
     } catch (error) {
-      console.log('Erro ao remover itens do AsyncStorage:', error);
+      console.log('Erro ao realizar logout:', error);
     }
   };
   

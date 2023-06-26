@@ -1,20 +1,18 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Section from '../components/layout/Section';
 import ListPicker from '../components/inputs/ListPicker';
 import Screen from '../components/layout/Screen';
 import CustomSwitch from '../components/inputs/CustomSwitch';
 import TimePicker from '../components/inputs/TimePicker';
-import WeekDaySelector from '../components/inputs/WeekDaySelector';
 import { intentions } from '../consts';
 import CustomCheckbox from '../components/inputs/CustomCheckbox';
 import CustomButton from '../components/inputs/CustomButton';
 import { saveRoute, getPlaces, validateData } from '../components/apis/caronasApi';
 import { getFormattedDateTimeString } from '../contrib';
-import CustomTextInput from '../components/inputs/CustomTextInput';
 import { Snackbar, Portal } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '../firebase/FireBaseConfig';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState("Selecione um local");
@@ -58,19 +56,7 @@ const RegisterRouteScreen = ({ navigation }) => {
     const [userIntentions, setUserIntentions] = useState([]);
     const [validationMessage, setValidationMessage] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false);
-    const [userId, setUserId] = useState(null);
-
-    useEffect(() => {
-      getUser();
-    }, []);
-
-    const getUser = async () => {
-      const id = await AsyncStorage.getItem('userId');
-
-      if (id) {
-        setUserId(id);
-      }
-    };
+    const userId = auth.currentUser.uid;
 
     useFocusEffect(
         useCallback(() => {

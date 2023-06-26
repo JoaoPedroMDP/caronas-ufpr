@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Screen from '../components/layout/Screen';
 import CustomTextInput from '../components/inputs/CustomTextInput';
 import CustomButton from '../components/inputs/CustomButton';
@@ -23,16 +22,6 @@ const LoginScreen = ({ navigation }) => {
             console.log(error.message);
         }
     }
-
-    useEffect(() => {
-        if (user) {
-            AsyncStorage.setItem('token', user.user.accessToken);
-            AsyncStorage.setItem('userId', user.user.uid);
-            setEmail("");
-            setPassword("");
-            navigation.navigate('Home');
-        }
-    }, [user, navigation]);
 
     return (
         <Screen title="Login" centralized>
