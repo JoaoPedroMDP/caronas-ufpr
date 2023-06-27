@@ -23,6 +23,10 @@ class RouteViewSet(viewsets.ModelViewSet):
     serializer_class = RouteSerializer
     queryset = Route.objects.all()
 
+    def create(self, request, *args, **kwargs):
+        user: User = User.objects.get(firebase_id=request.data["user"])
+        request.data["user"] = user.id
+        return super().create(request, *args, **kwargs)
 
     @action(detail=True, methods=["get"])
     def get_route_users(self, request, pk):
