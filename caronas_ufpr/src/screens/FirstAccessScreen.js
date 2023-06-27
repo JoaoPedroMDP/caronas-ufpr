@@ -50,7 +50,7 @@ const FirstAccessScreen = ({ navigation }) => {
             <Vspacer h={10} />
             <SubTitle subtitle={end} justify />
             <View>
-                <CustomButton label="Começar" alignment="end" />
+                <CustomButton label="Começar" alignment="end" onClickHandler={() => { navigation.navigate("RegisterRoute") }}/>
             </View>
         </Screen>
     );

@@ -19,7 +19,7 @@ const ForgetPassword = ({ navigation }) => {
                 placeholder={"Email"}
             />
             <View style={styles.buttons}>
-                <TextButton onPressHandler={() => { navigation.navigate("RegisterRoute") }} text="Ih, lembrei!" />
+                <TextButton onPressHandler={() => { navigation.navigate("Login") }} text="Ih, lembrei!" />
                 <CustomButton label={"Recuperar"} onClickHandler={() => { navigation.navigate("RegisterRoute") }} alignment="end" />
             </View>
         </Screen>

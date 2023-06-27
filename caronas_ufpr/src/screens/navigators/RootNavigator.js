@@ -33,16 +33,16 @@ const RootNavigator = () => {
         {isSignedIn ? (
           <>
             <Drawer.Screen name="Home" component={HomeScreen} options={{headerRight: headerButton}}/>
-            <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{headerRight: headerButton}}/>
-            <Drawer.Screen name="NewPassword" component={NewPasswordScreen} />
-            <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} options={{headerRight: headerButton}}/>
-            <Drawer.Screen name="ForgetPassword" component={ForgetPassword} />
-            <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} options={{headerRight: headerButton}}/>
+            <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} options={{headerRight: headerButton, title: "Início"}} />
+            <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} options={{headerRight: headerButton, title: "Cadastrar Rota"}}/>
+            <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{headerRight: headerButton, title: "Alterar Cadastro"}}/>
+            <Drawer.Screen name="NewPassword" component={NewPasswordScreen} options={{title: "Nova Senha"}}/>
           </>
         ) : (
           <>
-            <Drawer.Screen name="Login" component={LoginScreen} />
-            <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
+            <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }} />
+            <Drawer.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
+            <Drawer.Screen name="ForgetPassword" component={ForgetPassword} options={{title: "Recuperar Senha"}} />
           </>
         )}
       </Drawer.Navigator>

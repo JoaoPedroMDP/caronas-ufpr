@@ -41,6 +41,7 @@ const RegisterScreen = ({ navigation }) => {
         placeholder="Senha"
         text={password}
         setText={(value) => setPassword(value)}
+        secureTextEntry
       />
       <View>
         <CustomButton

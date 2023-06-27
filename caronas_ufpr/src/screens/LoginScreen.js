@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import Screen from '../components/layout/Screen';
 import CustomTextInput from '../components/inputs/CustomTextInput';
@@ -30,6 +30,7 @@ const LoginScreen = ({ navigation }) => {
             <View style={{display: "flex"}}>
                 <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" grow={0.5}/>
                 <CustomButton label="Criar cadastro" onClickHandler={() => {navigation.navigate("RegisterScreen")}} alignment="start" grow={0.5}/>
+                <CustomButton label="Esqueci a senha" onClickHandler={() => {navigation.navigate("ForgetPassword")}} alignment="start" grow={0.5}/>
             </View>
         </Screen>
     );
