@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignment }) => {
+const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignment, inverted }) => {
     // label: string; // Texto do botão
     // onClickHandler: function; // Função a ser executada ao clicar no botão
     // disabled: boolean; // Se o botão está desabilitado
@@ -62,8 +62,8 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
                 onPressOut={clickButton}
                 style={[styles.container, containerStyle]}
             >
-                <View style={[styles.button, { backgroundColor: clicked ? Black : LightGray }]}>
-                    <Text style={[styles.text, { color: clicked ? LightGray : Black }]}>{label}</Text>
+                <View style={[styles.button, { backgroundColor: clicked || inverted != undefined ? Black : LightGray }]}>
+                    <Text style={[styles.text, { color: clicked || inverted != undefined ? LightGray : Black }]}>{label}</Text>
                 </View>
             </Pressable>
         </View>
