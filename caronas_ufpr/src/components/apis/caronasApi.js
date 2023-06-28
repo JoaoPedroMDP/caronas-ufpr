@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const caronasApi = axios.create({
-    baseURL: "http://localhost:8000"
+    // baseURL: "http://localhost:8000"
+    baseURL: "http://159.223.197.157:8000"
 })
 
 async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions, userId) {
