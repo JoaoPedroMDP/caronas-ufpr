@@ -1,6 +1,5 @@
 import HomeScreen from "../HomeScreen";
 import RegisterScreen from "../RegisterScreen";
-import NewPasswordScreen from "../NewPasswordScreen";
 import FirstAccessScreen from "../FirstAccessScreen";
 import ForgetPassword from "../ForgetPassword";
 import LoginScreen from "../LoginScreen";
@@ -36,8 +35,7 @@ const RootNavigator = () => {
             <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} options={{headerRight: headerButton, title: "Início"}} />
             <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} options={{headerRight: headerButton, title: "Cadastrar Rota"}}/>
             <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{headerRight: headerButton, title: "Alterar Cadastro"}}/>
-            <Drawer.Screen name="NewPassword" component={NewPasswordScreen} options={{title: "Nova Senha"}}/>
-          </>
+            </>
         ) : (
           <>
             <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }} />
