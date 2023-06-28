@@ -65,7 +65,8 @@ const RegisterRouteScreen = ({ navigation }) => {
                 try{
                     allEndpoints = await getPlaces();
                 }catch(error){
-                    activateSnackbar(error.message, 5000);
+                    console.log(error.message);
+                    activateSnackbar("Não foi possível carregar os lugares", 5000);
                 }
                 let classified = {}
                 allEndpoints.forEach((endpoint) => {

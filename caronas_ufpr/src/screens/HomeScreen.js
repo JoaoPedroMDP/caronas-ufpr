@@ -6,10 +6,8 @@ import { useCallback, useState, useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import CustomSnackbar from '../components/layout/CustomSnackbar';
 import auth from '../firebase/FireBaseConfig';
-
-const Drawer = createDrawerNavigator();
 
 const IntentionSection = ({intention, users, navigation}) => {
   if(users.length == 0) return null;
@@ -41,7 +39,9 @@ const HomeScreen = ({navigation}) => {
     const [users, setUsers] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [intentions, setIntentions] = useState([]);
-    
+    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [validationMessage, setValidationMessage] = useState(null);
+
     useFocusEffect(
         useCallback(() => {
           async function fetchData () {
@@ -49,7 +49,9 @@ const HomeScreen = ({navigation}) => {
             try{
                 allRoutes = await getRoutes();
             }catch(error){
-                activateSnackbar(error.message, 5000);
+              setValidationMessage("Não foi possível carregar as rotas");
+              setShowSnackbar(true);
+              console.log(error.message);
             }
             let formatted = [];
             allRoutes.forEach((route) => {
@@ -116,6 +118,11 @@ const HomeScreen = ({navigation}) => {
                 />
               </View>
             }
+            <CustomSnackbar 
+                externalOpen={showSnackbar}
+                message={validationMessage}
+                timeout={5000}
+            />
         </Screen>
     );
 }
