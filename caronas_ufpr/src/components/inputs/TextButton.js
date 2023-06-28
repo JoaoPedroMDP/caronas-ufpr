@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     button: {
-      width: "fit-content",
-      height: "fit-content"
+      alignSelf: 'flex-start'
     }
 });
 
