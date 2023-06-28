@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import Screen from "../components/layout/Screen";
 import CustomTextInput from "../components/inputs/CustomTextInput";
@@ -26,23 +26,13 @@ const LoginScreen = ({ navigation }) => {
     });
   }
 
-    useEffect(() => {
-        if (user) {
-            AsyncStorage.setItem('token', user.user.accessToken);
-            AsyncStorage.setItem('userId', user.user.uid);
-            setEmail("");
-            setPassword("");
-            navigation.navigate('Home');
-        }
-    }, [user, navigation]);
-
     return (
         <Screen title="Login" centralized>
             <CustomTextInput text={email} setText={setEmail} placeholder="Email"/>
             <CustomTextInput text={password} setText={setPassword} placeholder="Senha" secureTextEntry={true}/>
             <View style={styles.buttons}>
                 <CustomButton label="Criar cadastro" onClickHandler={() => {navigation.navigate("RegisterScreen")}} alignment="start" inverted/>
-                <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end"/>
+                <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" disabled={email === "" || password === "" }/>
             </View>
             <TextButton text="Esqueci minha senha" onPressHandler={() => {navigation.navigate("ForgetPassword")}}/>
             <Portal>

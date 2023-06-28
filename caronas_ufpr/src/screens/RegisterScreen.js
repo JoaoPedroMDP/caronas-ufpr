@@ -1,28 +1,40 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updateProfile } from "firebase/auth";
-import auth from "../firebase/FireBaseConfig"; 
+import auth from "../firebase/FireBaseConfig";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import Screen from "../components/layout/Screen";
 import CustomButton from "../components/inputs/CustomButton";
+import { Portal, Snackbar } from "react-native-paper";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+  const [validationMessage, setValidationMessage] = useState(null);
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   async function handleRegister() {
-    try {
-      const { user } = await createUserWithEmailAndPassword(email, password);
-      await updateProfile(user,{
-        displayName: name
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (credential) => {
+        await updateProfile(credential.user, {
+          displayName: name,
+        });
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        let errorMessage;
+        if (error.code === "auth/invalid-email") {
+          errorMessage = "Email inválido!";
+        } else if (error.code === "auth/weak-password") {
+          errorMessage = "A senha deve conter no mínimo 6 caracteres!";
+        } else if (error.code === "auth/email-already-in-use") {
+          errorMessage = "Email já cadastrado!";
+        }
+        setValidationMessage(errorMessage);
+        setShowSnackbar(true);
       });
-      navigation.navigate("Login");
-    } catch (errorCatch) {
-      console.log(errorCatch.message);
-    }
   }
 
   return (
@@ -48,8 +60,21 @@ const RegisterScreen = ({ navigation }) => {
           label="Cadastrar"
           onClickHandler={handleRegister}
           alignment="end"
+          disabled={email === "" || password === "" || name === ""}
         />
       </View>
+      <Portal>
+        <Snackbar
+          visible={showSnackbar}
+          onDismiss={() => setShowSnackbar(false)}
+          duration={5000}
+          action={{
+            label: "Fechar",
+          }}
+        >
+          {validationMessage}
+        </Snackbar>
+      </Portal>
     </Screen>
   );
 };
