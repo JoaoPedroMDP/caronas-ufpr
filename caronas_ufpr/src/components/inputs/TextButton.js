@@ -5,11 +5,15 @@ const styles = StyleSheet.create({
         color: Blue,
         marginLeft: 5
     },
+    button: {
+      width: "fit-content",
+      height: "fit-content"
+    }
 });
 
 const TextButton = ({ text, onPressHandler }) => {
     return (
-        <TouchableOpacity onPress={onPressHandler}>
+        <TouchableOpacity style={styles.button} onPress={onPressHandler}>
             <Text style={styles.option}>{text}</Text>
         </TouchableOpacity>
     );
