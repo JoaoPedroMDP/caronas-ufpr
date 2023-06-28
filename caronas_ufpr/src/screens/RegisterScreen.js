@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { updateProfile } from "firebase/auth";
+import { View, StyleSheet, Image } from "react-native";
+import { createUserWithEmailAndPassword, deleteUser, updateProfile } from "firebase/auth";
 import auth from "../firebase/FireBaseConfig";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import Screen from "../components/layout/Screen";
 import CustomButton from "../components/inputs/CustomButton";
 import { Portal, Snackbar } from "react-native-paper";
+import { createUser } from "../components/apis/caronasApi";
+import * as ImagePicker from 'expo-image-picker';
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -14,14 +15,17 @@ const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [validationMessage, setValidationMessage] = useState(null);
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [bio, setBio] = useState("");
+  const [contact, setContact] = useState("");
+  const [photo, setPhoto] = useState(null);
 
   async function handleRegister() {
-    createUserWithEmailAndPassword(auth, email, password)
+    let newUser = await createUserWithEmailAndPassword(auth, email, password)
       .then(async (credential) => {
         await updateProfile(credential.user, {
           displayName: name,
         });
-        navigation.navigate("Login");
+        return credential.user;
       })
       .catch((error) => {
         let errorMessage;
@@ -35,32 +39,71 @@ const RegisterScreen = ({ navigation }) => {
         setValidationMessage(errorMessage);
         setShowSnackbar(true);
       });
+
+    let user_data = {}
+    name && (user_data.name = name);
+    bio && (user_data.bio = bio);
+    contact && (user_data.contact = contact);
+    photo && (user_data.photo = photo);
+    user_data.firebase_id = newUser.uid;
+
+    try {
+      await createUser(user_data);
+      setValidationMessage("Cadastro realizado com sucesso!");
+      setShowSnackbar(true);
+      navigation.navigate("Login");
+    } catch (error) {
+      deleteUser(newUser);
+      console.log(error);
+      setValidationMessage(error.message);
+      setShowSnackbar(true);
+    }
+  }
+
+  async function selectImage(){
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
+
+    if (!result.canceled) {
+        console.log(result);
+        setPhoto(result.assets[0].uri);
+    }
+  }
+
+  function sourceImage(){
+    if(photo){
+        return {uri: photo};
+    }else {
+        return require("../../assets/images/profile.png");
+    }
   }
 
   return (
     <Screen title="Cadastro" centralized>
-      <CustomTextInput
-        placeholder="Nome"
-        text={name}
-        setText={(value) => setName(value)}
-      />
-      <CustomTextInput
-        placeholder="Email"
-        text={email}
-        setText={(value) => setEmail(value)}
-      />
-      <CustomTextInput
-        placeholder="Senha"
-        text={password}
+      <View style={styles.imageSection}>
+        <Image source={sourceImage()} style={styles.image} />
+        <CustomButton alignment="center" label="Cadastrar foto" onClickHandler={selectImage} />
+      </View>
+      <CustomTextInput placeholder="Nome" text={name} setText={(value) => setName(value)} />
+      <CustomTextInput placeholder="Email" text={email} setText={(value) => setEmail(value)} />
+      <CustomTextInput 
+        placeholder="Senha" 
+        text={password} 
         setText={(value) => setPassword(value)}
         secureTextEntry
       />
+
+      <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
+      <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText/>
       <View>
         <CustomButton
           label="Cadastrar"
           onClickHandler={handleRegister}
           alignment="end"
-          disabled={email === "" || password === "" || name === ""}
+          disabled={email === "" || password === "" || name === "" || contact === ""}
         />
       </View>
       <Portal>
@@ -80,31 +123,18 @@ const RegisterScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
+  image: {
+    width: "30vw",
+    height: "30vw",
+    borderRadius: 100,
+    alignSelf: "center",
+    marginBottom: 20,
+  },
+  imageSection: {
+    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: "100%",
-  },
-  text: {
-    fontSize: 40,
-    fontWeight: "bold",
-  },
-  input: {
-    padding: 10,
-  },
-  button: {
-    left: 83,
-  },
-  input2: {
-    borderRadius: 8,
-    backgroundColor: "LightGray",
-    fontFamily: "InterRegular",
-    height: 35,
-    padding: 10,
-  },
+  }
 });
 
 export default RegisterScreen;

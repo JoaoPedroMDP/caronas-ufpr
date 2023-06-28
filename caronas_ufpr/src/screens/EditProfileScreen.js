@@ -9,7 +9,7 @@ import { getImage, updateUser } from "../components/apis/caronasApi";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
-
+import auth from '../firebase/FireBaseConfig';
 
 const imageOptions = {
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
 });
 
 const EditProfileScreen = ({ navigation }) => {
-    const firebaseId = 124;
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
     const [user, setUser] = useState(null);
@@ -45,6 +44,7 @@ const EditProfileScreen = ({ navigation }) => {
     // Photo é o que vem do backend
     const [photo, setPhoto] = useState(null);
     const [newPhoto, setNewPhoto] = useState(null);
+    const firebaseId = auth.currentUser.uid;
 
     useFocusEffect(useCallback(() => {
         async function fetchData() {
@@ -117,9 +117,9 @@ const EditProfileScreen = ({ navigation }) => {
                 <CustomButton alignment="center" label="Alterar foto" onClickHandler={selectImage} />
             </View>
 
-            <CustomTextInput placeholder={name ? null: "Nome"} text={name ?? ""} setText={setName} />
-            <CustomTextInput placeholder={bio ? null : "Biografia"} text={bio ?? ""} setText={setBio} />
-            <CustomTextInput placeholder={contact ? null: "Contato"} text={contact ?? ""} setText={setContact} />
+            <CustomTextInput placeholder="Nome" text={name} setText={setName} />
+            <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
+            <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
             <View>
                 <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
             </View>

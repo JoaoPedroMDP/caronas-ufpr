@@ -1,10 +1,10 @@
 import { TextInput, StyleSheet, View } from 'react-native';
 import { LightGray, PlaceholderGray } from '../../../assets/colors';
 
-const CustomTextInput = ({ placeholder, text, setText, secureTextEntry}) => {
+const CustomTextInput = ({ placeholder, text, setText, secureTextEntry, bigText}) => {
     return (
         <TextInput
-            style={styles.input}
+            style={[styles.input, bigText ? {height: 100} : 35]}
             onChangeText={setText}
             value={text}
             placeholder={placeholder}
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: LightGray,
         fontFamily: "InterRegular",
-        height: 35,
         padding: 10,
         marginVertical: 5
     },

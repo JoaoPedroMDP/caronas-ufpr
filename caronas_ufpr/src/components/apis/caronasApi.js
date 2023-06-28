@@ -152,4 +152,21 @@ async function updateUser(userFormData, userId){
     return data;
 }
 
-export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute, getImage, getUserByFirebaseId, updateUser };
+async function createUser(userData, firebaseId){
+    console.log(userData);
+
+    let data = await caronasApi
+        .post(`/routes/users/`, userData)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            throw Error("Impossível criar o usuário");
+        });
+    
+    return data;
+}
+
+export { saveRoute, saveEndpoint, getRoutes, getPlaces, validateData, getUsersByRoute, getImage, getUserByFirebaseId, updateUser, createUser };
