@@ -31,8 +31,8 @@ const RootNavigator = () => {
       <Drawer.Navigator>
         {isSignedIn ? (
           <>
-            <Drawer.Screen name="Home" component={HomeScreen} options={{headerRight: headerButton}}/>
-            <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} options={{headerRight: headerButton, title: "Início"}} />
+            <Drawer.Screen name="Home" component={HomeScreen} options={{headerRight: headerButton, title: "Início"}}/>
+            <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} options={{headerRight: headerButton, title: "Instruções"}} />
             <Drawer.Screen name="RegisterRoute" component={RegisterRouteScreen} options={{headerRight: headerButton, title: "Cadastrar Rota"}}/>
             <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{headerRight: headerButton, title: "Alterar Cadastro"}}/>
             </>
@@ -40,7 +40,7 @@ const RootNavigator = () => {
           <>
             <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }} />
             <Drawer.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
-            <Drawer.Screen name="ForgetPassword" component={ForgetPassword} options={{title: "Recuperar Senha"}} />
+            <Drawer.Screen name="ForgetPassword" component={ForgetPassword} options={{ title: "Recuperar Senha" }} />
           </>
         )}
       </Drawer.Navigator>

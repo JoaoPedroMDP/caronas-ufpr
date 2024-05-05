@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const baseUrl = "https://joaopedromdp-potential-bassoon-rrrqw7v7r6x35g5v-8000.preview.app.github.dev"
+// const baseUrl = "https://joaopedromdp-potential-bassoon-rrrqw7v7r6x35g5v-8000.preview.app.github.dev";
+const baseUrl = "http://localhost:8000";
 const caronasApi = axios.create({
-    // baseURL: "http://localhost:8000"
-    // baseURL: "http://159.223.197.157:8000"
     baseURL: baseUrl
 })
 

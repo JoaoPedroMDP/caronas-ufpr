@@ -4,12 +4,13 @@ import { useCallback } from "react";
 import { getUserByFirebaseId } from "../components/apis/caronasApi";
 import { useState } from "react";
 import CustomSnackbar from "../components/layout/CustomSnackbar";
-import { Image, View, StyleSheet, Platform } from "react-native";
+import { Image, View, StyleSheet} from "react-native";
 import { getImage, updateUser } from "../components/apis/caronasApi";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
 import auth from '../firebase/FireBaseConfig';
+import Comment from "../components/textual/Comment";
 
 const imageOptions = {
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -120,6 +121,7 @@ const EditProfileScreen = ({ navigation }) => {
             <CustomTextInput placeholder="Nome" text={name} setText={setName} />
             <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
             <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
+            <Comment comment="Para alterar a senha, clique em 'Esqueci a senha' na tela de login :D"/>
             <View>
                 <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
             </View>

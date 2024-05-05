@@ -12,6 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmal, setPasswordConfirmal] = useState("");
   const [name, setName] = useState("");
   const [validationMessage, setValidationMessage] = useState(null);
   const [showSnackbar, setShowSnackbar] = useState(false);
@@ -53,8 +54,8 @@ const RegisterScreen = ({ navigation }) => {
       setShowSnackbar(true);
       navigation.navigate("Login");
     } catch (error) {
-      deleteUser(newUser);
       console.log(error);
+      deleteUser(newUser);
       setValidationMessage(error.message);
       setShowSnackbar(true);
     }
@@ -93,6 +94,12 @@ const RegisterScreen = ({ navigation }) => {
         placeholder="Senha" 
         text={password} 
         setText={(value) => setPassword(value)}
+        secureTextEntry
+      />
+      <CustomTextInput 
+        placeholder="Confirme a senha" 
+        text={passwordConfirmal} 
+        setText={(value) => setPasswordConfirmal(value)}
         secureTextEntry
       />
 

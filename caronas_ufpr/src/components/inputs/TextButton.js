@@ -3,7 +3,9 @@ import { Blue } from '../../../assets/colors';
 const styles = StyleSheet.create({
     option: {
         color: Blue,
-        marginLeft: 5
+        marginLeft: 5,
+        fontFamily: 'InterRegular',
+        fontSize: '12px'
     },
     button: {
       alignSelf: 'flex-start'

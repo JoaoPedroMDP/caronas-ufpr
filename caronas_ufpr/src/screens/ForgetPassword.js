@@ -45,7 +45,7 @@ const ForgetPassword = ({ navigation }) => {
         value={email}
       />
       <View style={styles.buttons}>
-        <TextButton onPressHandler={() => {navigation.navigate("Login")}} text="Ih, lembrei!" />
+        <TextButton onPressHandler={() => {navigation.navigate("Login")}} text="Lembrei!" />
         <CustomButton
           label={"Recuperar"}
           onClickHandler={passwordReset}

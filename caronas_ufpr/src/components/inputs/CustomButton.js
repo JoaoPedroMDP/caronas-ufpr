@@ -1,6 +1,6 @@
 import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { useState } from 'react';
-import { Black, LightGray, MediumGray } from '../../../assets/colors';
+import { Black, LightGray, MediumGray, White } from '../../../assets/colors';
 
 const styles = StyleSheet.create({
     container: {
@@ -54,8 +54,8 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
         onClickHandler(clicked);
     }
 
-    let textColor = Black;
-    let backgroundColor = LightGray;
+    let textColor = White;
+    let backgroundColor = Black;
 
     if (disabled) textColor = MediumGray;
 
