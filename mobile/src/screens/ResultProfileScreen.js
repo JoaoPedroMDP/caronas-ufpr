@@ -4,7 +4,6 @@ import { getImage } from '../components/apis/caronasApi';
 import Title from '../components/textual/Title';
 import { LightGray } from '../../assets/colors';
 import CustomButton from '../components/inputs/CustomButton';
-import Clipboard from '@react-native-clipboard/clipboard';
 
 const styles = StyleSheet.create({
     image: {
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
 });
 
 const ResultProfileScreen = ({ route, navigation }) => {
-    console.log(route.params?.user);
     return(
         <Screen full>
             {route.params?.user.photo != null && 
@@ -34,7 +32,7 @@ const ResultProfileScreen = ({ route, navigation }) => {
                 <Text>{route.params?.user.bio ?? "Este usuário não possui bio"}</Text>
             </View>
             <View>
-                <CustomButton alignment="end" label="Copiar contato" onClickHandler={() => {Clipboard.setString(route.params?.user.contact);}}/>
+                <CustomButton alignment="end" label="Copiar contato" onClickHandler={() => {console.log(route.params?.user.contact)}}/>
             </View>
         </Screen>
     );

@@ -11,6 +11,7 @@ import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
 import auth from '../firebase/FireBaseConfig';
 import Comment from "../components/textual/Comment";
+import { vw } from "../consts";
 
 const imageOptions = {
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -22,8 +23,8 @@ const imageOptions = {
 
 const styles = StyleSheet.create({
     image: {
-        width: "30vw",
-        height: "30vw",
+        width: vw / 3,
+        height: vw / 3,
         borderRadius: 100,
         alignSelf: "center",
         marginBottom: 20,
@@ -51,7 +52,6 @@ const EditProfileScreen = ({ navigation }) => {
         async function fetchData() {
             try {
                 const user = await getUserByFirebaseId(firebaseId);
-                console.log(user);
                 setUser(user);
                 setName(user.name);
                 setBio(user.bio);
@@ -74,7 +74,6 @@ const EditProfileScreen = ({ navigation }) => {
           });
 
         if (!result.canceled) {
-            console.log(result);
             setNewPhoto(result.assets[0].uri);
         }
     }

@@ -8,6 +8,7 @@ import CustomButton from "../components/inputs/CustomButton";
 import { Portal, Snackbar } from "react-native-paper";
 import { createUser } from "../components/apis/caronasApi";
 import * as ImagePicker from 'expo-image-picker';
+import { vw } from "../consts";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -54,7 +55,8 @@ const RegisterScreen = ({ navigation }) => {
       setShowSnackbar(true);
       navigation.navigate("Login");
     } catch (error) {
-      console.log(error);
+      console.log();
+      console.log("Erro no cadastro" + error);
       deleteUser(newUser);
       setValidationMessage(error.message);
       setShowSnackbar(true);
@@ -69,7 +71,6 @@ const RegisterScreen = ({ navigation }) => {
       });
 
     if (!result.canceled) {
-        console.log(result);
         setPhoto(result.assets[0].uri);
     }
   }
@@ -131,8 +132,8 @@ const RegisterScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: "30vw",
-    height: "30vw",
+    width: vw / 3,
+    height: vw / 3,
     borderRadius: 100,
     alignSelf: "center",
     marginBottom: 20,

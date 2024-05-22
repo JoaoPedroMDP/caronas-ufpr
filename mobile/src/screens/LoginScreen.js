@@ -20,7 +20,6 @@ const LoginScreen = ({ navigation }) => {
 
   function handleSignIn() {
     signInWithEmailAndPassword(email, password).then((userCredential) => {
-      console.log(userCredential)
       if (!userCredential) {
         setValidationMessage("Email ou senha inválidos!");
         setShowSnackbar(true);

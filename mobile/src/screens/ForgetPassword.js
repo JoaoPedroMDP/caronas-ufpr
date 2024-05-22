@@ -22,7 +22,6 @@ const ForgetPassword = ({ navigation }) => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
           setValidationMessage(`${errorCode} ${errorMessage}`);
         });
     } else {

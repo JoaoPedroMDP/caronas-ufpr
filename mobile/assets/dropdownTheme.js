@@ -17,7 +17,7 @@ export default StyleSheet.create({
         width: '100%',
     },
     style: {
-        flexDirection: 'row',
+        flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     },
     labelContainer: {
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: "row",
     },
     arrowIcon: {
         width: 20,
@@ -48,7 +48,7 @@ export default StyleSheet.create({
         height: 30
     },
     badgeStyle: {
-        flexDirection: 'row',
+        flexDirection: "row",
         alignItems: 'center',
         borderRadius: 10,
         backgroundColor: LightGray,
@@ -84,7 +84,7 @@ export default StyleSheet.create({
         flexGrow: 1,
     },
     listItemContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 10,
@@ -119,7 +119,7 @@ export default StyleSheet.create({
         paddingLeft: 40,
     },
     searchContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         alignItems: 'center',
         padding: 10,
         borderColor: Black,
@@ -168,7 +168,7 @@ export default StyleSheet.create({
         color: Black
     },
     extendableBadgeContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         flexWrap: 'wrap',
         flex: 1
     },

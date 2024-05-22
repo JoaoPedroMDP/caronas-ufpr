@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseUrl = "https://joaopedromdp-potential-bassoon-rrrqw7v7r6x35g5v-8000.preview.app.github.dev";
-const baseUrl = "http://localhost:8000";
+const baseUrl = "https://improved-barnacle-9qqrw646j7x29pr5-8000.app.github.dev/";
+// const baseUrl = "http://localhost:8000";
 const caronasApi = axios.create({
     baseURL: baseUrl
 })
@@ -15,16 +15,12 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
                 "user": userId
             })
             .catch((error) => {
-                console.log(error.response.data);
-                console.log(error.response.status);
                 throw Error("Não foi possível criar a rota.");
             });
         const newRouteId = response.data.id;
 
         let originId = await saveEndpoint(origin.id, newRouteId, "origin");
         let destinyId = await saveEndpoint(destiny.id, newRouteId, "destiny", arriveTime);
-
-        console.log([originId, destinyId]);
     }catch(error){
         throw Error(error.message);
     }
@@ -44,8 +40,6 @@ async function saveEndpoint (placeId, routeId, type, arriveTime){
     let response = await caronasApi
         .post("/routes/endpoints/", data)
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
             throw Error("Não foi possível criar o local de partida/chegada.");
         });
     const endpointId = response.data.id;
@@ -59,8 +53,6 @@ async function getRoutes(){
             return response.data;
         })
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
             throw Error("Não foi possível carregar as rotas.");
         });
     return routes;
@@ -68,22 +60,18 @@ async function getRoutes(){
 
 function validateData(origin, destiny, arriveTime, weekDays, userIntentions, userId){
     if(origin === null || origin == ""){
-        console.log("Origem não pode ser nula");
         throw new Error("Origem não pode ser nula");
     }
 
     if(destiny === null || destiny == ""){
-        console.log("Destino não pode ser nulo");
         throw new Error("Destino não pode ser nulo");
     }
 
     if(arriveTime === null || arriveTime == ""){
-        console.log("Horário de chegada não pode ser nulo");
         throw new Error("Horário de chegada não pode ser nulo");
     }
 
     if(userIntentions == []){
-        console.log("Intenções não podem ser nulas");
         throw new Error("Intenções não podem ser nulas");
     }
 }
@@ -95,8 +83,6 @@ async function getUsersByRoute(route_id){
             return response.data;
         })
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
             throw Error("Não foi possível buscar usuários para essa rota.");
         });
     
@@ -114,8 +100,6 @@ async function getPlaces(){
             return response.data;
         })  
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
             throw Error("Impossível carregar os locais");
         });
     
@@ -129,8 +113,6 @@ async function getUserByFirebaseId(firebaseId){
             return response.data;
         })
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
             throw Error("Impossível carregar o usuário");
         });
     
@@ -138,16 +120,12 @@ async function getUserByFirebaseId(firebaseId){
 }
 
 async function updateUser(userFormData, userId){
-    console.log(userFormData);
-
     let data = await caronasApi
         .put(`/routes/users/${userId}/`, userFormData)
         .then((response) => {
             return response.data;
         })
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
             throw Error("Impossível atualizar o usuário");
         });
     
@@ -155,16 +133,13 @@ async function updateUser(userFormData, userId){
 }
 
 async function createUser(userData, firebaseId){
-    console.log(userData);
-
     let data = await caronasApi
         .post(`/routes/users/`, userData)
         .then((response) => {
             return response.data;
         })
         .catch((error) => {
-            console.log(error.response.data);
-            console.log(error.response.status);
+            console.log("Erro ao criar usuário no banco local: " + error);
             throw Error("Impossível criar o usuário");
         });
     

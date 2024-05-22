@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+
 const availableWeekDays = [
     { "key": "Dom", "label": "D" },
     { "key": "Seg", "label": "S" },
@@ -15,4 +17,7 @@ const intentions = [
     { "id": "bus_pal", "label": "Companhia de busão", "value": "bus_pal" }
 ];
 
-export { availableWeekDays, intentions };
+const vw = Dimensions.get('window').width
+const vh = Dimensions.get('window').height
+
+export { availableWeekDays, intentions, vw, vh };

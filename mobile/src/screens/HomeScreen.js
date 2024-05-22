@@ -51,7 +51,6 @@ const HomeScreen = ({navigation}) => {
             }catch(error){
               setValidationMessage("Não foi possível carregar as rotas");
               setShowSnackbar(true);
-              console.log(error.message);
             }
             let formatted = [];
             allRoutes.forEach((route) => {
@@ -84,6 +83,7 @@ const HomeScreen = ({navigation}) => {
 
     }, [selectedRoute]);
 
+    console.log(user);
     const user = auth.currentUser;
     const displayName = user.displayName;
 

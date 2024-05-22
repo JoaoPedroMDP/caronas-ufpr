@@ -3,12 +3,12 @@ import { StyleSheet } from "react-native";
 
 const gs = StyleSheet.create({
     flexRow: {
-        display: "flex",
-        flexDirection: "row",
+      display: "flex",
+      flexDirection: "row",
     },
     flexCol: {
       display: "flex",
-      flexDirection: "col",
+      flexDirection: "column",
     },
     justifyCenter: {
       justifyContent: "center",
