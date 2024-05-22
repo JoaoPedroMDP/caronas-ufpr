@@ -55,7 +55,6 @@ const RegisterScreen = ({ navigation }) => {
       setShowSnackbar(true);
       navigation.navigate("Login");
     } catch (error) {
-      console.log();
       console.log("Erro no cadastro" + error);
       deleteUser(newUser);
       setValidationMessage(error.message);

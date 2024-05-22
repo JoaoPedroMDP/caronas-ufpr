@@ -1,7 +1,7 @@
 import axios from 'axios';
+import env from '../../../env';
 
-const baseUrl = "https://improved-barnacle-9qqrw646j7x29pr5-8000.app.github.dev/";
-// const baseUrl = "http://localhost:8000";
+const baseUrl = env.back_end
 const caronasApi = axios.create({
     baseURL: baseUrl
 })
@@ -15,6 +15,7 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
                 "user": userId
             })
             .catch((error) => {
+                console.log("Não foi possível criar a rota: " + error)
                 throw Error("Não foi possível criar a rota.");
             });
         const newRouteId = response.data.id;
@@ -22,6 +23,7 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
         let originId = await saveEndpoint(origin.id, newRouteId, "origin");
         let destinyId = await saveEndpoint(destiny.id, newRouteId, "destiny", arriveTime);
     }catch(error){
+        console.log("Erro ao salvar a rota: " + error.message);
         throw Error(error.message);
     }
 }
@@ -40,6 +42,7 @@ async function saveEndpoint (placeId, routeId, type, arriveTime){
     let response = await caronasApi
         .post("/routes/endpoints/", data)
         .catch((error) => {
+            console.log("Erro ao salvar endpoint:" + error)
             throw Error("Não foi possível criar o local de partida/chegada.");
         });
     const endpointId = response.data.id;

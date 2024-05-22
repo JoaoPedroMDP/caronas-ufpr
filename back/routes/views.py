@@ -48,7 +48,6 @@ class RouteViewSet(viewsets.ModelViewSet):
             ).distinct()
         )
 
-
         users: List[User] = [
             {
                 "user": UserSerializer(route.user).data,

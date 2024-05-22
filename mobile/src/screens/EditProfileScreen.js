@@ -104,7 +104,7 @@ const EditProfileScreen = ({ navigation }) => {
             setValidationMessage("Perfil atualizado!!");
             setShowSnackbar(true);
         } catch (error) {
-            console.log(error);
+            console.log("Erro ao atualizar usuário:" + error);
             setValidationMessage(error.message);
             setShowSnackbar(true);
         }
