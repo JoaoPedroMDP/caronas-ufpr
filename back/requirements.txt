@@ -7,3 +7,4 @@ pytest-django==4.5.2
 Pillow==9.5.0
 drf_extra_fields==3.5.0
 requests==2.31.0
+djangorestframework_simplejwt==5.3.1

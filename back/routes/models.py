@@ -2,6 +2,7 @@
     Este módulo contém os modelos do aplicativo routes.
 """
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 class TimestampedModel(models.Model):
@@ -15,25 +16,11 @@ class TimestampedModel(models.Model):
         abstract = True
 
 
-
-class User(TimestampedModel):
+class User(AbstractUser, TimestampedModel):
     name = models.CharField(max_length=250)
-    firebase_id = models.CharField(max_length=250)
     contact = models.CharField(max_length=250)
-    bio = models.CharField(max_length=600, null=True)
-    photo = models.ImageField(upload_to='users', null=True)
-
-    class Meta:
-        ordering = ['name']
-
-
-class Route(TimestampedModel):
-    """
-        Um modelo que representa uma rota.
-    """
-    name = models.CharField(max_length=150)
-    intentions = models.JSONField(max_length=150)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=600, null=True, blank=True)
+    photo = models.ImageField(upload_to='users', null=True, blank=True)
 
     class Meta:
         ordering = ['name']
@@ -50,12 +37,26 @@ class Place(TimestampedModel):
         ordering = ['name']
 
 
+class Route(TimestampedModel):
+    """
+        Um modelo que representa uma rota.
+    """
+    name = models.CharField(max_length=150)
+    intentions = models.JSONField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routes')
+
+    class Meta:
+        ordering = ['name']
+
+
 class Endpoint(TimestampedModel):
     """
         Um modelo que representa um endpoint de uma rota.
     """
-    arrive_time = models.DateTimeField(null=True)
-    type = models.CharField(max_length=20)
-    route = models.ForeignKey(Route, on_delete=models.CASCADE)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    arrive_time = models.DateTimeField(null=True, blank=True)
+    type = models.CharField(max_length=50)
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name='endpoints')
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='endpoints')
 
+    class Meta:
+        ordering = ['arrive_time']
