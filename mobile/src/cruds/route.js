@@ -50,7 +50,7 @@ async function getRoutes(){
     };
 
     let routes = await routesApi
-        .get("", {}, config)
+        .get("", config)
         .then((response) => {
             return response.data;
         })

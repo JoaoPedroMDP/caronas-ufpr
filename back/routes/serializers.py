@@ -2,7 +2,7 @@
     Este módulo contém os serializadores para os modelos Route e Endpoint.
 """
 from rest_framework import serializers
-from routes.models import User, Place, Route, Endpoint
+from routes.models import User, Place, Route
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -42,16 +42,17 @@ class PlaceSerializer(serializers.ModelSerializer):
 
 class RouteSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
+    from_place = PlaceSerializer()
+    to_place = PlaceSerializer()
+
+    def create(self, validated_data):
+        from_place_data = validated_data.pop('from_place')
+        to_place_data = validated_data.pop('to_place')
+        from_place = Place.objects.get_or_create(**from_place_data)[0]
+        to_place = Place.objects.get_or_create(**to_place_data)[0]
+        route = Route.objects.create(from_place=from_place, to_place=to_place, **validated_data)
+        return route
 
     class Meta:
         model = Route
-        fields = ['id', 'name', 'intentions', 'user', 'created_at', 'updated_at']
-
-
-class EndpointSerializer(serializers.ModelSerializer):
-    route = serializers.ReadOnlyField(source='route.name')
-    place = serializers.ReadOnlyField(source='place.name')
-
-    class Meta:
-        model = Endpoint
-        fields = ['id', 'arrive_time', 'type', 'route', 'place', 'created_at', 'updated_at']
+        fields = ['id', 'name', 'intentions', 'user', 'arrive_time', 'from_place', 'to_place']

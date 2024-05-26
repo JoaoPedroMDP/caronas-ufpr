@@ -44,19 +44,9 @@ class Route(TimestampedModel):
     name = models.CharField(max_length=150)
     intentions = models.JSONField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routes')
+    arrive_time = models.DateTimeField(null=True, blank=True)
+    from_place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='from_routes')
+    to_place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='to_routes')
 
     class Meta:
         ordering = ['name']
-
-
-class Endpoint(TimestampedModel):
-    """
-        Um modelo que representa um endpoint de uma rota.
-    """
-    arrive_time = models.DateTimeField(null=True, blank=True)
-    type = models.CharField(max_length=50)
-    route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name='endpoints')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='endpoints')
-
-    class Meta:
-        ordering = ['arrive_time']
