@@ -27,8 +27,6 @@ function login(username, password){
 const logout = async () => {
     let result = axios.post(env.back_end + URIS['logout'], { refresh_token: await AsyncStorage.getItem('refreshToken') })
     .then(async () => {
-        await AsyncStorage.removeItem('token');
-        await AsyncStorage.removeItem('refreshToken');
         return true;
     })
     .catch((error) => {

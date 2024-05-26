@@ -1,13 +1,14 @@
 import Screen from '../components/layout/Screen';
 import ListPicker from '../components/inputs/ListPicker';
 import { useFocusEffect } from '@react-navigation/native';
-import { getRoutes, getUsersByRoute } from '../components/apis/caronasApi';
+import { getUsersByRoute } from '../components/apis/caronasApi';
 import { useCallback, useState, useEffect, useContext } from 'react';
 import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
 import CustomSnackbar from '../components/layout/CustomSnackbar';
 import { AuthContext } from '../contexts/authContext';
+import { getRoutes } from '../cruds/route';
 
 
 
@@ -45,52 +46,17 @@ const HomeScreen = ({navigation}) => {
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
 
-    useFocusEffect(
-        useCallback(() => {
-          async function fetchData () {
-            let allRoutes = [];
-            try{
-                allRoutes = await getRoutes();
-            }catch(error){
-              setValidationMessage("Não foi possível carregar as rotas");
-              setShowSnackbar(true);
-            }
-            let formatted = [];
-            allRoutes.forEach((route) => {
-              formatted.push({
-                ...route,
-                label: route.name,
-                key: route.id,
-              });
-            });
-            setRoutes(formatted);
-          };
-
-          fetchData();
-        }, []));
-    
-    function fetchRouteUsers(route) {
-      setSelectedRoute(route);
-      
-    }
-
     useEffect(() => {
-      async function getRouteUsers(){
-        let users = await getUsersByRoute(selectedRoute.id);
-        setUsers(users);
-      }
-      
-      if(selectedRoute) {
-        getRouteUsers();
+      async function fetchUserRoutes(){
+        await getRoutes()
       }
 
-    }, [selectedRoute]);
-
-    console.log(user)
+      fetchUserRoutes();
+    }, []);
 
     return(
         <Screen title={`Olá, ${user.name}`}>
-            <ListPicker value={selectedRoute?.name} list={routes} returnValue={fetchRouteUsers}/>
+            <ListPicker value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute}/>
             {users.length > 0 && 
               <View>
                 <IntentionSection 

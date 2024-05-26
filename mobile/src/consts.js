@@ -20,4 +20,8 @@ const intentions = [
 const vw = Dimensions.get('window').width
 const vh = Dimensions.get('window').height
 
-export { availableWeekDays, intentions, vw, vh };
+const USER_STORAGE_KEY = 'caronas_ufpr_user';
+const TOKEN_STORAGE_KEY = 'caronas_ufpr_token';
+const REFRESH_TOKEN_STORAGE_KEY = 'caronas_ufpr_refresh_token';
+
+export { availableWeekDays, intentions, vw, vh, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY, USER_STORAGE_KEY};

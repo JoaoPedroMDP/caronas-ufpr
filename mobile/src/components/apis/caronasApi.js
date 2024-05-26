@@ -61,7 +61,7 @@ async function getRoutes(){
     return routes;
 }
 
-function validateData(origin, destiny, arriveTime, weekDays, userIntentions, userId){
+function validateData(origin, destiny, arriveTime, weekDays, userIntentions){
     if(origin === null || origin == ""){
         throw new Error("Origem não pode ser nula");
     }

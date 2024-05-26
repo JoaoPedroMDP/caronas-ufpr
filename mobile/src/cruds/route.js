@@ -1,18 +1,34 @@
 import env from '../../env';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TOKEN_STORAGE_KEY } from '../consts';
 
-const URIS = {
-    saveRoute: '/routes',
-    getRoutes: '/routes'
-};
+const routesApi = axios.create({
+    baseURL: env.back_end + '/routes'
+});
+
+async function prepareHeaders(){
+    let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
+    return {
+        "Authorization": "Bearer " + token
+    }
+
+}
 
 async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions, userId) {
+    let data = {
+        "name": `${origin.name} -> ${destiny.name}`,
+        "intentions": userIntentions,
+        "user": userId
+    };
+
+    let config = {
+        headers: await prepareHeaders()
+    };
+
     try{
-        let response = await caronasApi
-            .post(env.back_end + URIS.saveRoute, {
-                "name": `${origin.name} -> ${destiny.name}`,
-                "intentions": userIntentions,
-                "user": userId
-            })
+        let response = await routesApi
+            .post("", data, config)
             .catch((error) => {
                 console.log("Não foi possível criar a rota: " + error)
                 throw Error("Não foi possível criar a rota.");
@@ -29,8 +45,12 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
 
 
 async function getRoutes(){
-    let routes = await caronasApi
-        .get(env.back_end + URIS.getRoutes)
+    let config = {
+        headers: await prepareHeaders()
+    };
+
+    let routes = await routesApi
+        .get("", {}, config)
         .then((response) => {
             return response.data;
         })
@@ -39,3 +59,5 @@ async function getRoutes(){
         });
     return routes;
 }
+
+export { saveRoute, getRoutes };

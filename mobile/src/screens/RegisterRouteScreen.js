@@ -9,13 +9,15 @@ import TimePicker from '../components/inputs/TimePicker';
 import { intentions } from '../consts';
 import CustomCheckbox from '../components/inputs/CustomCheckbox';
 import CustomButton from '../components/inputs/CustomButton';
-import { saveRoute, getPlaces, validateData } from '../components/apis/caronasApi';
+import { validateData } from '../components/apis/caronasApi';
 import { getFormattedDateTimeString } from '../contrib';
 import { Snackbar, Portal } from 'react-native-paper';
-import auth from '../firebase/FireBaseConfig';
+import { saveRoute } from '../cruds/route';
+import { getPlaces } from '../cruds/place';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState("Selecione um local");
+    
     function returnPlace(endpoint) {
         setPlace(endpoint);
         setListPickerValue(endpoint.name);
@@ -56,7 +58,6 @@ const RegisterRouteScreen = ({ navigation }) => {
     const [userIntentions, setUserIntentions] = useState([]);
     const [validationMessage, setValidationMessage] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false);
-    const userId = auth.currentUser.uid;
 
     useFocusEffect(
         useCallback(() => {
@@ -123,8 +124,8 @@ const RegisterRouteScreen = ({ navigation }) => {
 
     async function registerRoute() {
         try{
-            validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, userId);
-            await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions, userId);
+            validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions);
+            await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions);
             activateSnackbar("Rota salva!!", 5000);
             navigation.navigate("Home");
         }catch(error){

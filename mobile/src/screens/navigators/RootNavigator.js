@@ -9,6 +9,7 @@ import EditProfileScreen from "../EditProfileScreen";
 import LogoutButton from '../../components/logout/LogoutButton';
 import { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TOKEN_STORAGE_KEY } from "../../consts";
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +24,7 @@ const RootNavigator = ({ route }) => {
 
   useEffect(() => {
     async function getToken(){
-      let _token = await AsyncStorage.getItem('token');
+      let _token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
       setIsLogged(_token != null);
     }
 
