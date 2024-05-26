@@ -2,12 +2,14 @@ import Screen from '../components/layout/Screen';
 import ListPicker from '../components/inputs/ListPicker';
 import { useFocusEffect } from '@react-navigation/native';
 import { getRoutes, getUsersByRoute } from '../components/apis/caronasApi';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useContext } from 'react';
 import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
 import CustomSnackbar from '../components/layout/CustomSnackbar';
-import auth from '../firebase/FireBaseConfig';
+import { AuthContext } from '../contexts/authContext';
+
+
 
 const IntentionSection = ({intention, users, navigation}) => {
   if(users.length == 0) return null;
@@ -35,6 +37,7 @@ const IntentionSection = ({intention, users, navigation}) => {
 }
 
 const HomeScreen = ({navigation}) => {
+    const { user } = useContext(AuthContext);
     const [routes, setRoutes] = useState([]);
     const [users, setUsers] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
@@ -83,16 +86,10 @@ const HomeScreen = ({navigation}) => {
 
     }, [selectedRoute]);
 
-    console.log(user);
-    const user = auth.currentUser;
-    const displayName = user.displayName;
-
-    if(displayName === null){
-      auth.signOut();
-    }
+    console.log(user)
 
     return(
-        <Screen title={`Olá, ${displayName}`}>
+        <Screen title={`Olá, ${user.name}`}>
             <ListPicker value={selectedRoute?.name} list={routes} returnValue={fetchRouteUsers}/>
             {users.length > 0 && 
               <View>

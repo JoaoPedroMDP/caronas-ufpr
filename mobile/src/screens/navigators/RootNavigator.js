@@ -5,31 +5,34 @@ import ForgetPassword from "../ForgetPassword";
 import LoginScreen from "../LoginScreen";
 import RegisterRouteScreen from "../RegisterRouteScreen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useState } from 'react';
 import EditProfileScreen from "../EditProfileScreen";
 import LogoutButton from '../../components/logout/LogoutButton';
-import auth from '../../firebase/FireBaseConfig';
+import { useState, useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Drawer = createDrawerNavigator();
 
-const RootNavigator = () => {
+const RootNavigator = ({ route }) => {
+  const [isLogged, setIsLogged] = useState(null);
+
   const headerButton = () => {
     return (
       <LogoutButton />
     );
-  }
+  };
 
-  const [isSignedIn, setIsSignedIn] = useState(false);
-
-  auth.onAuthStateChanged((user) => {
-    const userExists = !!user;
-    if (userExists !== isSignedIn) {
-      setIsSignedIn(userExists);
+  useEffect(() => {
+    async function getToken(){
+      let _token = await AsyncStorage.getItem('token');
+      setIsLogged(_token != null);
     }
-  });
+
+    getToken();
+  }, [isLogged]);
 
   return (
       <Drawer.Navigator>
-        {isSignedIn ? (
+        {isLogged ? (
           <>
             <Drawer.Screen name="Home" component={HomeScreen} options={{headerRight: headerButton, title: "Início"}}/>
             <Drawer.Screen name="FirstAccessScreen" component={FirstAccessScreen} options={{headerRight: headerButton, title: "Instruções"}} />
@@ -38,7 +41,7 @@ const RootNavigator = () => {
             </>
         ) : (
           <>
-            <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }} />
+            <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }}/>
             <Drawer.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
             <Drawer.Screen name="ForgetPassword" component={ForgetPassword} options={{ title: "Recuperar Senha" }} />
           </>

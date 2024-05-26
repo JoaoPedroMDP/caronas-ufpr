@@ -33,6 +33,7 @@ APPEND_SLASH = False
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'routes.User'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -43,6 +44,7 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "django_extensions",
     "routes.apps.RoutesConfig",
