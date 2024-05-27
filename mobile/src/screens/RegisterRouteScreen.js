@@ -129,7 +129,6 @@ const RegisterRouteScreen = ({ navigation }) => {
             activateSnackbar("Rota salva!!", 5000);
             navigation.navigate("Home");
         }catch(error){
-            console.log("Deu ruim: " + error.message);
             activateSnackbar(error.message);
             return;
         }

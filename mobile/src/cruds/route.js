@@ -19,7 +19,8 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
     let data = {
         "name": `${origin.name} -> ${destiny.name}`,
         "intentions": userIntentions,
-        "user": userId
+        "from_place": origin,
+        "to_place": destiny,
     };
 
     let config = {
@@ -27,16 +28,11 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
     };
 
     try{
-        let response = await routesApi
-            .post("", data, config)
+        routesApi.post("", data, config)
             .catch((error) => {
                 console.log("Não foi possível criar a rota: " + error)
                 throw Error("Não foi possível criar a rota.");
             });
-        const newRouteId = response.data.id;
-
-        let originId = await saveEndpoint(origin.id, newRouteId, "origin");
-        let destinyId = await saveEndpoint(destiny.id, newRouteId, "destiny", arriveTime);
     }catch(error){
         console.log("Erro ao salvar a rota: " + error.message);
         throw Error(error.message);

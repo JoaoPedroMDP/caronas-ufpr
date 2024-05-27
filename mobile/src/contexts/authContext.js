@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { login, logout } from '../cruds/auth';
+import { login, logout, refresh } from '../cruds/auth';
 import { getLoggedUser } from '../cruds/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { REFRESH_TOKEN_STORAGE_KEY, TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '../consts';
@@ -11,16 +11,29 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         async function loadStorageData() {
-          const storagedUser = await AsyncStorage.getItem(USER_STORAGE_KEY);
-          const storagedToken = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-          const storagedRefreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
-    
-          if (storagedUser && storagedToken) {
-            setUser(JSON.parse(storagedUser));
-          }
+            const storagedUser = await AsyncStorage.getItem(USER_STORAGE_KEY);
+            const storagedToken = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
+            const storagedRefreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
+        
+            console.log(storagedUser);
+            console.log(storagedToken);
+            console.log(storagedRefreshToken);
+
+            if (storagedUser && storagedToken) {
+                setUser(JSON.parse(storagedUser));
+            }
+
+            await doRefreshToken();
         }
     
         loadStorageData();
+
+        const MINUTE_MS = 350000;
+        const interval = setInterval(() => {
+            console.log('Refreshing token...');
+            doRefreshToken();
+        }, MINUTE_MS);
+        return () => clearInterval(interval);
     }, []);
 
     async function doLogin(username, password) {
@@ -37,6 +50,11 @@ export const AuthProvider = ({ children }) => {
         await logout();
         await AsyncStorage.clear();
         setUser(null);
+    }
+
+    async function doRefreshToken(){
+        const response = await refresh();
+        await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access);
     }
 
     return (

@@ -46,13 +46,22 @@ const HomeScreen = ({navigation}) => {
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
 
-    useEffect(() => {
+    useFocusEffect(useCallback(() => {
       async function fetchUserRoutes(){
-        await getRoutes()
+        let allRoutes = await getRoutes();
+        let formatted = [];
+        allRoutes.forEach((route) => {
+          formatted.push({
+            ...route,
+            label: route.name,
+            key: route.id,
+          });
+        });
+        setRoutes(formatted);
       }
 
       fetchUserRoutes();
-    }, []);
+    }, []));
 
     return(
         <Screen title={`Olá, ${user.name}`}>

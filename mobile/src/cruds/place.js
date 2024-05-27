@@ -10,6 +10,7 @@ const routesApi = axios.create({
 
 async function prepareHeaders(){
     let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
+    console.log("Token: " + token);
     return {
         "Authorization": "Bearer " + token
     }

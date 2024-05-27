@@ -1,7 +1,5 @@
 import logging
 from traceback import format_exc
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,17 +10,6 @@ from routes.serializers import UserSerializer
 
 
 lgr = logging.getLogger(__name__)
-
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['email'] = user.email
-        return token
-
-
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
 
 
 class LogoutView(APIView):
