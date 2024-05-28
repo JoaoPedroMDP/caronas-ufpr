@@ -5,6 +5,7 @@ import { TOKEN_STORAGE_KEY } from '../consts';
 
 const URIS = {
     getLoggedUser: '/logged',
+    createUser: '/users'
 };
 
 async function getLoggedUser(){
@@ -29,6 +30,18 @@ async function getLoggedUser(){
 }
 
 
-async function createUser(){}
+async function createUser(userData){
+    let data = await axios
+        .post(env.back_end + URIS.createUser, userData)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log("Erro ao criar usuário no banco local: " + error);
+            throw Error("Impossível criar o usuário");
+        });
+    
+    return data;
+}
 
-export { getLoggedUser };
+export { getLoggedUser, createUser };

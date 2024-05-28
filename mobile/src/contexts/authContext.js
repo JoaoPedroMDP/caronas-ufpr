@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     async function doRefreshToken(){
+        if (!user) return;
         const response = await refresh();
         await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access);
     }

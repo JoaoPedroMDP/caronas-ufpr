@@ -9,7 +9,6 @@ import { getImage, updateUser } from "../components/apis/caronasApi";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
-import auth from '../firebase/FireBaseConfig';
 import Comment from "../components/textual/Comment";
 import { vw } from "../consts";
 
@@ -46,12 +45,11 @@ const EditProfileScreen = ({ navigation }) => {
     // Photo é o que vem do backend
     const [photo, setPhoto] = useState(null);
     const [newPhoto, setNewPhoto] = useState(null);
-    const firebaseId = auth.currentUser.uid;
 
     useFocusEffect(useCallback(() => {
         async function fetchData() {
             try {
-                const user = await getUserByFirebaseId(firebaseId);
+                const user = await getUserByFirebaseId();
                 setUser(user);
                 setName(user.name);
                 setBio(user.bio);
