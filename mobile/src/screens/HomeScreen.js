@@ -1,7 +1,6 @@
 import Screen from '../components/layout/Screen';
 import ListPicker from '../components/inputs/ListPicker';
 import { useFocusEffect } from '@react-navigation/native';
-import { getUsersByRoute } from '../components/apis/caronasApi';
 import { useCallback, useState, useEffect, useContext } from 'react';
 import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
@@ -46,6 +45,7 @@ const HomeScreen = ({navigation}) => {
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
 
+    // Carrega as rotas de um usuário quando a tela é focada
     useFocusEffect(useCallback(() => {
       async function fetchUserRoutes(){
         let allRoutes = await getRoutes();
@@ -62,6 +62,19 @@ const HomeScreen = ({navigation}) => {
 
       fetchUserRoutes();
     }, []));
+
+    // Carrega os usuários que fazem a mesma rota que o usuário quando este seleciona uma rota no ListPicker
+    useEffect(() => {
+      async function getRouteUsers(){
+        let users = await getUsersByRoute(selectedRoute.id);
+        setUsers(users);
+      }
+      
+      if(selectedRoute) {
+        getRouteUsers();
+      }
+
+    }, [selectedRoute]);
 
     return(
         <Screen title={`Olá, ${user.name}`}>

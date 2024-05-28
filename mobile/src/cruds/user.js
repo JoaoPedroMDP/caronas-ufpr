@@ -18,15 +18,17 @@ async function getLoggedUser(){
         if (error.response && error.response.status === 401) {
             console.log('Token inválido.');
             AsyncStorage.setItem(TOKEN_STORAGE_KEY, '');
-            return null
+            return null;
         }else if(error.response.status === 500){
             console.log('Erro interno no servidor. Tente novamente mais tarde.');
             throw new Error('Erro interno no servidor. Tente novamente mais tarde.');
-            return null;
         }
     });
 
     return result;
 }
+
+
+async function createUser(){}
 
 export { getLoggedUser };

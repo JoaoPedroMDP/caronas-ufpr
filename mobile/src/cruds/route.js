@@ -56,4 +56,21 @@ async function getRoutes(){
     return routes;
 }
 
+
+async function getUsersByRoute(route_id){
+    let config = {
+        headers: await prepareHeaders()
+    };
+
+    let users = await routesApi
+        .get(`${route_id}/get_route_users`)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            throw Error("Não foi possível buscar usuários para essa rota.");
+        });
+    
+    return users;
+}
 export { saveRoute, getRoutes };
