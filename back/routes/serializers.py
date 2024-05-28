@@ -18,18 +18,33 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'name', 'email', 'password', 'contact', 'bio', 'photo']
         extra_kwargs = {
-            'name': {'required': True},
-            'email': {'required': True},
-            'contact': {'required': True}
+            'password': {'write_only': True},
+            'bio': {'required': False},
         }
 
+    def __init__(self, *args, **kwargs):
+        """
+            Na atualização, quero que todos os campos sejam opcionais. Por isso precisei alterar o __init__
+        """
+        super().__init__(*args, **kwargs)
+        # self.instance só existe na atualização
+        if self.instance:
+            for field in self.fields:
+                self.fields[field].required = False
+
     def validate_email(self, value):
-        if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("Este email já está em uso.")
+        if self.instance:
+            # Se estamos atualizando, permitimos que o próprio usuário mantenha seu email
+            if User.objects.exclude(pk=self.instance.pk).filter(email=value).exists():
+                raise serializers.ValidationError("Este email já está em uso.")
+        else:
+            if User.objects.filter(email=value).exists():
+                raise serializers.ValidationError("Este email já está em uso.")
         return value
 
     def create(self, validated_data):
@@ -42,8 +57,15 @@ class UserSerializer(serializers.ModelSerializer):
             bio=validated_data.get('bio', None),
             photo=validated_data.get('photo', None)
         )
-
         return user
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        instance = super().update(instance, validated_data)
+        if password:
+            instance.set_password(password)
+            instance.save()
+        return instance
 
 class PlaceSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,16 +1,16 @@
 import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/layout/Screen";
-import { useCallback } from "react";
-import { getUserByFirebaseId } from "../components/apis/caronasApi";
+import { useCallback, useContext } from "react";
 import { useState } from "react";
 import CustomSnackbar from "../components/layout/CustomSnackbar";
 import { Image, View, StyleSheet} from "react-native";
-import { getImage, updateUser } from "../components/apis/caronasApi";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
 import Comment from "../components/textual/Comment";
 import { vw } from "../consts";
+import { AuthContext } from "../contexts/authContext";
+import { updateUser } from "../cruds/user";
 
 const imageOptions = {
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -36,12 +36,15 @@ const styles = StyleSheet.create({
 });
 
 const EditProfileScreen = ({ navigation }) => {
+    const {user, refreshUser} = useContext(AuthContext);
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
-    const [user, setUser] = useState(null);
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
     const [contact, setContact] = useState("");
+    const [email, setEmail] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     // Photo é o que vem do backend
     const [photo, setPhoto] = useState(null);
     const [newPhoto, setNewPhoto] = useState(null);
@@ -49,12 +52,12 @@ const EditProfileScreen = ({ navigation }) => {
     useFocusEffect(useCallback(() => {
         async function fetchData() {
             try {
-                const user = await getUserByFirebaseId();
-                setUser(user);
+                await refreshUser();
                 setName(user.name);
                 setBio(user.bio);
                 setContact(user.contact);
                 setPhoto(user.photo);
+                setEmail(user.email);
             } catch (error) {
                 setValidationMessage(error.message);
                 setShowSnackbar(true);
@@ -87,14 +90,30 @@ const EditProfileScreen = ({ navigation }) => {
     }
 
     async function update(){
-        let user_data = {
-            name: name,
-            bio: bio,
-            contact: contact,
-        };
+        let user_data = {}
+
+        if (name != "") {
+            user_data['name'] = name;
+        }
+
+        if (bio != "") {
+            user_data['bio'] = bio;
+        }
+
+        if (contact != "") {
+            user_data['contact'] = contact;
+        }
+
+        if (email != "") {
+            user_data['email'] = email;
+        }
 
         if(newPhoto){
-            user_data.photo = newPhoto;
+            user_data['photo'] = newPhoto;
+        }
+
+        if(newPassword && newPassword != "" && newPassword == newPasswordConfirm){
+            user_data['password'] = newPassword;
         }
 
         try {
@@ -115,10 +134,13 @@ const EditProfileScreen = ({ navigation }) => {
                 <CustomButton alignment="center" label="Alterar foto" onClickHandler={selectImage} />
             </View>
 
+            <CustomTextInput placeholder="Email" text={email} setText={setEmail} />
             <CustomTextInput placeholder="Nome" text={name} setText={setName} />
             <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
             <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
-            <Comment comment="Para alterar a senha, clique em 'Esqueci a senha' na tela de login :D"/>
+            <CustomTextInput placeholder="Senha" text={newPassword} setText={setNewPassword} />
+            <CustomTextInput placeholder="Confirmação de Senha" text={newPasswordConfirm} setText={setNewPasswordConfirm} />
+            
             <View>
                 <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
             </View>

@@ -13,11 +13,6 @@ export const AuthProvider = ({ children }) => {
         async function loadStorageData() {
             const storagedUser = await AsyncStorage.getItem(USER_STORAGE_KEY);
             const storagedToken = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-            const storagedRefreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
-        
-            console.log(storagedUser);
-            console.log(storagedToken);
-            console.log(storagedRefreshToken);
 
             if (storagedUser && storagedToken) {
                 setUser(JSON.parse(storagedUser));
@@ -41,11 +36,15 @@ export const AuthProvider = ({ children }) => {
         await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access)
         await AsyncStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, response.refresh)
         
+        await refreshUser();
+    }
+
+    async function refreshUser(){
         let user = await getLoggedUser();
         await AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
         setUser(user);
     }
-
+    
     async function doLogout(){
         await logout();
         await AsyncStorage.clear();
@@ -59,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ logged: !!user, user, doLogin, doLogout }}>
+        <AuthContext.Provider value={{ logged: !!user, user, doLogin, doLogout, refreshUser }}>
             {children}
         </AuthContext.Provider>
     );

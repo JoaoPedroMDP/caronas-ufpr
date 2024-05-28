@@ -2,17 +2,18 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import env from '../../env';
 import { TOKEN_STORAGE_KEY } from '../consts';
+import { getConfig } from './utils';
 
 const URIS = {
     getLoggedUser: '/logged',
-    createUser: '/users'
+    createUser: '/users',
+    updateUser: '/users'
 };
 
 async function getLoggedUser(){
-    let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-    let result = axios.get(env.back_end + URIS.getLoggedUser, { headers: { Authorization: `Bearer ${token}` } })
+    let config = await getConfig();
+    let result = axios.get(env.back_end + URIS.getLoggedUser, config)
     .then((response) => {
-        // console.log(response);
         return response.data;
     })
     .catch((error) => {
@@ -44,4 +45,20 @@ async function createUser(userData){
     return data;
 }
 
-export { getLoggedUser, createUser };
+
+async function updateUser(userFormData, userId){
+    let config = await getConfig();
+
+    let data = await axios
+        .put(env.back_end + URIS.updateUser + `/${userId}`, userFormData, config)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            throw Error("Impossível atualizar o usuário");
+        });
+    
+    return data;
+}
+
+export { getLoggedUser, createUser, updateUser };
