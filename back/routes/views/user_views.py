@@ -32,7 +32,6 @@ class GetUsersByRouteView(generics.RetrieveAPIView):
         origin = route.from_place
         destiny = route.to_place
 
-        print(origin, destiny, route.arrive_time)
 
         similarRoutes: List[Route] = list(
             Route.objects.filter(

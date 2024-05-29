@@ -50,3 +50,16 @@ class Route(TimestampedModel):
 
     class Meta:
         ordering = ['name']
+
+
+class Partnership(TimestampedModel):
+    """
+        Um modelo que representa uma parceria entre dois usuários sobre uma rota
+    """
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name='partnerships')
+    requestant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='partnerships_requestant')
+    requested = models.ForeignKey(User, on_delete=models.CASCADE, related_name='partnerships_requested')
+    status = models.CharField(max_length=150)
+
+    class Meta:
+        ordering = ['route']

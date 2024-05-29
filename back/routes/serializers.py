@@ -4,7 +4,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from routes.models import User, Place, Route
+from routes.models import Partnership, User, Place, Route
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -14,9 +14,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         return token
 
-
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -89,3 +86,12 @@ class RouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Route
         fields = ['id', 'name', 'intentions', 'user', 'arrive_time', 'from_place', 'to_place']
+
+
+class PartnershipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Partnership
+        fields = ['id', 'route', 'requestant', 'requested', 'status']
+        extra_kwargs = {
+            'status': {'read_only': True, 'default': 'pending'},
+        }
