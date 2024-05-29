@@ -1,4 +1,4 @@
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import { Blue } from '../../../assets/colors';
 const styles = StyleSheet.create({
     option: {
@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
 
 const TextButton = ({ text, onPressHandler }) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={onPressHandler}>
+        <Pressable style={styles.button} onPress={onPressHandler}>
             <Text style={styles.option}>{text}</Text>
-        </TouchableOpacity>
+        </Pressable>
     );
 }
 

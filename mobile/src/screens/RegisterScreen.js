@@ -65,7 +65,7 @@ const RegisterScreen = ({ navigation }) => {
     <Screen title="Cadastro" centralized>
       <View style={styles.imageSection}>
         <Image source={sourceImage()} style={styles.image} />
-        <CustomButton alignment="center" label="Cadastrar foto" onClickHandler={selectImage} />
+        <CustomButton alignment='center' label="Cadastrar foto" onClickHandler={selectImage} />
       </View>
       <CustomTextInput placeholder="Nome" text={name} setText={(value) => setName(value)} />
       <CustomTextInput placeholder="Email" text={email} setText={(value) => setEmail(value)} />
@@ -110,16 +110,18 @@ const RegisterScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: vw / 3,
-    height: vw / 3,
+    width: 150,
+    height: 150,
     borderRadius: 100,
     alignSelf: "center",
     marginBottom: 20,
   },
   imageSection: {
     display: "flex",
+    flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   }
 });
 
