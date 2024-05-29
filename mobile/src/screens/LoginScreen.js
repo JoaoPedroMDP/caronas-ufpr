@@ -7,6 +7,8 @@ import TextButton from '../components/inputs/TextButton';
 import { Snackbar, Portal } from "react-native-paper";
 import gs from "../globalStyles";
 import { AuthContext } from "../contexts/authContext";
+import * as Linking from 'expo-linking';
+import env from "../../env";
 
 const LoginScreen = ({ route, navigation }) => {
   const { doLogin } = useContext(AuthContext);
@@ -26,6 +28,10 @@ const LoginScreen = ({ route, navigation }) => {
     }
   }
 
+  function goToResetPassword(){
+    Linking.openURL(env.back_end + '/password_reset/');
+  }
+
   return (
       <Screen title="Login" centralized>
           <CustomTextInput text={email} setText={setEmail} placeholder="Email"/>
@@ -33,7 +39,7 @@ const LoginScreen = ({ route, navigation }) => {
           <View style={gs.flexRow}>
             <View style={[gs.flexCol, gs.justifyCenter]}>
               <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("RegisterScreen")}}/>
-              <TextButton text="Esqueceu a senha?" onPressHandler={() => {navigation.navigate("ForgetPassword")}}/>
+              <TextButton text="Esqueceu a senha?" onPressHandler={goToResetPassword}/>
             </View>
             <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" disabled={email === "" || password === "" }/>
           </View>

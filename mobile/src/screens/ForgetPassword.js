@@ -6,7 +6,6 @@ import Screen from "../components/layout/Screen";
 import SubTitle from "../components/textual/Subtitle";
 import Comment from "../components/textual/Comment";
 import TextButton from "../components/inputs/TextButton";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -15,15 +14,15 @@ const ForgetPassword = ({ navigation }) => {
   const auth = getAuth();
   function passwordReset() {
     if (email) {
-      sendPasswordResetEmail(auth, email)
-        .then(() => {
-          setValidationMessage("Email enviado para a redefinição de senha!");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setValidationMessage(`${errorCode} ${errorMessage}`);
-        });
+      // sendPasswordResetEmail(auth, email)
+      //   .then(() => {
+      //     setValidationMessage("Email enviado para a redefinição de senha!");
+      //   })
+      //   .catch((error) => {
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //     setValidationMessage(`${errorCode} ${errorMessage}`);
+      //   });
     } else {
       setValidationMessage("Por favor, insira um endereço de email válido.");
     }
