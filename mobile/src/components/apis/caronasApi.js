@@ -61,7 +61,7 @@ async function getRoutes(){
     return routes;
 }
 
-function validateData(origin, destiny, arriveTime, weekDays, userIntentions){
+function validateData(origin, destiny, arriveHour, arriveMinute, weekDays, userIntentions){
     if(origin === null || origin == ""){
         throw new Error("Origem não pode ser nula");
     }
@@ -70,8 +70,12 @@ function validateData(origin, destiny, arriveTime, weekDays, userIntentions){
         throw new Error("Destino não pode ser nulo");
     }
 
-    if(arriveTime === null || arriveTime == ""){
-        throw new Error("Horário de chegada não pode ser nulo");
+    if(arriveHour === null || arriveHour == "" || Number(arriveHour) < 0 || Number(arriveHour) > 23){
+        throw new Error("Verifique o horário de chegada");
+    }
+
+    if(arriveMinute === null || arriveMinute == "" || Number(arriveMinute) < 0 || Number(arriveMinute) > 23){
+        throw new Error("Verifique o minuto de chegada");
     }
 
     if(userIntentions == []){

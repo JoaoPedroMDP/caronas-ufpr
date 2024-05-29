@@ -2,25 +2,15 @@ import axios from "axios";
 import env from "../../env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TOKEN_STORAGE_KEY } from "../consts";
+import { getConfig } from "./utils";
 
 
 const routesApi = axios.create({
     baseURL: env.back_end + '/places'
 });
 
-async function prepareHeaders(){
-    let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-    console.log("Token: " + token);
-    return {
-        "Authorization": "Bearer " + token
-    }
-
-}
-
 async function getPlaces(){
-    let config = {
-        headers: await prepareHeaders()
-    };
+    let config = await getConfig();
 
     let data = await routesApi
         .get("", config)

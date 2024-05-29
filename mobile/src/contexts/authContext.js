@@ -23,12 +23,10 @@ export const AuthProvider = ({ children }) => {
     
         loadStorageData();
 
-        const MINUTE_MS = 350000;
+        const MINUTE_MS = 3000;
         const interval = setInterval(() => {
-            console.log('Refreshing token...');
             doRefreshToken();
         }, MINUTE_MS);
-        return () => clearInterval(interval);
     }, []);
 
     async function doLogin(username, password) {
@@ -52,7 +50,8 @@ export const AuthProvider = ({ children }) => {
     }
 
     async function doRefreshToken(){
-        if (!user) return;
+        if(user === null) return;
+        console.log('Refreshing token...');
         const response = await refresh();
         await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access);
     }

@@ -21,9 +21,6 @@ const styles = StyleSheet.create({
         fontFamily: "InterRegular",
         padding: 10,
         marginVertical: 5
-    },
-    inputView: {
-        paddingVertical: 10
     }
 })
 

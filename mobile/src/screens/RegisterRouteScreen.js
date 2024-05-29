@@ -14,6 +14,7 @@ import { getFormattedDateTimeString } from '../contrib';
 import { Snackbar, Portal } from 'react-native-paper';
 import { saveRoute } from '../cruds/route';
 import { getPlaces } from '../cruds/place';
+import CustomTextInput from '../components/inputs/CustomTextInput';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState("Selecione um local");
@@ -52,8 +53,10 @@ const RegisterRouteScreen = ({ navigation }) => {
     const [originType, setOriginType] = useState("campus");
     const [destiny, setDestiny] = useState("");
     const [destinyType, setDestinyType] = useState("campus");
-    const [destinyTime, setDestinyTime] = useState(new Date());
-    const [formattedDestinyTime, setFormattedDestinyTime] = useState(null);
+
+    const [arriveHour, setArriveHour] = useState("");
+    const [arriveMinute, setArriveMinute] = useState("");
+
     const [weekDays, setWeekDays] = useState([]);
     const [userIntentions, setUserIntentions] = useState([]);
     const [validationMessage, setValidationMessage] = useState(null);
@@ -105,9 +108,18 @@ const RegisterRouteScreen = ({ navigation }) => {
         return currentType === "campus" ? "neighborhood" : "campus";
     }
 
-    function saveTime(date) {
-        setDestinyTime(date.getTime());
-        setFormattedDestinyTime(getFormattedDateTimeString(date));
+    function filterNum(raw_time){
+        return raw_time.replace(/[^0-9]/g, '')
+    }
+
+    function setArriveHourNumber(value) {
+        let time = filterNum(value);
+        setArriveHour(time.slice(-2));
+    }
+
+    function setArriveMinuteNumber(value) {
+        let time = filterNum(value);
+        setArriveMinute(time.slice(-2));
     }
 
     function saveIntentions(intention) {
@@ -123,9 +135,10 @@ const RegisterRouteScreen = ({ navigation }) => {
     }
 
     async function registerRoute() {
+        let arriveTime = arriveHour + ":" + arriveMinute;
         try{
-            validateData(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions);
-            await saveRoute(origin, destiny, destinyTime ?? new Date(), weekDays, userIntentions);
+            validateData(origin, destiny, arriveHour, arriveMinute, weekDays, userIntentions);
+            await saveRoute(origin, destiny, arriveTime, weekDays, userIntentions);
             activateSnackbar("Rota salva!!", 5000);
             navigation.navigate("Home");
         }catch(error){
@@ -153,7 +166,16 @@ const RegisterRouteScreen = ({ navigation }) => {
                         placeType={destinyType}
                         switchPlaceType={() => { setDestinyType(getEndpointType(destinyType)) }}
                     />
-                    <TimePicker time={destinyTime} returnTime={saveTime} pickerLabel={formattedDestinyTime} />
+                </Section>
+                <Section title="Horário de chegada">
+                    <View style={{ flexDirection: "row", justifyContent: "start" }}>
+                        <View style={{ width: "50px" }}>
+                            <CustomTextInput placeholder={"hora"} text={arriveHour} setText={setArriveHourNumber} />
+                        </View>
+                        <View style={{ width: "50px", marginLeft: "10px" }}>
+                            <CustomTextInput placeholder={"min"} text={arriveMinute} setText={setArriveMinuteNumber} />
+                        </View>
+                    </View>
                 </Section>
                 {/* <Section title={"Dias da semana"}>
                     <WeekDaySelector

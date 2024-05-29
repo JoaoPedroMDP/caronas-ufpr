@@ -44,7 +44,7 @@ class Route(TimestampedModel):
     name = models.CharField(max_length=150)
     intentions = models.JSONField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routes')
-    arrive_time = models.DateTimeField(null=True, blank=True)
+    arrive_time = models.TimeField()
     from_place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='from_routes')
     to_place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='to_routes')
 

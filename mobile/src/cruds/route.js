@@ -1,19 +1,10 @@
 import env from '../../env';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TOKEN_STORAGE_KEY } from '../consts';
+import { getConfig } from './utils';
 
 const routesApi = axios.create({
     baseURL: env.back_end + '/routes'
 });
-
-async function prepareHeaders(){
-    let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-    return {
-        "Authorization": "Bearer " + token
-    }
-
-}
 
 async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions, userId) {
     let data = {
@@ -21,11 +12,10 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
         "intentions": userIntentions,
         "from_place": origin,
         "to_place": destiny,
+        "arrive_time": arriveTime,
     };
 
-    let config = {
-        headers: await prepareHeaders()
-    };
+    let config = await getConfig();
 
     try{
         routesApi.post("", data, config)
@@ -41,9 +31,7 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions,
 
 
 async function getRoutes(){
-    let config = {
-        headers: await prepareHeaders()
-    };
+    let config = await getConfig();
 
     let routes = await routesApi
         .get("", config)
@@ -56,21 +44,4 @@ async function getRoutes(){
     return routes;
 }
 
-
-async function getUsersByRoute(route_id){
-    let config = {
-        headers: await prepareHeaders()
-    };
-
-    let users = await routesApi
-        .get(`${route_id}/get_route_users`)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            throw Error("Não foi possível buscar usuários para essa rota.");
-        });
-    
-    return users;
-}
 export { saveRoute, getRoutes };

@@ -7,7 +7,8 @@ import { getConfig } from './utils';
 const URIS = {
     getLoggedUser: '/logged',
     createUser: '/users',
-    updateUser: '/users'
+    updateUser: '/users',
+    getUserByRoute: '/users/by_route/',
 };
 
 async function getLoggedUser(){
@@ -61,4 +62,20 @@ async function updateUser(userFormData, userId){
     return data;
 }
 
-export { getLoggedUser, createUser, updateUser };
+
+async function getUsersByRoute(route_id){
+    let config = await getConfig();
+
+    let users = await axios
+        .get(env.back_end + URIS.getUserByRoute + route_id, config)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            throw Error("Não foi possível buscar usuários para essa rota.");
+        });
+    
+    return users;
+}
+
+export { getLoggedUser, createUser, updateUser, getUsersByRoute };

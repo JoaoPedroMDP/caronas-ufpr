@@ -8,7 +8,7 @@ import CustomButton from '../components/inputs/CustomButton';
 import CustomSnackbar from '../components/layout/CustomSnackbar';
 import { AuthContext } from '../contexts/authContext';
 import { getRoutes } from '../cruds/route';
-
+import { getUsersByRoute } from '../cruds/user';
 
 
 const IntentionSection = ({intention, users, navigation}) => {
