@@ -13,19 +13,19 @@ export const AuthProvider = ({ children }) => {
         async function loadStorageData() {
             const storagedUser = await AsyncStorage.getItem(USER_STORAGE_KEY);
             const storagedToken = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-
+            
             if (storagedUser && storagedToken) {
-                setUser(JSON.parse(storagedUser));
+                const parsed_user = JSON.parse(storagedUser);
+                setUser(parsed_user);
+                await doRefreshToken();
             }
-
-            await doRefreshToken();
         }
     
         loadStorageData();
 
-        const MINUTE_MS = 3000;
-        const interval = setInterval(() => {
-            doRefreshToken();
+        const MINUTE_MS = 1000 * 60 * 5; // 5 minutos
+        const interval = setInterval(async () => {
+            await doRefreshToken();
         }, MINUTE_MS);
     }, []);
 
@@ -50,7 +50,6 @@ export const AuthProvider = ({ children }) => {
     }
 
     async function doRefreshToken(){
-        if(user === null) return;
         console.log('Refreshing token...');
         const response = await refresh();
         await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access);

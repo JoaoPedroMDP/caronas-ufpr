@@ -5,16 +5,15 @@ import Section from '../components/layout/Section';
 import ListPicker from '../components/inputs/ListPicker';
 import Screen from '../components/layout/Screen';
 import CustomSwitch from '../components/inputs/CustomSwitch';
-import TimePicker from '../components/inputs/TimePicker';
 import { intentions } from '../consts';
 import CustomCheckbox from '../components/inputs/CustomCheckbox';
 import CustomButton from '../components/inputs/CustomButton';
 import { validateData } from '../components/apis/caronasApi';
-import { getFormattedDateTimeString } from '../contrib';
 import { Snackbar, Portal } from 'react-native-paper';
 import { saveRoute } from '../cruds/route';
 import { getPlaces } from '../cruds/place';
 import CustomTextInput from '../components/inputs/CustomTextInput';
+import WeekDaySelector from '../components/inputs/WeekDaySelector';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState("Selecione um local");
@@ -93,7 +92,7 @@ const RegisterRouteScreen = ({ navigation }) => {
 
 
     function activateSnackbar(message, time){
-        console.log("Chamou activateSnackbar com a mensagem: " + message + " e tempo: " + time??toString());
+        console.log("Chamou activateSnackbar com a mensagem: " + message + " e tempo: " + time ?? toString());
         setValidationMessage(message);
         setShowSnackbar(true);
         console.log("Já deveria ter aparecido");
@@ -177,12 +176,12 @@ const RegisterRouteScreen = ({ navigation }) => {
                         </View>
                     </View>
                 </Section>
-                {/* <Section title={"Dias da semana"}>
+                <Section title={"Dias da semana"}>
                     <WeekDaySelector
                         weekDays={weekDays}
                         returnWeekDays={setWeekDays}
                     />
-                </Section> */}
+                </Section>
                 <Section title={"Intenção"} description="Agora, nos diga o que você deseja para essa rota. Você pode selecionar mais de uma opção ;)">
                     <View>
                         {intentions.map((item, index) => {

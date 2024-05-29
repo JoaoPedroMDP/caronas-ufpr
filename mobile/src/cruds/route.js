@@ -6,13 +6,14 @@ const routesApi = axios.create({
     baseURL: env.back_end + '/routes'
 });
 
-async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions, userId) {
+async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions) {
     let data = {
         "name": `${origin.name} -> ${destiny.name}`,
         "intentions": userIntentions,
         "from_place": origin,
         "to_place": destiny,
         "arrive_time": arriveTime,
+        "week_days": weekDays,
     };
 
     let config = await getConfig();
