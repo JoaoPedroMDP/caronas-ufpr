@@ -2,13 +2,14 @@ import Screen from '../components/layout/Screen';
 import ListPicker from '../components/inputs/ListPicker';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState, useEffect, useContext } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, StyleSheet, View, Text } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
 import CustomSnackbar from '../components/layout/CustomSnackbar';
 import { AuthContext } from '../contexts/authContext';
 import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
+import { DarkGray } from '../../assets/colors';
 
 
 const IntentionSection = ({intention, users, navigation, route}) => {
@@ -41,7 +42,6 @@ const HomeScreen = ({navigation}) => {
     const [routes, setRoutes] = useState([]);
     const [users, setUsers] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
-    const [intentions, setIntentions] = useState([]);
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
 
@@ -78,7 +78,10 @@ const HomeScreen = ({navigation}) => {
 
     return(
         <Screen title={`Olá, ${user.name}`}>
-            <ListPicker value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute}/>
+            {routes.length > 0 ? 
+                <ListPicker value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute}/>
+                : <Text style={styles.regularText}>Você ainda não possui rotas cadastradas.</Text>
+            }
             {users.length > 0 && 
               <View>
                 <IntentionSection 
@@ -116,5 +119,12 @@ const HomeScreen = ({navigation}) => {
     );
 }
 
-
+const styles = StyleSheet.create({
+  regularText: {
+    fontFamily: "InterRegular",
+    fontSize: 20,
+    marginTop: 10,
+    color: DarkGray
+  },
+});
 export default HomeScreen;

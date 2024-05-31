@@ -13,10 +13,6 @@ import { Snackbar, Portal } from 'react-native-paper';
 const PartnershipRequest = ({ request, changeStatusHandler }) => {
     const [pressed, setPressed] = useState(false);
 
-    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
-
     function handlePress() {
         setPressed(!pressed);
     }
@@ -93,6 +89,7 @@ const PartnershipRequestsScreen = ({ navigation }) => {
     return(
         <Screen title="Pedidos de parceria">
             <View style={styles.requestsSection}>
+                {requests.length === 0 && <Text style={styles.regularText}>Você ainda não possui pedidos de parcerias</Text>}
                 <FlatList
                     data={requests}
                     keyExtractor={(item) => item.id.toString()}

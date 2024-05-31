@@ -47,4 +47,19 @@ async function getRoutes(){
     return routes;
 }
 
-export { saveRoute, getRoutes };
+async function deleteRoute(route){
+    console.log("Deletando rota...");
+    let config = await getConfig();
+
+    try{
+        routesApi.delete(`/${route.id}`, config)
+            .catch((error) => {
+                console.log("Não foi possível deletar a rota: " + error)
+                throw Error("Não foi possível deletar a rota.");
+            });
+    }catch(error){
+        console.log("Erro ao deletar a rota: " + error.message);
+        throw Error(error.message);
+    }
+}
+export { saveRoute, getRoutes, deleteRoute };

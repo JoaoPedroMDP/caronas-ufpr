@@ -11,6 +11,7 @@ import PartnershipsScreen from '../screens/PartnershipsScreen';
 import PartnershipRequestsScreen from '../screens/PartnershipRequestsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import MyRoutesScreen from '../screens/MyRoutesScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -40,6 +41,7 @@ const AppRoutes = () => {
   function Home(){
     return(
       <Drawer.Navigator initialRouteName="Home" drawerContent={drawerContent}>
+          <Drawer.Screen name="Minhas rotas" component={MyRoutesScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name='Parcerias' component={PartnershipsScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name='Pedidos de Parceria' component={PartnershipRequestsScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name="Início" component={HomeScreen} options={{headerTitle: ""}} />

@@ -12,7 +12,7 @@ class RouteListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        return Route.objects.filter(user=self.request.user)
+        return Route.objects.filter(user=self.request.user).get()
 
 class RouteDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Route.objects.all()
