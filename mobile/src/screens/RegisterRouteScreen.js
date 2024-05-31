@@ -139,7 +139,7 @@ const RegisterRouteScreen = ({ navigation }) => {
             validateData(origin, destiny, arriveHour, arriveMinute, weekDays, userIntentions);
             await saveRoute(origin, destiny, arriveTime, weekDays, userIntentions);
             activateSnackbar("Rota salva!!", 5000);
-            navigation.navigate("Home");
+            navigation.navigate("Início");
         }catch(error){
             activateSnackbar(error.message);
             return;

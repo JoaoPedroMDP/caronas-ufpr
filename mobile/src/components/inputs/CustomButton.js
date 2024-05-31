@@ -12,18 +12,22 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         minWidth: 45,
     },
+    smallButton: {
+        borderRadius: 8,
+        minWidth: 30,
+    },
     text: {
         fontFamily: "InterBold",
         margin: 10
     },
-    teste: {
-        display: 'flex',
-        flexGrow: 1,
-        flexDirection: 'row'
+    smallText: {
+        fontFamily: "InterBold",
+        margin: 5,
+        fontSize: 14
     }
 })
 
-const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignment, inverted }) => {
+const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignment, inverted, small, bgColor, txColor }) => {
     // label: string; // Texto do botão
     // onClickHandler: function; // Função a ser executada ao clicar no botão
     // disabled: boolean; // Se o botão está desabilitado
@@ -31,10 +35,16 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
     /* alignment: string; // Alinhamento do botão (start, center, end). Para que o alignment funcione, 
         basta envelopar o botão em um View, sem necessidade de estilos
     */
+    // inverted: boolean; // Se o botão está invertido
+    // small: boolean; // Se o botão é pequeno
+
     const [clicked, setClicked] = useState(false);
     const alignmentStyle = determineAlignment();
     let aligStyle = {
-        justifyContent: alignmentStyle
+        justifyContent: alignmentStyle,
+        display: 'flex',
+        flexGrow: alignment != null ? 1 : 0,
+        flexDirection: 'row'
     };
 
     function determineAlignment() {
@@ -54,8 +64,8 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
         onClickHandler(clicked);
     }
 
-    let textColor = White;
-    let backgroundColor = Black;
+    let textColor = txColor ?? White;
+    let backgroundColor = bgColor ?? Black;
 
     if (disabled) textColor = MediumGray;
 
@@ -72,8 +82,8 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
               onPressOut={clickButton}
               style={[styles.container, containerStyle]}
           >
-              <View style={[styles.button, { backgroundColor: backgroundColor }]}>
-                  <Text style={[styles.text, { color: textColor }]}>{label}</Text>
+              <View style={[small ? styles.smallButton : styles.button, { backgroundColor: backgroundColor }]}>
+                  <Text style={[small ? styles.smallText : styles.text, { color: textColor }]}>{label}</Text>
               </View>
           </Pressable>
       </View>

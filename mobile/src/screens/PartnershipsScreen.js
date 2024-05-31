@@ -1,14 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../contexts/authContext';
 import { listPartnerships } from '../cruds/partnership';
 import Screen from '../components/layout/Screen';
 import { ScrollView, FlatList, Text, View, StyleSheet } from 'react-native';
 import CustomButton from '../components/inputs/CustomButton';
 import SubTitle from '../components/textual/Subtitle';
 
-const RoutePartnerships = ({ route, partners, navigation}) => {
+const RoutePartnerships = ({ currentUser, route, partners, navigation}) => {
 
-  function seePartner(){
-    navigation.navigate('ProfileScreen', {user: partners[0].requested});
+  function seePartner(partnership){
+    let part = getPartner(partnership);
+    navigation.navigate('Perfil', {user: part});
+  }
+
+  function getPartner(partnership){
+    if(partnership.requested.id == currentUser.id){
+      return partnership.requestant;
+    }
+
+    return partnership.requested;
   }
 
   return(
@@ -19,7 +29,7 @@ const RoutePartnerships = ({ route, partners, navigation}) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           return (
-            <CustomButton key={item.id} label={item.requested.name} onClickHandler={seePartner} inverted={true}/>
+            <CustomButton key={item.id} label={getPartner(item).name} onClickHandler={() => {seePartner(item)}} inverted={true}/>
           );
         }}
       />
@@ -30,6 +40,7 @@ const RoutePartnerships = ({ route, partners, navigation}) => {
 
 
 const PartnershipsScreen = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
   const [partnerships, setPartnerships] = useState({});
   
   useEffect(() => {
@@ -64,7 +75,7 @@ const PartnershipsScreen = ({ navigation }) => {
           {Object.keys(partnerships).length === 0 && <Text>Não há parcerias.</Text>}
           {Object.keys(partnerships).map((routeId) => {
             const { route, partners } = partnerships[routeId];
-            return <RoutePartnerships key={route.id} route={route} partners={partners} navigation={navigation} />
+            return <RoutePartnerships key={route.id} currentUser={user} route={route} partners={partners} navigation={navigation} />
           })}
         </View>
       </Screen>

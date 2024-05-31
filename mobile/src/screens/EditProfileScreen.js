@@ -7,7 +7,6 @@ import { Image, View, StyleSheet} from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
-import Comment from "../components/textual/Comment";
 import { vw } from "../consts";
 import { AuthContext } from "../contexts/authContext";
 import { updateUser } from "../cruds/user";

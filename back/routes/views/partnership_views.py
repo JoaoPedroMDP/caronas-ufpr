@@ -17,10 +17,9 @@ class PartnershipListCreateView(generics.ListCreateAPIView):
         return PartnershipReadSerializer
 
     def get_queryset(self) -> List[Partnership]:
-        return Partnership.objects.filter(
-            requestant=self.request.user,
-            status=ACCEPTED
-            )
+        # Retorno todas as parcerias onde o usuário está presente, seja como requested ou requestant
+        
+        return list(self.request.user.partnerships_requestant.all()) + list(self.request.user.partnerships_requested.all())
 
     def perform_create(self, serializer):
         serializer.save(status=PENDING)

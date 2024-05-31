@@ -8,6 +8,7 @@ import RegisterRouteScreen from "../screens/RegisterRouteScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import ResultProfileScreen from '../screens/ResultProfileScreen';
 import PartnershipsScreen from '../screens/PartnershipsScreen';
+import PartnershipRequestsScreen from '../screens/PartnershipRequestsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
@@ -40,7 +41,8 @@ const AppRoutes = () => {
     return(
       <Drawer.Navigator initialRouteName="Home" drawerContent={drawerContent}>
           <Drawer.Screen name='Parcerias' component={PartnershipsScreen} options={{headerTitle: screenTitles}} />
-          <Drawer.Screen name="Home" component={HomeScreen} options={{headerTitle: ""}} />
+          <Drawer.Screen name='Pedidos de Parceria' component={PartnershipRequestsScreen} options={{headerTitle: screenTitles}} />
+          <Drawer.Screen name="Início" component={HomeScreen} options={{headerTitle: ""}} />
           <Drawer.Screen name='Registrar Rota' component={RegisterRouteScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name="Instruções" component={FirstAccessScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name="Editar Perfil" component={EditProfileScreen} options={{headerTitle: screenTitles}} />

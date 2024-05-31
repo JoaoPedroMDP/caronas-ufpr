@@ -26,7 +26,7 @@ const IntentionSection = ({intention, users, navigation, route}) => {
               <CustomButton 
                 label={item.user.name}
                 onClickHandler={() => {
-                  navigation.navigate("ResultProfileScreen", {user: item.user, route: route});
+                  navigation.navigate("Resultado", {user: item.user, route: route});
                 }}
               />
           );
