@@ -52,7 +52,6 @@ const EditProfileScreen = ({ navigation }) => {
     useFocusEffect(useCallback(() => {
         async function fetchData() {
             try {
-                await refreshUser();
                 setName(user.name);
                 setBio(user.bio);
                 setContact(user.contact);
@@ -63,11 +62,11 @@ const EditProfileScreen = ({ navigation }) => {
                 setShowSnackbar(true);
             }
         }
+
         fetchData();
     }, []));
 
     async function selectImage(){
-        
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,

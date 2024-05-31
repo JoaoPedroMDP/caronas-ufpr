@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from routes.views.auth_views import LoggedUserView, LogoutView
-from routes.views.partnership_views import PartnershipDetailView, PartnershipListCreateView
+from routes.views.partnership_views import ListPartnershipRequestsView, PartnershipDetailView, PartnershipListCreateView
 from routes.views.place_views import PlaceDetailView, PlaceListCreateView
 from routes.views.route_views import RouteDetailView, RouteListCreateView
 from routes.views.user_views import GetUsersByRouteView, UserDetailView, UserListCreateView
@@ -32,4 +32,6 @@ urlpatterns = [
 
     path('partnerships', PartnershipListCreateView.as_view(), name='gen_partnership'),
     path('partnerships/<int:pk>', PartnershipDetailView.as_view(), name='spe_partnership'),
+
+    path('partnerships/requests', ListPartnershipRequestsView.as_view(), name='list_partnership_requests')
 ]

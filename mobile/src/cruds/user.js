@@ -12,6 +12,7 @@ const URIS = {
 };
 
 async function getLoggedUser(){
+    console.log("Pegando usuário logado...");
     let config = await getConfig();
     let result = axios.get(env.back_end + URIS.getLoggedUser, config)
     .then((response) => {
@@ -33,6 +34,7 @@ async function getLoggedUser(){
 
 
 async function createUser(userData){
+    console.log("Criando usuário...");
     let data = await axios
         .post(env.back_end + URIS.createUser, userData)
         .then((response) => {
@@ -48,6 +50,7 @@ async function createUser(userData){
 
 
 async function updateUser(userFormData, userId){
+    console.log("Atualizando usuário...");
     let config = await getConfig();
 
     let data = await axios
@@ -64,6 +67,7 @@ async function updateUser(userFormData, userId){
 
 
 async function getUsersByRoute(route_id){
+    console.log("Buscando usuários para a rota...");
     let config = await getConfig();
 
     let users = await axios

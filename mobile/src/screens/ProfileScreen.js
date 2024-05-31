@@ -2,11 +2,10 @@ import { Image, Text, StyleSheet, View } from 'react-native';
 import Screen from '../components/layout/Screen';
 import { getImage } from '../components/apis/caronasApi';
 import Title from '../components/textual/Title';
+import Subtitle from '../components/textual/Subtitle';
 import { LightGray } from '../../assets/colors';
-import CustomButton from '../components/inputs/CustomButton';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/authContext';
-import { askPartnership } from '../cruds/partnership';
 
 const styles = StyleSheet.create({
     image: {
@@ -24,12 +23,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const ResultProfileScreen = ({ route, navigation }) => {
+const ProfileScreen = ({ route, navigation }) => {
     const {user} = useContext(AuthContext);
-    async function handleAskPartnership() {
-        await askPartnership(user, route.params?.user, route.params?.route);
-        navigation.goBack();
-    }
 
     return(
         <Screen full>
@@ -37,14 +32,12 @@ const ResultProfileScreen = ({ route, navigation }) => {
                 <Image source={{ uri: getImage(route.params?.user.photo) }} style={styles.image} />
             }
             <Title title={route.params?.user.name} centralized expand />
+            <Subtitle subtitle={"Contato: " + route.params?.user.contact} centralized />
             <View style={styles.bioBox}>
                 <Text>{route.params?.user.bio ?? "Este usuário não possui bio"}</Text>
-            </View>
-            <View>
-                <CustomButton alignment="end" label="Pedir parceria" onClickHandler={handleAskPartnership}/>
             </View>
         </Screen>
     );
 }
 
-export default ResultProfileScreen;
+export default ProfileScreen;

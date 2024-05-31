@@ -7,6 +7,7 @@ const routesApi = axios.create({
 });
 
 async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions) {
+    console.log("Salvando rota...")
     let data = {
         "name": `${origin.name} -> ${destiny.name}`,
         "intentions": userIntentions,
@@ -32,6 +33,7 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions)
 
 
 async function getRoutes(){
+    console.log("Pegando rotas...");
     let config = await getConfig();
 
     let routes = await routesApi

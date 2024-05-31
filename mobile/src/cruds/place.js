@@ -10,6 +10,7 @@ const routesApi = axios.create({
 });
 
 async function getPlaces(){
+    console.log("Pegando locais...");
     let config = await getConfig();
 
     let data = await routesApi

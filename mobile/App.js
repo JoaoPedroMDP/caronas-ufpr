@@ -1,3 +1,4 @@
+import "@expo/metro-runtime";
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';

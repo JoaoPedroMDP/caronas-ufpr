@@ -20,14 +20,26 @@ const RegisterScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState(null);
 
   async function handleRegister() {
-    let user_data = {}
-    name && (user_data.name = name);
-    email && (user_data.email = email);
-    password && (user_data.password = password);
-    passwordConfirmal && password === passwordConfirmal && (user_data.password = password);
-    bio && (user_data.bio = bio);
-    contact && (user_data.contact = contact);
-    photo && (user_data.photo = photo);
+    if(!name || !email || !password || !passwordConfirmal || !contact){
+      setValidationMessage("Preencha todos os campos obrigatórios.");
+      setShowSnackbar(true);
+      return;
+    }
+
+    if(password != passwordConfirmal){
+      setValidationMessage("As senhas não coincidem.");
+      setShowSnackbar(true);
+      return;
+    }
+    
+    let user_data = {
+      name: name,
+      email: email,
+      password: password,
+      contact: contact,
+      bio: bio,
+      photo: photo
+    }
 
     try {
       await createUser(user_data);

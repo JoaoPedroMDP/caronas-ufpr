@@ -11,6 +11,7 @@ const URIS = {
 
 
 function login(username, password){
+    console.log("Realizando login...");
     let result = axios.post(env.back_end + URIS['login'], { username, password })
     .then(async (response) => {
         return response.data;
@@ -27,6 +28,7 @@ function login(username, password){
 }
 
 const logout = async () => {
+    console.log("Realizando logout...");
     let result = axios.post(env.back_end + URIS['logout'], { refresh_token: await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY) })
     .then(async () => {
         return true;
@@ -40,6 +42,7 @@ const logout = async () => {
 };
 
 const refresh = async () => {
+    console.log("Realizando refresh...");
     let refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
     let result = axios.post(env.back_end + URIS['refresh'], { refresh: refreshToken })
     .then(async (response) => {

@@ -8,8 +8,8 @@ const Drawer = createDrawerNavigator();
 
 const AuthRoutes = () => (
   <Drawer.Navigator>
-        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
         <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }}/>
+        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
         <Drawer.Screen name="ForgetPassword" component={ForgetPassword} options={{ title: "Recuperar Senha" }} />
   </Drawer.Navigator>
 );

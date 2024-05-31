@@ -11,7 +11,7 @@ import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
 
 
-const IntentionSection = ({intention, users, navigation}) => {
+const IntentionSection = ({intention, users, navigation, route}) => {
   if(users.length == 0) return null;
 
   return(
@@ -26,7 +26,7 @@ const IntentionSection = ({intention, users, navigation}) => {
               <CustomButton 
                 label={item.user.name}
                 onClickHandler={() => {
-                  navigation.navigate("ResultProfileScreen", {user: item.user});
+                  navigation.navigate("ResultProfileScreen", {user: item.user, route: route});
                 }}
               />
           );
@@ -84,21 +84,25 @@ const HomeScreen = ({navigation}) => {
                 <IntentionSection 
                   intention="Oferecem carona"
                   navigation={navigation}
+                  route={selectedRoute}
                   users={users.filter((user) => user.intentions.includes("offer_ride"))}
                 />
                 <IntentionSection
                   intention="Precisam de carona"
                   navigation={navigation}
+                  route={selectedRoute}
                   users={users.filter((user) => user.intentions.includes("receive_ride"))}
                 />
                 <IntentionSection
                   intention="Racham aplicativo"
                   navigation={navigation}
+                  route={selectedRoute}
                   users={users.filter((user) => user.intentions.includes("split_app"))}
                 />
                 <IntentionSection
                   intention="Companhia de busão"
                   navigation={navigation}
+                  route={selectedRoute}
                   users={users.filter((user) => user.intentions.includes("bus_pal"))}
                 />
               </View>

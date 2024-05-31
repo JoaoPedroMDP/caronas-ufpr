@@ -1,58 +1,90 @@
 import { useEffect, useState } from 'react';
 import { listPartnerships } from '../cruds/partnership';
+import Screen from '../components/layout/Screen';
+import { ScrollView, FlatList, Text, View, StyleSheet } from 'react-native';
+import CustomButton from '../components/inputs/CustomButton';
+import SubTitle from '../components/textual/Subtitle';
+
+const RoutePartnerships = ({ route, partners, navigation}) => {
+
+  function seePartner(){
+    navigation.navigate('ProfileScreen', {user: partners[0].requested});
+  }
+
+  return(
+    <View>
+      <Text style={styles.routeName}>{route.name}</Text>
+      <FlatList
+        data={partners}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          return (
+            <CustomButton key={item.id} label={item.requested.name} onClickHandler={seePartner} inverted={true}/>
+          );
+        }}
+      />
+    </View>
+  );
+}
+
+
 
 const PartnershipsScreen = ({ navigation }) => {
-    const [partnerships, setPartnerships] = useState([]);
-    useEffect(()=>{
-        async function fetchPartnerships(){
-            let result = await listPartnerships();
-            let segregatedByRoute = {};
-            console.log(result);
-            
-            result.forEach((partnership) => {
-                if(!segregatedByRoute[partnership.route_id]){
-                    segregatedByRoute[partnership.route_id] = [];
-                }
-                segregatedByRoute[partnership.route_id].push(partnership);
-            });
+  const [partnerships, setPartnerships] = useState({});
+  
+  useEffect(() => {
+    async function fetchPartnerships() {
+      let result = await listPartnerships();
+      let segregatedByRoute = {};
+
+      result.forEach((partnership) => {
+        const routeId = partnership.route.id;
+        if (!segregatedByRoute[routeId]) {
+          segregatedByRoute[routeId] = {
+            route: partnership.route,
+            partners: []
+          };
         }
+        segregatedByRoute[routeId].partners.push(partnership);
+      });
 
-        fetchPartnerships();
-    });
+      setPartnerships(segregatedByRoute);
+    }
 
-    return(
-        <ScrollView>
-            <Screen title="Cadastrar Rota">
-            {}
+    fetchPartnerships();
+  }, []);
 
+  console.log(partnerships);
 
-            {users.length > 0 && 
-              <View>
-                <IntentionSection 
-                  intention="Caronas recebidas"
-                  navigation={navigation}
-                  users={users.filter((user) => user.intentions.includes("offer_ride"))}
-                />
-                <IntentionSection
-                  intention="Caronas oferecidas"
-                  navigation={navigation}
-                  users={users.filter((user) => user.intentions.includes("receive_ride"))}
-                />
-                <IntentionSection
-                  intention="Racham aplicativo"
-                  navigation={navigation}
-                  users={users.filter((user) => user.intentions.includes("split_app"))}
-                />
-                <IntentionSection
-                  intention="Companhias de busão"
-                  navigation={navigation}
-                  users={users.filter((user) => user.intentions.includes("bus_pal"))}
-                />
-              </View>
-            }
-            </Screen>
-        </ScrollView>
-    );
+  return (
+    <ScrollView>
+      <Screen title="Parcerias">
+        <SubTitle subtitle="Para ver o contato de seus parceiros, é só clicar no nome deles ;)" />
+        <View style={styles.partnerships}>
+          {Object.keys(partnerships).length === 0 && <Text>Não há parcerias.</Text>}
+          {Object.keys(partnerships).map((routeId) => {
+            const { route, partners } = partnerships[routeId];
+            return <RoutePartnerships key={route.id} route={route} partners={partners} navigation={navigation} />
+          })}
+        </View>
+      </Screen>
+    </ScrollView>
+  );
 }
+
+const styles = StyleSheet.create({
+  routeName: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontFamily: "InterBold"
+  },
+  partnerText: {
+    fontSize: 16,
+    marginBottom: 5
+  },
+  partnerships: {
+    marginTop: 20
+  }
+});
 
 export default PartnershipsScreen;

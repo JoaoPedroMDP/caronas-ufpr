@@ -4,6 +4,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+from config import PENDING
 from routes.models import Partnership, User, Place, Route
 
 
@@ -88,10 +89,20 @@ class RouteSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'intentions', 'user', 'arrive_time', 'from_place', 'to_place']
 
 
-class PartnershipSerializer(serializers.ModelSerializer):
+class PartnershipReadSerializer(serializers.ModelSerializer):
+    requestant = UserSerializer()
+    requested = UserSerializer()
+    route = RouteSerializer()
+
+    class Meta:
+        model = Partnership
+        fields = ['id', 'route', 'requestant', 'requested', 'status']
+
+
+class PartnershipWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partnership
         fields = ['id', 'route', 'requestant', 'requested', 'status']
         extra_kwargs = {
-            'status': {'read_only': True, 'default': 'pending'},
+            'status': {'default': 'PENDING'},
         }
