@@ -42,10 +42,10 @@ const AppRoutes = () => {
     return(
       <Drawer.Navigator initialRouteName="Home" drawerContent={drawerContent}>
           <Drawer.Screen name="Minhas rotas" component={MyRoutesScreen} options={{headerTitle: screenTitles}} />
+          <Drawer.Screen name='Registrar Rota' component={RegisterRouteScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name='Parcerias' component={PartnershipsScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name='Pedidos de Parceria' component={PartnershipRequestsScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name="Início" component={HomeScreen} options={{headerTitle: ""}} />
-          <Drawer.Screen name='Registrar Rota' component={RegisterRouteScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name="Instruções" component={FirstAccessScreen} options={{headerTitle: screenTitles}} />
           <Drawer.Screen name="Editar Perfil" component={EditProfileScreen} options={{headerTitle: screenTitles}} />
       </Drawer.Navigator>

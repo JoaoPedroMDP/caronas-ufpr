@@ -1,12 +1,8 @@
 import ModalSelector from 'react-native-modal-selector';
-import { useState } from 'react';
 import CustomButton from './CustomButton';
 
-const ListPicker = ({ value, list, returnValue }) => {
-    const [selected, setSelected] = useState(value);
-
+const ListPicker = ({ value, list, returnValue, placeholder = "Selecione um item" }) => {
     function changeValue(option) {
-        setSelected(option.label);
         returnValue(option);
     }
 
@@ -17,7 +13,7 @@ const ListPicker = ({ value, list, returnValue }) => {
             multiple={false}
         >
             <CustomButton
-                label={value ?? "Selecione um item"}
+                label={value ?? placeholder}
             />
         </ModalSelector>
     );

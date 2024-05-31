@@ -16,7 +16,7 @@ import CustomTextInput from '../components/inputs/CustomTextInput';
 import WeekDaySelector from '../components/inputs/WeekDaySelector';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
-    const [listPickerValue, setListPickerValue] = useState("Selecione um local");
+    const [listPickerValue, setListPickerValue] = useState(null);
     
     function returnPlace(endpoint) {
         setPlace(endpoint);
@@ -32,15 +32,18 @@ const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType })
         <View style={styles.endpoint}>
             <ListPicker
                 value={listPickerValue}
+                placeholder={"Selecione um local"}
                 list={placesOptions[placeType]}
                 returnValue={returnPlace}
             />
             <View style={styles.endpointType}>
-                <Text style={styles.endpointTypeText}>{placeType === "campus" ? "Campus" : "Bairro"}</Text>
+                <Text style={styles.endpointTypeText}>Bairro</Text>
                 <CustomSwitch
+                    customStyle={{marginHorizontal: 10}}
                     switchValue={placeType === "campus"}
                     onSwitchHandler={changePlaceType}
                 />
+                <Text style={styles.endpointTypeText}>Campus</Text>
             </View>
         </View>
     );
