@@ -34,4 +34,9 @@ function getFormattedTime(time) {
     return time.substring(0, time.length - 3);
 }
 
-export { pickablelize, toCheckboxGroupFormat, getFormattedTime };
+function sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
+}
+
+export { pickablelize, toCheckboxGroupFormat, getFormattedTime, sanitizeString };

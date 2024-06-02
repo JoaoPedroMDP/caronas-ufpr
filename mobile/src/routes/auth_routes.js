@@ -9,10 +9,10 @@ const Drawer = createDrawerNavigator();
 
 const AuthRoutes = () => (
   <Drawer.Navigator>
-        <Drawer.Screen name="RequestPasswordReset" component={RequestPasswordReset} options={{ title: "Recuperar Senha" }} />
-        <Drawer.Screen name="ResetPassword" component={ResetPassword} options={{ title: "Definir nova senha" }} />
         <Drawer.Screen name="Login" component={LoginScreen} options={{ title: "Login" }}/>
-        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
+        <Drawer.Screen name="Resetar senha" component={RequestPasswordReset} options={{ title: "Recuperar Senha" }} />
+        <Drawer.Screen name="Definir nova senha" component={ResetPassword} options={{ title: "Definir nova senha" }} />
+        <Drawer.Screen name="Cadastrar-se" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
   </Drawer.Navigator>
 );
 

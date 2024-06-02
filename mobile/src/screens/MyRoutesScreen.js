@@ -8,6 +8,7 @@ import { getFormattedTime } from '../contrib';
 import CustomButton from '../components/inputs/CustomButton';
 import { deleteRoute } from '../cruds/route';
 import { Snackbar, Portal } from 'react-native-paper';
+import gs from '../globalStyles';
 
 const Route = ({route, deleteHandler}) => {
     const [pressed, setPressed] = useState(false);
@@ -58,7 +59,7 @@ const Route = ({route, deleteHandler}) => {
 
 const MyRoutesScreen = ({ navigation }) => {
     const [routes, setRoutes] = useState([]);
-    const [refresh, setrefresh] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false);
 
@@ -78,7 +79,7 @@ const MyRoutesScreen = ({ navigation }) => {
         }
   
         fetchUserRoutes();
-      }, []));
+      }, [refresh]));
   
 
     async function handleDelete(route) {
@@ -96,8 +97,9 @@ const MyRoutesScreen = ({ navigation }) => {
 
     return (
         <Screen title={"Minhas rotas"}>
+            <Text style={gs.regularText}>Clique nas rotas para ver mais detalhes</Text>
             <View>
-                {routes.length === 0 && <Text style={styles.regularText}>Você ainda não possui rotas cadastradas.</Text>}
+                {routes.length === 0 && <Text style={gs.regularText}>Você ainda não possui rotas cadastradas.</Text>}
                 <FlatList
                     data={routes}
                     keyExtractor={(item) => item.id.toString()}
@@ -129,12 +131,6 @@ let styles = StyleSheet.create({
         fontFamily: "InterBold",
         fontSize: 20,
         textAlign: 'center'
-    },
-    regularText: {
-        fontFamily: "InterRegular",
-        fontSize: 20,
-        marginTop: 10,
-        color: DarkGray
     },
     routes: {
         backgroundColor: LightGray,

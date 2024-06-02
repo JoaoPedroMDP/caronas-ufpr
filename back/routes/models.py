@@ -3,7 +3,7 @@
 """
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.core.validators import FileExtensionValidator
 
 class TimestampedModel(models.Model):
     """
@@ -20,7 +20,7 @@ class User(AbstractUser, TimestampedModel):
     name = models.CharField(max_length=250)
     contact = models.CharField(max_length=250)
     bio = models.CharField(max_length=600, null=True, blank=True)
-    photo = models.ImageField(upload_to='users', null=True, blank=True)
+    photo = models.ImageField(upload_to='users', validators=[FileExtensionValidator(['jpg', 'jpeg'])], null=True, blank=True)
 
     class Meta:
         ordering = ['name']

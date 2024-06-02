@@ -4,11 +4,11 @@ import env from '../../env';
 import { REFRESH_TOKEN_STORAGE_KEY } from '../consts';
 
 const URIS = {
-    login: '/login',
-    logout: '/logout',
-    refresh: '/refresh',
-    requestPassReset: '/request_password_reset',
-    resetPass: '/reset_password'
+    login: '/routes/login',
+    logout: '/routes/logout',
+    refresh: '/routes/refresh',
+    requestPassReset: '/routes/request_password_reset',
+    resetPass: '/routes/reset_password'
 };
 
 
@@ -46,14 +46,15 @@ const logout = async () => {
 const refresh = async () => {
     console.log("Realizando refresh...");
     let refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
-    let result = axios.post(env.back_end + URIS['refresh'], { refresh: refreshToken })
-    .then(async (response) => {
-        return response.data;
-    })
-    .catch((error) => {
-        console.log('Erro ao renovar token:', error);
-        throw new Error('Erro ao renovar token');
-    });
+    let result = axios
+        .post(env.back_end + URIS['refresh'], { refresh: refreshToken })
+        .then(async (response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log('Erro ao renovar token:', error);
+            throw new Error('Erro ao renovar token');
+        });
 
     return result;
 
@@ -64,14 +65,15 @@ const requestPasswordReset = async (email) => {
         params: { email: email }
     }
 
-    let result = axios.get(env.back_end + URIS['requestPassReset'], config)
-    .then(async (response) => {
-        return response;
-    })
-    .catch((error) => {
-        console.log('Erro ao tentar resetar a senha:', error);
-        throw new Error('Erro ao tentar resetar a senha');
-    });
+    let result = axios
+        .get(env.back_end + URIS['requestPassReset'], config)
+        .then(async (response) => {
+            return response;
+        })
+        .catch((error) => {
+            console.log('Erro ao tentar resetar a senha:', error);
+            throw new Error('Erro ao tentar resetar a senha');
+        });
 
     return result;
 }
@@ -83,14 +85,15 @@ const resetPassword = async (token ,password) => {
         token: token
     }
 
-    let result = axios.post(env.back_end + URIS['resetPass'], data)
-    .then(async (response) => {
-        return response;
-    })  
-    .catch((error) => {
-        console.log('Erro ao tentar resetar a senha:', error);
-        throw new Error('Erro ao tentar resetar a senha');
-    });
+    let result = axios
+        .post(env.back_end + URIS['resetPass'], data)
+        .then(async (response) => {
+            return response;
+        })  
+        .catch((error) => {
+            console.log('Erro ao tentar resetar a senha:', error);
+            throw new Error('Erro ao tentar resetar a senha');
+        });
 
     return result;
 }

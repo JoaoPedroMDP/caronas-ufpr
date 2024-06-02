@@ -2,9 +2,12 @@ import env from '../../env';
 import axios from 'axios';
 import { getConfig } from './utils';
 
-const routesApi = axios.create({
-    baseURL: env.back_end + '/routes'
-});
+const URIS = {
+    saveRoute: '/routes/routes',
+    getRoutes: '/routes/routes',
+    deleteRoute: '/routes/routes/'
+};
+
 
 async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions) {
     console.log("Salvando rota...")
@@ -20,7 +23,7 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions)
     let config = await getConfig();
 
     try{
-        routesApi.post("", data, config)
+        axios.post(env.back_end + URIS.saveRoute, data, config)
             .catch((error) => {
                 console.log("Não foi possível criar a rota: " + error)
                 throw Error("Não foi possível criar a rota.");
@@ -36,8 +39,8 @@ async function getRoutes(){
     console.log("Pegando rotas...");
     let config = await getConfig();
 
-    let routes = await routesApi
-        .get("", config)
+    let routes = await axios
+        .get(env.back_end + URIS.getRoutes, config)
         .then((response) => {
             return response.data;
         })
@@ -52,7 +55,7 @@ async function deleteRoute(route){
     let config = await getConfig();
 
     try{
-        routesApi.delete(`/${route.id}`, config)
+        axios.delete(env.back_end + URIS.deleteRoute + `${route.id}`, config)
             .catch((error) => {
                 console.log("Não foi possível deletar a rota: " + error)
                 throw Error("Não foi possível deletar a rota.");

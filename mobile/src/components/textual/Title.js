@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 const style = StyleSheet.create({
     title: {
         fontFamily: "InterBold",
-        fontSize: 35,
+        fontSize: 50,
         maxWidth: 175
     }
 })

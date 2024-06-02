@@ -4,7 +4,7 @@ import { getImage } from '../components/apis/caronasApi';
 import Title from '../components/textual/Title';
 import Subtitle from '../components/textual/Subtitle';
 import { LightGray } from '../../assets/colors';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/authContext';
 
 const styles = StyleSheet.create({
@@ -24,17 +24,23 @@ const styles = StyleSheet.create({
 });
 
 const ProfileScreen = ({ route, navigation }) => {
-    const {user} = useContext(AuthContext);
+    const {user, refreshUser} = useContext(AuthContext);
+    
+    useEffect(() => {
+        refreshUser();
+    }, []);
+
+    let userToShow = route.params?.user ?? user;
 
     return(
         <Screen full>
-            {route.params?.user.photo != null && 
-                <Image source={{ uri: getImage(route.params?.user.photo) }} style={styles.image} />
+            {userToShow.photo != null && 
+                <Image source={{ uri: getImage(userToShow.photo) }} style={styles.image} />
             }
-            <Title title={route.params?.user.name} centralized expand />
-            <Subtitle subtitle={"Contato: " + route.params?.user.contact} centralized />
+            <Title title={userToShow.name} centralized expand />
+            <Subtitle subtitle={"Contato: " + userToShow.contact} centralized />
             <View style={styles.bioBox}>
-                <Text>{route.params?.user.bio ?? "Este usuário não possui bio"}</Text>
+                <Text>{userToShow.bio ?? "Este usuário não possui bio"}</Text>
             </View>
         </Screen>
     );

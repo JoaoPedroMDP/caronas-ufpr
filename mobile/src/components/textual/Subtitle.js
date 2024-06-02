@@ -1,4 +1,5 @@
 import { StyleSheet, Text } from 'react-native';
+import gs from '../../globalStyles';
 
 const style = StyleSheet.create({
     subtitle: {
@@ -10,7 +11,7 @@ const style = StyleSheet.create({
 const SubTitle = ({ subtitle, centralized, justify }) => {
     return (
         <Text style={[
-            style.subtitle,
+            gs.regularText,
             { alignSelf: (centralized != null) && centralized ? "center" : null },
             { textAlign: justify != null ? "justify" : null }
         ]}>{subtitle}</Text>

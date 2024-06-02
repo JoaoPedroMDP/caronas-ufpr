@@ -2,6 +2,7 @@ from typing import List
 from rest_framework import generics, permissions
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from routes.models import Route, User
 from routes.serializers import UserSerializer
@@ -11,6 +12,7 @@ class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
+    parser_classes = (MultiPartParser, FormParser)
 
     def perform_create(self, serializer):
         # Chama o método save do serializador para criar o usuário

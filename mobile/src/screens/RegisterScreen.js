@@ -5,19 +5,19 @@ import Screen from "../components/layout/Screen";
 import CustomButton from "../components/inputs/CustomButton";
 import { Portal, Snackbar } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
-import { vw } from "../consts";
 import { createUser } from "../cruds/user";
+import { sanitizeString } from "../contrib";
 
 const RegisterScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmal, setPasswordConfirmal] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("email@email.com");
+  const [password, setPassword] = useState("senha");
+  const [passwordConfirmal, setPasswordConfirmal] = useState("senha");
+  const [name, setName] = useState("joao pedro");
   const [validationMessage, setValidationMessage] = useState(null);
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const [bio, setBio] = useState("");
-  const [contact, setContact] = useState("");
-  const [photo, setPhoto] = useState(null);
+  const [bio, setBio] = useState("bio");
+  const [contact, setContact] = useState("contato");
+  const [photo, setPhoto] = useState({});
 
   async function handleRegister() {
     if(!name || !email || !password || !passwordConfirmal || !contact){
@@ -32,14 +32,17 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
     
-    let user_data = {
-      name: name,
-      email: email,
-      password: password,
-      contact: contact,
-      bio: bio,
-      photo: photo
-    }
+    let user_data = new FormData();
+    user_data.append("name", name);
+    user_data.append("email", email);
+    user_data.append("password", password);
+    user_data.append("contact", contact);
+    user_data.append("bio", bio);
+    user_data.append('photo', {
+      uri: photo.uri,
+      name: sanitizeString(name) + "." + sanitizeString(photo.fileName.split(".").at(-1)),
+      type: photo.mimeType
+    });
 
     try {
       await createUser(user_data);
@@ -61,13 +64,13 @@ const RegisterScreen = ({ navigation }) => {
       });
 
     if (!result.canceled) {
-        setPhoto(result.assets[0].uri);
+        setPhoto(result.assets[0]);
     }
   }
 
   function sourceImage(){
-    if(photo){
-        return {uri: photo};
+    if('uri' in photo){
+        return {uri: photo.uri};
     }else {
         return require("../../assets/images/profile.png");
     }
@@ -77,7 +80,7 @@ const RegisterScreen = ({ navigation }) => {
     <Screen title="Cadastro" centralized>
       <View style={styles.imageSection}>
         <Image source={sourceImage()} style={styles.image} />
-        <CustomButton alignment='center' label="Cadastrar foto" onClickHandler={selectImage} />
+        <CustomButton alignment='center' label="Selecionar foto" onClickHandler={selectImage} />
       </View>
       <CustomTextInput placeholder="Nome" text={name} setText={(value) => setName(value)} />
       <CustomTextInput placeholder="Email" text={email} setText={(value) => setEmail(value)} />

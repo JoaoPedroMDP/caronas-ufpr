@@ -2,13 +2,19 @@ import axios from "axios";
 import { getConfig } from "./utils";
 import env from "../../env";
 
+const URIS = {
+    listPartReqs: '/routes/partnerships/requests',
+    listPart: '/routes/partnerships',
+    askPart: '/routes/partnerships',
+    changePartStatus: '/routes/partnerships/'
+};
 
 async function listPartnershipRequests(){
     console.log("Pegando pedidos de parcerias...");
     let config = await getConfig();
 
     let response = axios
-        .get(env.back_end + '/partnerships/requests', config)
+        .get(env.back_end + URIS.listPartReqs, config)
         .then((response) => {
             return response.data;
         })
@@ -25,7 +31,7 @@ async function listPartnerships(){
     let config = await getConfig();
 
     let response = axios
-        .get(env.back_end + '/partnerships', config)
+        .get(env.back_end + URIS.listPart, config)
         .then((response) => {
             return response.data;
         })
@@ -46,7 +52,7 @@ async function askPartnership(requestant, requested, route){
     };
 
     let response = axios
-        .post(env.back_end + '/partnerships', data, config)
+        .post(env.back_end + URIS.askPart, data, config)
         .then((response) => {
             return response.data;
         })
@@ -65,7 +71,7 @@ async function changePartnershipStatus(request, status){
     };
 
     let response = axios
-        .patch(env.back_end + '/partnerships/' + request.id, data, config)
+        .patch(env.back_end + URIS.changePartStatus + request.id, data, config)
         .then((response) => {
             return response.data;
         })

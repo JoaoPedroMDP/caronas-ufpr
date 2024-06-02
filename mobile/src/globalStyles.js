@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { DarkGray } from "../assets/colors";
 
 
 const gs = StyleSheet.create({
@@ -13,6 +14,12 @@ const gs = StyleSheet.create({
     justifyCenter: {
       justifyContent: "center",
     },
+    regularText: {
+      fontFamily: "InterRegular",
+      fontSize: 20,
+      marginTop: 10,
+      color: DarkGray
+  },
 })
 
 export default gs;

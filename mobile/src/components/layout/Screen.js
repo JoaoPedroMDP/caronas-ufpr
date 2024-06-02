@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Title from "../textual/Title";
+
 
 const styles = StyleSheet.create({
     screen: {
@@ -11,10 +12,12 @@ const styles = StyleSheet.create({
 
 const Screen = ({ children, title, centralized }) => {
     return (
-        <View style={[styles.screen, {justifyContent: centralized != undefined ? "center" : "flex-start"}]}>
-            <Title title={title} centralized={centralized} />
-            {children}
-        </View>
+        <ScrollView>
+            <View style={[styles.screen, {justifyContent: centralized != undefined ? "center" : "flex-start"}]}>
+                <Title title={title} centralized={centralized} />
+                {children}
+            </View>
+        </ScrollView>
     )
 }
 

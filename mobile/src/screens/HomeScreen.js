@@ -9,7 +9,7 @@ import CustomSnackbar from '../components/layout/CustomSnackbar';
 import { AuthContext } from '../contexts/authContext';
 import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
-import { DarkGray } from '../../assets/colors';
+import SubTitle from '../components/textual/Subtitle';
 
 
 const IntentionSection = ({intention, users, navigation, route}) => {
@@ -80,7 +80,7 @@ const HomeScreen = ({navigation}) => {
         <Screen title={`Olá, ${user.name}`}>
             {routes.length > 0 ? 
                 <ListPicker value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute}/>
-                : <Text style={styles.regularText}>Você ainda não possui rotas cadastradas.</Text>
+                : <SubTitle subtitle={"Você ainda não cadastrou nenhuma rota! 😱"} />
             }
             {users.length > 0 && 
               <View>
@@ -119,12 +119,4 @@ const HomeScreen = ({navigation}) => {
     );
 }
 
-const styles = StyleSheet.create({
-  regularText: {
-    fontFamily: "InterRegular",
-    fontSize: 20,
-    marginTop: 10,
-    color: DarkGray
-  },
-});
 export default HomeScreen;

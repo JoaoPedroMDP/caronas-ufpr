@@ -2,18 +2,15 @@ import CustomButton from "../components/inputs/CustomButton";
 import Screen from "../components/layout/Screen";
 import Section from "../components/layout/Section";
 import Vspacer from "../components/layout/Vspacer";
-import Comment from "../components/textual/Comment";
-import SubTitle from "../components/textual/Subtitle";
-import { StyleSheet, View } from "react-native";
-
-const styles = StyleSheet.create({});
+import { StyleSheet, View, Text } from "react-native";
 
 const FirstAccessScreen = ({ navigation }) => {
     let vocative = "Acabou de chegar?? Veja como funciona o app:";
     let steps = [
         "Você cadastra suas rotas e os horários",
         "Te mostramos as pessoas que fazem o mesmo trajeto",
-        "Você economiza e ainda ganha uma companhia!"
+        "Você pede uma parceria, e...",
+        "Se a pessoa aceitar, vocês combinam como farão o trajeto!"
     ];
     let importantPoints = [
         "Não pedimos o endereço exato da sua casa: Por hora, vamos nos preocupar apenas com o bairro. Preferimos deixar que você decida se revelará seu endereço, ou se marcará um ponto de encontro em comum",
@@ -27,33 +24,37 @@ const FirstAccessScreen = ({ navigation }) => {
             <Section title={vocative}>
                 {steps.map((step, index) => {
                     return (
-                        <Comment
-                            key={index}
-                            comment={(index + 1).toString() + ". " + step}
-                        />
+                        <Text key={index}>{(index + 1).toString() + ". " + step}</Text>
                     );
                 })}
             </Section>
             <Vspacer h={10} />
-            <SubTitle subtitle={"Importante!!"} />
-            {importantPoints.map((point, index) => {
-                return (
-                    <View key={index}>
-                        <Comment
-                            key={index}
-                            comment={(index + 1).toString() + ". " + point}
-                        />
-                        <Vspacer h={5} />
-                    </View>
-                );
-            })}
-            <Vspacer h={10} />
-            <SubTitle subtitle={end} justify />
+            <Section title={"Importante!!"}>
+                {importantPoints.map((point, index) => {
+                    return (
+                        <View key={index}>
+                            <Text key={index}>{(index + 1).toString() + ". " + point}</Text>
+                            <Vspacer h={5} />
+                        </View>
+                    );
+                })}
+            </Section>
+            <Vspacer h={20} />
+            <Text style={styles.end}>{end}</Text>
             <View>
-                <CustomButton label="Começar" alignment="end" onClickHandler={() => {navigation.navigate("HomeScreen")}}/>
+                <CustomButton label="Começar" alignment="end" onClickHandler={() => {navigation.navigate("Início")}}/>
             </View>
         </Screen>
     );
 };
+
+const styles = StyleSheet.create({
+    end: {
+        textAlign: "left",
+        fontSize: 15,
+        fontFamily: "InterBold",
+    }
+});
+
 
 export default FirstAccessScreen;

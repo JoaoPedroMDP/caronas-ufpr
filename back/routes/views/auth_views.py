@@ -1,3 +1,4 @@
+import copy
 import logging
 from traceback import format_exc
 
@@ -9,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.request import Request
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 from config import GMAIL_APP_EMAIL
 from routes.models import PasswordResetToken, User
@@ -16,6 +19,20 @@ from routes.serializers import UserSerializer
 
 
 lgr = logging.getLogger(__name__)
+
+class LoginView(TokenObtainPairView):
+
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        data = copy.copy(request.data)
+        data['username'] = data['username'].lower()
+        serializer = self.get_serializer(data=data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class LogoutView(APIView):

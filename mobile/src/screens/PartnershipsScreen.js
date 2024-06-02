@@ -5,6 +5,7 @@ import Screen from '../components/layout/Screen';
 import { ScrollView, FlatList, Text, View, StyleSheet } from 'react-native';
 import CustomButton from '../components/inputs/CustomButton';
 import SubTitle from '../components/textual/Subtitle';
+import gs from '../globalStyles';
 
 const RoutePartnerships = ({ currentUser, route, partners, navigation}) => {
 
@@ -65,21 +66,18 @@ const PartnershipsScreen = ({ navigation }) => {
     fetchPartnerships();
   }, []);
 
-  console.log(partnerships);
-
   return (
-    <ScrollView>
-      <Screen title="Parcerias">
-        <SubTitle subtitle="Para ver o contato de seus parceiros, é só clicar no nome deles ;)" />
-        <View style={styles.partnerships}>
-          {Object.keys(partnerships).length === 0 && <Text>Não há parcerias.</Text>}
-          {Object.keys(partnerships).map((routeId) => {
-            const { route, partners } = partnerships[routeId];
-            return <RoutePartnerships key={route.id} currentUser={user} route={route} partners={partners} navigation={navigation} />
-          })}
-        </View>
-      </Screen>
-    </ScrollView>
+    <Screen title="Parcerias">
+      {Object.keys(partnerships).length === 0 ? 
+        <SubTitle subtitle="Você ainda não fez nenhuma parceria! 🙁 Cadastre uma rota e a selecione na tela inicial para ver potenciais parcerias :D" />
+        : <SubTitle subtitle="Para ver o contato de seus parceiros, é só clicar no nome deles ;)" />}
+      <View style={styles.partnerships}>
+        {Object.keys(partnerships).map((routeId) => {
+          const { route, partners } = partnerships[routeId];
+          return <RoutePartnerships key={route.id} currentUser={user} route={route} partners={partners} navigation={navigation} />
+        })}
+      </View>
+    </Screen>
   );
 }
 

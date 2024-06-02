@@ -10,6 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { vw } from "../consts";
 import { AuthContext } from "../contexts/authContext";
 import { updateUser } from "../cruds/user";
+import env from "../../env";
 
 const imageOptions = {
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -46,7 +47,7 @@ const EditProfileScreen = ({ navigation }) => {
     const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     // Photo é o que vem do backend
     const [photo, setPhoto] = useState(null);
-    const [newPhoto, setNewPhoto] = useState(null);
+    const [newPhoto, setNewPhoto] = useState({});
 
     useFocusEffect(useCallback(() => {
         async function fetchData() {
@@ -73,13 +74,19 @@ const EditProfileScreen = ({ navigation }) => {
           });
 
         if (!result.canceled) {
-            setNewPhoto(result.assets[0].uri);
+            console.log(result)
+            setNewPhoto(result.assets[0]);
         }
     }
 
+    function getImage(partialUrl){
+        console.log(partialUrl);
+        return `${env.back_end}${partialUrl}`;
+    }
+
     function sourceImage(){
-        if(newPhoto){
-            return {uri: newPhoto};
+        if('uri' in newPhoto){
+            return {uri: newPhoto.uri};
         } else if(photo) {
             return {uri: getImage(photo)};
         }else {
@@ -88,36 +95,41 @@ const EditProfileScreen = ({ navigation }) => {
     }
 
     async function update(){
-        let user_data = {}
-
+        let form_data = new FormData();
         if (name != "") {
-            user_data['name'] = name;
+            form_data.append('name', name);
         }
 
         if (bio != "") {
-            user_data['bio'] = bio;
+            form_data.append('bio', bio);
         }
 
         if (contact != "") {
-            user_data['contact'] = contact;
+            form_data.append('contact', contact);
         }
 
         if (email != "") {
-            user_data['email'] = email;
+            form_data.append('email', email);
         }
 
-        if(newPhoto){
-            user_data['photo'] = newPhoto;
+        if('uri' in newPhoto){
+            form_data.append('photo', {
+                uri: newPhoto.uri,
+                name: user.name + "." + newPhoto.fileName.split(".").at(-1),
+                type: newPhoto.mimeType
+            });
         }
 
         if(newPassword && newPassword != "" && newPassword == newPasswordConfirm){
-            user_data['password'] = newPassword;
+            form_data.append('password', newPassword);
         }
 
         try {
-            await updateUser(user_data, user.id);
+            await updateUser(form_data, user.id);
             setValidationMessage("Perfil atualizado!!");
             setShowSnackbar(true);
+            await refreshUser();
+            navigation.navigate("Início");
         } catch (error) {
             console.log("Erro ao atualizar usuário:" + error);
             setValidationMessage(error.message);

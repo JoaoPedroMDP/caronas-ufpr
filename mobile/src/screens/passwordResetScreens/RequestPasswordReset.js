@@ -21,7 +21,7 @@ const RequestPasswordReset = ({ navigation }) => {
         let response = await requestPasswordReset(email);
         console.log(response.status);
         if(response.status == 200){
-          navigation.navigate("ResetPassword");
+          navigation.navigate("Definir nova senha");
         }
       }catch(e){
         setValidationMessage(e.message);

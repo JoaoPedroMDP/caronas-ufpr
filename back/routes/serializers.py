@@ -65,6 +65,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.save()
         return instance
 
+
 class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place

@@ -22,14 +22,10 @@ const LoginScreen = ({ route, navigation }) => {
       await doLogin(email, password);
       console.log("Login efetuado.");
     }catch(error){
-      console.log("Erro no login: ", error.message);
+      console.log("Erro no login: ", error);
       setValidationMessage(error.message);
       setShowSnackbar(true);
     }
-  }
-
-  function goToResetPassword(){
-    Linking.openURL(env.back_end + '/password_reset/');
   }
 
   return (
@@ -38,8 +34,8 @@ const LoginScreen = ({ route, navigation }) => {
           <CustomTextInput text={password} setText={setPassword} placeholder="Senha" secureTextEntry={true}/>
           <View style={gs.flexRow}>
             <View style={[gs.flexCol, gs.justifyCenter]}>
-              <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("RegisterScreen")}}/>
-              <TextButton text="Esqueceu a senha?" onPressHandler={goToResetPassword}/>
+              <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Cadastrar-se")}}/>
+              <TextButton text="Esqueceu a senha?" onPressHandler={() => {navigation.navigate("Resetar senha")}}/>
             </View>
             <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" disabled={email === "" || password === "" }/>
           </View>
