@@ -2,10 +2,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TOKEN_STORAGE_KEY } from '../consts';
 
 async function prepareHeaders(){
-    let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-    return {
-        "Authorization": "Bearer " + token
+    try{
+        let token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
+        return {
+            "Authorization": "Bearer " + token
+        }
+    }catch(e){
+        console.log("Erro ao pegar token do AsyncStorage: " + e);
+        throw Error("Erro ao pegar token do AsyncStorage");
     }
+
 
 }
 

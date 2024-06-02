@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.request import Request
@@ -31,6 +32,11 @@ class LoginView(TokenObtainPairView):
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
             raise InvalidToken(e.args[0])
+        except AuthenticationFailed as e:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        except Exception as e:
+            lgr.debug(format_exc())
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 

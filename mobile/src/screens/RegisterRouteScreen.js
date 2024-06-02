@@ -15,9 +15,10 @@ import { getPlaces } from '../cruds/place';
 import CustomTextInput from '../components/inputs/CustomTextInput';
 import WeekDaySelector from '../components/inputs/WeekDaySelector';
 
-const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType }) => {
+const EndpointLayout = ({ placesOptions, setPlace, placeIsCampus, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState(null);
-    
+    const placeIsCampusLabel = placeIsCampus ? "campus" : "bairro";
+
     function returnPlace(endpoint) {
         setPlace(endpoint);
         setListPickerValue(endpoint.name);
@@ -32,18 +33,17 @@ const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType })
         <View style={styles.endpoint}>
             <ListPicker
                 value={listPickerValue}
-                placeholder={"Selecione um local"}
-                list={placesOptions[placeType]}
+                placeholder={"Selecione um " + placeIsCampusLabel}
+                list={placesOptions[placeIsCampus]}
                 returnValue={returnPlace}
             />
             <View style={styles.endpointType}>
-                <Text style={styles.endpointTypeText}>Bairro</Text>
                 <CustomSwitch
-                    customStyle={{marginHorizontal: 10}}
-                    switchValue={placeType === "campus"}
+                    activeText={"C"}
+                    inactiveText={"B"}
+                    switchValue={placeIsCampus}
                     onSwitchHandler={changePlaceType}
                 />
-                <Text style={styles.endpointTypeText}>Campus</Text>
             </View>
         </View>
     );
@@ -52,9 +52,9 @@ const EndpointLayout = ({ placesOptions, setPlace, placeType, switchPlaceType })
 const RegisterRouteScreen = ({ navigation }) => {
     const [places, setPlaces] = useState({});
     const [origin, setOrigin] = useState("");
-    const [originType, setOriginType] = useState("campus");
+    const [originIsCampus, setOriginIsCampus] = useState(true);
     const [destiny, setDestiny] = useState("");
-    const [destinyType, setDestinyType] = useState("campus");
+    const [destinyIsCampus, setDestinyIsCampus] = useState(false);
 
     const [arriveHour, setArriveHour] = useState("");
     const [arriveMinute, setArriveMinute] = useState("");
@@ -75,12 +75,12 @@ const RegisterRouteScreen = ({ navigation }) => {
                 }
                 let classified = {}
                 allEndpoints.forEach((endpoint) => {
-                    if(!classified[endpoint.type]) {
-                        classified[endpoint.type] = [];
+                    if(!classified[endpoint.type == "campus"]) {
+                        classified[endpoint.type == "campus"] = [];
                     }
 
                     // Preciso adicionar o label e o key para o ListPicker
-                    classified[endpoint.type].push({
+                    classified[endpoint.type == "campus"].push({
                         ...endpoint,
                         label: endpoint.name,
                         key: endpoint.id
@@ -104,10 +104,6 @@ const RegisterRouteScreen = ({ navigation }) => {
             setShowSnackbar(false);
             setValidationMessage(message);
         }, time ?? 3000);
-    }
-
-    function getEndpointType(currentType) {
-        return currentType === "campus" ? "neighborhood" : "campus";
     }
 
     function filterNum(raw_time){
@@ -157,25 +153,25 @@ const RegisterRouteScreen = ({ navigation }) => {
                     <EndpointLayout
                         placesOptions={places}
                         setPlace={setOrigin}
-                        placeType={originType}
-                        switchPlaceType={() => { setOriginType(getEndpointType(originType)) }}
+                        placeIsCampus={originIsCampus}
+                        switchPlaceType={() => { setOriginIsCampus(!originIsCampus) }}
                     />
                 </Section>
                 <Section title="Chegada">
                     <EndpointLayout
                         placesOptions={places}
                         setPlace={setDestiny}
-                        placeType={destinyType}
-                        switchPlaceType={() => { setDestinyType(getEndpointType(destinyType)) }}
+                        placeIsCampus={destinyIsCampus}
+                        switchPlaceType={() => { setDestinyIsCampus(!destinyIsCampus) }}
                     />
                 </Section>
                 <Section title="Horário de chegada">
                     <View style={{ flexDirection: "row", justifyContent: "start" }}>
-                        <View style={{ width: "50px" }}>
-                            <CustomTextInput placeholder={"hora"} text={arriveHour} setText={setArriveHourNumber} />
+                        <View style={{ width: 50 }}>
+                            <CustomTextInput placeholder={"hh"} text={arriveHour} setText={setArriveHourNumber} />
                         </View>
-                        <View style={{ width: "50px", marginLeft: "10px" }}>
-                            <CustomTextInput placeholder={"min"} text={arriveMinute} setText={setArriveMinuteNumber} />
+                        <View style={{ width: 50, marginLeft: 10 }}>
+                            <CustomTextInput placeholder={"mm"} text={arriveMinute} setText={setArriveMinuteNumber} />
                         </View>
                     </View>
                 </Section>

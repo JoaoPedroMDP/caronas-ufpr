@@ -60,7 +60,7 @@ const AppRoutes = () => {
             headerRight: profile
           }} />
           
-          <Drawer.Screen name='Registrar Rota' component={RegisterRouteScreen} options={{
+          <Drawer.Screen name='Cadastrar Rota' component={RegisterRouteScreen} options={{
             headerTitle: screenTitles,
             headerRight: profile
           }} />

@@ -24,18 +24,14 @@ const styles = StyleSheet.create({
 });
 
 const ProfileScreen = ({ route, navigation }) => {
-    const {user, refreshUser} = useContext(AuthContext);
-    
-    useEffect(() => {
-        refreshUser();
-    }, []);
+    const { user } = useContext(AuthContext);
 
     let userToShow = route.params?.user ?? user;
-
+    let photo = route.params?.user ? route.params?.user.photo : getImage(user.photo) 
     return(
         <Screen full>
             {userToShow.photo != null && 
-                <Image source={{ uri: getImage(userToShow.photo) }} style={styles.image} />
+                <Image source={{ uri: photo }} style={styles.image} />
             }
             <Title title={userToShow.name} centralized expand />
             <Subtitle subtitle={"Contato: " + userToShow.contact} centralized />

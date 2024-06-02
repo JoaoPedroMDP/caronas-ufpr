@@ -38,9 +38,15 @@ export const AuthProvider = ({ children }) => {
     }
 
     async function refreshUser(){
-        let user = await getLoggedUser();
-        await AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-        setUser(user);
+        console.log("Refreshing user...");
+        try{
+            let user = await getLoggedUser();
+            await AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+            setUser(user);
+        }catch(e){
+            console.log("Erro ao atualizar usuário logado: " + e);
+            await doLogout();
+        }
     }
     
     async function doLogout(){
