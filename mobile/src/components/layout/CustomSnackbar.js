@@ -14,9 +14,7 @@ const CustomSnackbar = ({ externalOpen, message, timeout }) => {
     }, [externalOpen]);
 
     function activateSnackbar(){
-        console.log("Chamou activateSnackbar com a mensagem: " + message + " e tempo: " + timeout??toString());
         setOpen(true);
-        console.log("Já deveria ter aparecido");
         setTimeout(() => {
             console.log("Removendo snackbar");
             setOpen(false);

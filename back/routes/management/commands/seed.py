@@ -110,14 +110,14 @@ class Command(BaseCommand):
             lgr.debug(f"Criando {campus['name']}")
             Place.objects.create(**campus)
 
-        if not options["test"]:
-            return
-
         users = [
-            {"name": "João", "firebase_id": "1234567890", "contact": "joaopedro_mdep"},
-            {"name": "André", "firebase_id": "0987654321", "contact": "andre25avila"},
+            {"name": "Maria", 'username': 'mar@mar.com', "contact": "insta: @mar", 'password': 'marmar', 'bio': 'Bio de mar', 'email': 'mar@mar.com'},
+            {"name": "Guilherme", 'username': 'gui@gui.com', "contact": "insta: @gui", 'password': 'guigui', 'bio': 'Bio de gui', 'email': 'gui@gui.com'},
+            {"name": "Jão", 'username': 'jao@jao.com', "contact": "insta: @jao", 'password': 'jao', 'bio': 'Bio de jao', 'email': 'jao@jao.com'},
         ]
 
-        for user in users:
-            lgr.debug(f"Criando {user['name']}")
-            User.objects.create(**user)
+        for raw_user in users:
+            lgr.debug(f"Criando {raw_user['name']}")
+            user = User.objects.create(**raw_user)
+            user.set_password(raw_user['password'])
+            user.save()

@@ -44,15 +44,24 @@ export const AuthProvider = ({ children }) => {
     }
     
     async function doLogout(){
-        await logout();
+        try{
+            await logout();
+        }catch(e){
+            console.log("Rota de logout retornou o seguinte erro: " + e);
+        }
+
         await AsyncStorage.clear();
         setUser(null);
     }
 
     async function doRefreshToken(){
         console.log('Refreshing token...');
-        const response = await refresh();
-        await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access);
+        try{
+            const response = await refresh();
+            await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access);
+        }catch(e){
+            await doLogout();
+        }        
     }
 
     return (

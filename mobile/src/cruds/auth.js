@@ -6,7 +6,9 @@ import { REFRESH_TOKEN_STORAGE_KEY } from '../consts';
 const URIS = {
     login: '/login',
     logout: '/logout',
-    refresh: '/refresh'
+    refresh: '/refresh',
+    requestPassReset: '/request_password_reset',
+    resetPass: '/reset_password'
 };
 
 
@@ -49,12 +51,48 @@ const refresh = async () => {
         return response.data;
     })
     .catch((error) => {
-        console.log('Erro ao realizar logout:', error);
-        return false;
+        console.log('Erro ao renovar token:', error);
+        throw new Error('Erro ao renovar token');
     });
 
     return result;
 
 }
 
-export { login, logout, refresh };
+const requestPasswordReset = async (email) => {
+    let config = {
+        params: { email: email }
+    }
+
+    let result = axios.get(env.back_end + URIS['requestPassReset'], config)
+    .then(async (response) => {
+        return response;
+    })
+    .catch((error) => {
+        console.log('Erro ao tentar resetar a senha:', error);
+        throw new Error('Erro ao tentar resetar a senha');
+    });
+
+    return result;
+}
+
+
+const resetPassword = async (token ,password) => {
+    let data = {
+        password: password,
+        token: token
+    }
+
+    let result = axios.post(env.back_end + URIS['resetPass'], data)
+    .then(async (response) => {
+        return response;
+    })  
+    .catch((error) => {
+        console.log('Erro ao tentar resetar a senha:', error);
+        throw new Error('Erro ao tentar resetar a senha');
+    });
+
+    return result;
+}
+
+export { login, logout, refresh, requestPasswordReset, resetPassword };

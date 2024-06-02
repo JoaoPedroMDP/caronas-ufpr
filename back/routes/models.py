@@ -63,3 +63,14 @@ class Partnership(TimestampedModel):
 
     class Meta:
         ordering = ['route']
+
+
+class PasswordResetToken(TimestampedModel):
+    """
+        Um modelo que representa um token de redefinição de senha.
+    """
+    token = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='password_reset_tokens')
+    
+    class Meta:
+        ordering = ['token']
