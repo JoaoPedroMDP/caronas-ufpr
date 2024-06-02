@@ -18,7 +18,6 @@ class UserListCreateView(generics.ListCreateAPIView):
         # Chama o método save do serializador para criar o usuário
         # Mas antes poe o email e o username em minusculo
         serializer.validated_data['email'] = serializer.validated_data['email'].lower()
-        serializer.validated_data['username'] = serializer.validated_data['username'].lower()
         serializer.save()
 
 

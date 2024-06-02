@@ -9,14 +9,14 @@ import { sanitizeString } from "../contrib";
 import { SnackbarContext } from "../contexts/snackbarContext";
 
 const RegisterScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("email@email.com");
-  const [password, setPassword] = useState("senha");
-  const [passwordConfirmal, setPasswordConfirmal] = useState("senha");
-  const [name, setName] = useState("joao pedro");
-  const [bio, setBio] = useState("bio");
-  const [contact, setContact] = useState("contato");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmal, setPasswordConfirmal] = useState("");
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [contact, setContact] = useState("");
   const [photo, setPhoto] = useState({});
-  const [showSnackbar] = useContext(SnackbarContext);
+  const {showSnackbar} = useContext(SnackbarContext);
 
   async function handleRegister() {
     if(!name || !email || !password || !passwordConfirmal || !contact){
