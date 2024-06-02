@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useContext} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { getRoutes } from '../cruds/route';
@@ -7,8 +7,8 @@ import { DarkGray, LightGray, Red, White } from '../../assets/colors';
 import { getFormattedTime } from '../contrib';
 import CustomButton from '../components/inputs/CustomButton';
 import { deleteRoute } from '../cruds/route';
-import { Snackbar, Portal } from 'react-native-paper';
 import gs from '../globalStyles';
+import { SnackbarContext } from '../contexts/snackbarContext';
 
 const Route = ({route, deleteHandler}) => {
     const [pressed, setPressed] = useState(false);
@@ -60,8 +60,7 @@ const Route = ({route, deleteHandler}) => {
 const MyRoutesScreen = ({ navigation }) => {
     const [routes, setRoutes] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [validationMessage, setValidationMessage] = useState(null);
-    const [showSnackbar, setShowSnackbar] = useState(false);
+    const { showSnackbar } = useContext(SnackbarContext);
 
     // Carrega as rotas de um usuário quando a tela é focada
     useFocusEffect(useCallback(() => {
@@ -85,13 +84,11 @@ const MyRoutesScreen = ({ navigation }) => {
     async function handleDelete(route) {
         try{
             await deleteRoute(route);
-            setValidationMessage("Rota removida!");
-            setShowSnackbar(true);
+            showSnackbar("Rota removida!", 2000);
             setRefresh(!refresh);
         } catch (error) {
             console.log("Erro ao atualizar status da parceria" + error);
-            setValidationMessage(error.message);
-            setShowSnackbar(true);
+            showSnackbar(error.message, 2000);
         }
     }
 
@@ -110,18 +107,6 @@ const MyRoutesScreen = ({ navigation }) => {
                     }}
                 />
             </View>
-            <Portal>
-                <Snackbar
-                visible={showSnackbar}
-                onDismiss={() => setShowSnackbar(false)}
-                duration={5000}
-                action={{
-                    label: "Fechar",
-                }}
-                >
-                {validationMessage}
-                </Snackbar>
-            </Portal>
         </Screen>
     );
 };

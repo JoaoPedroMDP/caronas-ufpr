@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../contexts/authContext';
 import { listPartnershipRequests } from '../cruds/partnership';
 import Screen from '../components/layout/Screen';
 import { Text, Pressable, StyleSheet, View, UIManager, Platform, FlatList} from 'react-native';
@@ -7,7 +6,7 @@ import { Black, DarkGray, LightGray, MediumGray} from '../../assets/colors';
 import CustomButton from '../components/inputs/CustomButton';
 import { getFormattedTime } from '../contrib';
 import { changePartnershipStatus } from '../cruds/partnership';
-import { Snackbar, Portal } from 'react-native-paper';
+import { SnackbarContext } from '../contexts/snackbarContext';
 
 
 const PartnershipRequest = ({ request, changeStatusHandler }) => {
@@ -61,10 +60,8 @@ const PartnershipRequest = ({ request, changeStatusHandler }) => {
 
 const PartnershipRequestsScreen = ({ navigation }) => {
     const [refresh, setRefresh] = useState(false);
-    const [validationMessage, setValidationMessage] = useState(null);
-    const [showSnackbar, setShowSnackbar] = useState(false);
     const [requests, setRequests] = useState([]);
-
+    const { showSnackbar } = useContext(SnackbarContext);
     useEffect(() => {
         async function fetchRequests() {
             let result = await listPartnershipRequests();
@@ -76,13 +73,11 @@ const PartnershipRequestsScreen = ({ navigation }) => {
     async function changeStatus(request, status) {
         try{
             await changePartnershipStatus(request, status);
-            setValidationMessage("Status da parceria atualizado com sucesso!");
-            setShowSnackbar(true);
+            showSnackbar("Status da parceria atualizado com sucesso!", 2000);
             setRefresh(!refresh);
         } catch (error) {
             console.log("Erro ao atualizar status da parceria" + error);
-            setValidationMessage(error.message);
-            setShowSnackbar(true);
+            showSnackbar(error.message, 2000);
         }
     }
 
@@ -100,18 +95,6 @@ const PartnershipRequestsScreen = ({ navigation }) => {
                     }}
                 />
             </View>
-            <Portal>
-                <Snackbar
-                visible={showSnackbar}
-                onDismiss={() => setShowSnackbar(false)}
-                duration={5000}
-                action={{
-                    label: "Fechar",
-                }}
-                >
-                {validationMessage}
-                </Snackbar>
-            </Portal>
         </Screen>
 
     );

@@ -4,27 +4,23 @@ import Screen from "../components/layout/Screen";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import TextButton from '../components/inputs/TextButton';
-import { Snackbar, Portal } from "react-native-paper";
 import gs from "../globalStyles";
 import { AuthContext } from "../contexts/authContext";
-import * as Linking from 'expo-linking';
-import env from "../../env";
+import { SnackbarContext } from "../contexts/snackbarContext";
 
 const LoginScreen = ({ route, navigation }) => {
   const { doLogin } = useContext(AuthContext);
+  const {showSnackbar} = useContext(SnackbarContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validationMessage, setValidationMessage] = useState(null);
-  const [showSnackbar, setShowSnackbar] = useState(false);
-
+  
   async function handleSignIn() {
     try{
       await doLogin(email, password);
-      console.log("Login efetuado.");
+      showSnackbar("Login efetuado com sucesso!", 2000);
     }catch(error){
       console.log("Erro no login: ", error);
-      setValidationMessage(error.message);
-      setShowSnackbar(true);
+      showSnackbar("Erro ao efetuar login!", 2000);
     }
   }
 
@@ -39,18 +35,6 @@ const LoginScreen = ({ route, navigation }) => {
             </View>
             <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" disabled={email === "" || password === "" }/>
           </View>
-          <Portal>
-            <Snackbar
-              visible={showSnackbar}
-              onDismiss={() => setShowSnackbar(false)}
-              duration={5000}
-              action={{
-                label: "Fechar",
-              }}
-            >
-              {validationMessage}
-            </Snackbar>
-          </Portal>
       </Screen>
   );
 }

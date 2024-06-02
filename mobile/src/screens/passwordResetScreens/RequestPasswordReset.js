@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import CustomTextInput from "../../components/inputs/CustomTextInput";
 import CustomButton from "../../components/inputs/CustomButton";
@@ -6,14 +6,13 @@ import Screen from "../../components/layout/Screen";
 import SubTitle from "../../components/textual/Subtitle";
 import Comment from "../../components/textual/Comment";
 import TextButton from "../../components/inputs/TextButton";
-import { Snackbar, Portal } from "react-native-paper";
 import { requestPasswordReset } from "../../cruds/auth";
+import { SnackbarContext } from "../../contexts/snackbarContext";
 
 
 const RequestPasswordReset = ({ navigation }) => {
   const [email, setEmail] = useState("");
-  const [showSnackbar, setShowSnackbar] = useState(false);
-  const [validationMessage, setValidationMessage] = useState(null);
+  const { showSnackbar } = useContext(SnackbarContext);
 
   async function passwordReset() {
     if (email) {
@@ -24,12 +23,10 @@ const RequestPasswordReset = ({ navigation }) => {
           navigation.navigate("Definir nova senha");
         }
       }catch(e){
-        setValidationMessage(e.message);
-        setShowSnackbar(true);
+        showSnackbar(e.message, 2000);
       }
     } else {
-      setValidationMessage("Por favor, insira um endereço de email válido.");
-      setShowSnackbar(true);
+      showSnackbar("Por favor, insira um endereço de email válido.", 2000);
     }
   }
 
@@ -55,18 +52,6 @@ const RequestPasswordReset = ({ navigation }) => {
           alignment="end"
         />
       </View>
-      <Portal>
-          <Snackbar
-            visible={showSnackbar}
-            onDismiss={() => setShowSnackbar(false)}
-            duration={5000}
-            action={{
-              label: "Fechar",
-            }}
-          >
-            {validationMessage}
-          </Snackbar>
-        </Portal>
     </Screen>
   );
 

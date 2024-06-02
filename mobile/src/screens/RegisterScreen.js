@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import Screen from "../components/layout/Screen";
 import CustomButton from "../components/inputs/CustomButton";
-import { Portal, Snackbar } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { createUser } from "../cruds/user";
 import { sanitizeString } from "../contrib";
+import { SnackbarContext } from "../contexts/snackbarContext";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("email@email.com");
   const [password, setPassword] = useState("senha");
   const [passwordConfirmal, setPasswordConfirmal] = useState("senha");
   const [name, setName] = useState("joao pedro");
-  const [validationMessage, setValidationMessage] = useState(null);
-  const [showSnackbar, setShowSnackbar] = useState(false);
   const [bio, setBio] = useState("bio");
   const [contact, setContact] = useState("contato");
   const [photo, setPhoto] = useState({});
+  const [showSnackbar] = useContext(SnackbarContext);
 
   async function handleRegister() {
     if(!name || !email || !password || !passwordConfirmal || !contact){
-      setValidationMessage("Preencha todos os campos obrigatórios.");
-      setShowSnackbar(true);
+      showSnackbar("Preencha todos os campos obrigatórios.", 2000);
       return;
     }
 
     if(password != passwordConfirmal){
-      setValidationMessage("As senhas não coincidem.");
-      setShowSnackbar(true);
+      showSnackbar("As senhas não coincidem.", 2000);
       return;
     }
     
@@ -46,13 +43,11 @@ const RegisterScreen = ({ navigation }) => {
 
     try {
       await createUser(user_data);
-      setValidationMessage("Cadastro realizado com sucesso!");
-      setShowSnackbar(true);
+      showSnackbar("Cadastro realizado com sucesso!", 2000);
       navigation.navigate("Login");
     } catch (error) {
       console.log("Erro no cadastro" + error);
-      setValidationMessage(error.message);
-      setShowSnackbar(true);
+      showSnackbar(error.message, 2000);
     }
   }
 
@@ -107,18 +102,6 @@ const RegisterScreen = ({ navigation }) => {
           disabled={email === "" || password === "" || name === "" || contact === ""}
         />
       </View>
-      <Portal>
-        <Snackbar
-          visible={showSnackbar}
-          onDismiss={() => setShowSnackbar(false)}
-          duration={5000}
-          action={{
-            label: "Fechar",
-          }}
-        >
-          {validationMessage}
-        </Snackbar>
-      </Portal>
     </Screen>
   );
 };

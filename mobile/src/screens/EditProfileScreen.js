@@ -2,7 +2,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/layout/Screen";
 import { useCallback, useContext } from "react";
 import { useState } from "react";
-import CustomSnackbar from "../components/layout/CustomSnackbar";
 import { Image, View, StyleSheet} from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
@@ -11,6 +10,7 @@ import { vw } from "../consts";
 import { AuthContext } from "../contexts/authContext";
 import { updateUser } from "../cruds/user";
 import env from "../../env";
+import { SnackbarContext } from "../contexts/snackbarContext";
 
 const imageOptions = {
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
 
 const EditProfileScreen = ({ navigation }) => {
     const {user, refreshUser} = useContext(AuthContext);
-    const [showSnackbar, setShowSnackbar] = useState(false);
-    const [validationMessage, setValidationMessage] = useState(null);
+    const { showSnackbar } = useContext(SnackbarContext);
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
     const [contact, setContact] = useState("");
@@ -58,8 +57,7 @@ const EditProfileScreen = ({ navigation }) => {
                 setPhoto(user.photo);
                 setEmail(user.email);
             } catch (error) {
-                setValidationMessage(error.message);
-                setShowSnackbar(true);
+                showSnackbar(error.message, 2000);
             }
         }
 
@@ -126,14 +124,12 @@ const EditProfileScreen = ({ navigation }) => {
 
         try {
             await updateUser(form_data, user.id);
-            setValidationMessage("Perfil atualizado!!");
-            setShowSnackbar(true);
+            showSnackbar("Perfil atualizado!!", 2000);
             await refreshUser();
             navigation.navigate("Início");
         } catch (error) {
             console.log("Erro ao atualizar usuário:" + error);
-            setValidationMessage(error.message);
-            setShowSnackbar(true);
+            showSnackbar(error.message, 2000);
         }
     }
 
@@ -154,11 +150,6 @@ const EditProfileScreen = ({ navigation }) => {
             <View>
                 <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
             </View>
-            <CustomSnackbar 
-                externalOpen={showSnackbar}
-                message={validationMessage}
-                timeout={5000}
-            />
         </Screen>
     );
 }

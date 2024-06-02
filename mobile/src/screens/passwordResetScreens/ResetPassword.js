@@ -1,21 +1,20 @@
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import CustomTextInput from "../../components/inputs/CustomTextInput";
 import CustomButton from "../../components/inputs/CustomButton";
 import Screen from "../../components/layout/Screen";
 import SubTitle from "../../components/textual/Subtitle";
 import TextButton from "../../components/inputs/TextButton";
-import { Snackbar, Portal } from "react-native-paper";
 import { resetPassword } from "../../cruds/auth";
+import { SnackbarContext } from "../../contexts/snackbarContext";
 
 
 const ResetPassword = ({ navigation }) => {
     const [token, setToken] = useState(null);
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    const [showSnackbar, setShowSnackbar] = useState(false);
-    const [validationMessage, setValidationMessage] = useState(null);
+    const { showSnackbar } = useContext(SnackbarContext);
 
     async function passwordReset() {
         if (password && passwordConfirmation) {
@@ -25,12 +24,10 @@ const ResetPassword = ({ navigation }) => {
                     navigation.navigate("Login");
                 }
             } catch (e) {
-                setValidationMessage(e.message);
-                setShowSnackbar(true);
+                showSnackbar(e.message, 2000);
             }
         } else {
-            setValidationMessage("A senha e a confirmação de senha devem ser iguais");
-            setShowSnackbar(true);
+            showSnackbar("A senha e a confirmação de senha devem ser iguais", 2000);
         }
     }
 
@@ -69,18 +66,6 @@ const ResetPassword = ({ navigation }) => {
                     alignment="end"
                 />
             </View>
-            <Portal>
-                <Snackbar
-                    visible={showSnackbar}
-                    onDismiss={() => setShowSnackbar(false)}
-                    duration={5000}
-                    action={{
-                        label: "Fechar",
-                    }}
-                >
-                    {validationMessage}
-                </Snackbar>
-            </Portal>
         </Screen>
     );      
 };

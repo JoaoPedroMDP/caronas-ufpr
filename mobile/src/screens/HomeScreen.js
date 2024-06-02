@@ -2,10 +2,9 @@ import Screen from '../components/layout/Screen';
 import ListPicker from '../components/inputs/ListPicker';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState, useEffect, useContext } from 'react';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import { FlatList, View } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
-import CustomSnackbar from '../components/layout/CustomSnackbar';
 import { AuthContext } from '../contexts/authContext';
 import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
@@ -42,8 +41,6 @@ const HomeScreen = ({navigation}) => {
     const [routes, setRoutes] = useState([]);
     const [users, setUsers] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
-    const [showSnackbar, setShowSnackbar] = useState(false);
-    const [validationMessage, setValidationMessage] = useState(null);
 
     // Carrega as rotas de um usuário quando a tela é focada
     useFocusEffect(useCallback(() => {
@@ -110,11 +107,6 @@ const HomeScreen = ({navigation}) => {
                 />
               </View>
             }
-            <CustomSnackbar 
-                externalOpen={showSnackbar}
-                message={validationMessage}
-                timeout={5000}
-            />
         </Screen>
     );
 }

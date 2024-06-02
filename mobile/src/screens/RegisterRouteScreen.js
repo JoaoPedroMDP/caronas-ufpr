@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Section from '../components/layout/Section';
 import ListPicker from '../components/inputs/ListPicker';
@@ -9,11 +9,11 @@ import { intentions } from '../consts';
 import CustomCheckbox from '../components/inputs/CustomCheckbox';
 import CustomButton from '../components/inputs/CustomButton';
 import { validateData } from '../components/apis/caronasApi';
-import { Snackbar, Portal } from 'react-native-paper';
 import { saveRoute } from '../cruds/route';
 import { getPlaces } from '../cruds/place';
 import CustomTextInput from '../components/inputs/CustomTextInput';
 import WeekDaySelector from '../components/inputs/WeekDaySelector';
+import { SnackbarContext } from '../contexts/snackbarContext';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeIsCampus, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState(null);
@@ -61,8 +61,7 @@ const RegisterRouteScreen = ({ navigation }) => {
 
     const [weekDays, setWeekDays] = useState([]);
     const [userIntentions, setUserIntentions] = useState([]);
-    const [validationMessage, setValidationMessage] = useState(null);
-    const [showSnackbar, setShowSnackbar] = useState(false);
+    const {showSnackbar, setSnackbarMessage} = useContext(SnackbarContext);
 
     useFocusEffect(
         useCallback(() => {
@@ -71,7 +70,7 @@ const RegisterRouteScreen = ({ navigation }) => {
                 try{
                     allEndpoints = await getPlaces();
                 }catch(error){
-                    activateSnackbar("Não foi possível carregar os lugares", 5000);
+                    showSnackbar("Não foi possível carregar os lugares", 5000);
                 }
                 let classified = {}
                 allEndpoints.forEach((endpoint) => {
@@ -92,19 +91,6 @@ const RegisterRouteScreen = ({ navigation }) => {
             fetchData();      
         }, [])
       );
-
-
-    function activateSnackbar(message, time){
-        console.log("Chamou activateSnackbar com a mensagem: " + message + " e tempo: " + time ?? toString());
-        setValidationMessage(message);
-        setShowSnackbar(true);
-        console.log("Já deveria ter aparecido");
-        setTimeout(() => {
-            console.log("Removendo snackbar");
-            setShowSnackbar(false);
-            setValidationMessage(message);
-        }, time ?? 3000);
-    }
 
     function filterNum(raw_time){
         return raw_time.replace(/[^0-9]/g, '')
@@ -137,10 +123,10 @@ const RegisterRouteScreen = ({ navigation }) => {
         try{
             validateData(origin, destiny, arriveHour, arriveMinute, weekDays, userIntentions);
             await saveRoute(origin, destiny, arriveTime, weekDays, userIntentions);
-            activateSnackbar("Rota salva!!", 5000);
+            showSnackbar("Rota salva!!", 2000);
             navigation.navigate("Início");
         }catch(error){
-            activateSnackbar(error.message);
+            showSnackbar(error.message, 2000);
             return;
         }
     }
@@ -200,17 +186,6 @@ const RegisterRouteScreen = ({ navigation }) => {
                     onClickHandler={registerRoute}
                     alignment="end"
                 />
-                <Portal>
-                    <Snackbar
-                        visible={showSnackbar}
-                        onDismiss={() => setShowSnackbar(false)}
-                        action={{
-                            label: 'Fechar'
-                        }}
-                        >
-                        {validationMessage}
-                    </Snackbar>
-                </Portal>
             </Screen>
         </ScrollView>
     );

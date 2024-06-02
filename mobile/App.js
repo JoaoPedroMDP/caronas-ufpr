@@ -1,10 +1,11 @@
 import "@expo/metro-runtime";
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider, Snackbar } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthProvider } from './src/contexts/authContext';
 import Routes from './src/routes';
+import { SnackbarProvider } from "./src/contexts/snackbarContext";
 
 const Stack = createStackNavigator();
 Stack.Group
@@ -25,7 +26,9 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <AuthProvider>
-          <Routes />
+          <SnackbarProvider>
+            <Routes />
+          </SnackbarProvider>
         </AuthProvider>
       </NavigationContainer>
     </PaperProvider>
