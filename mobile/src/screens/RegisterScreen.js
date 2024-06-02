@@ -35,11 +35,13 @@ const RegisterScreen = ({ navigation }) => {
     user_data.append("password", password);
     user_data.append("contact", contact);
     user_data.append("bio", bio);
-    user_data.append('photo', {
-      uri: photo.uri,
-      name: sanitizeString(name) + "." + sanitizeString(photo.fileName.split(".").at(-1)),
-      type: photo.mimeType
-    });
+    if(photo.uri != undefined){
+      user_data.append('photo', {
+        uri: photo.uri,
+        name: sanitizeString(name) + "." + sanitizeString(photo.fileName.split(".").at(-1)),
+        type: photo.mimeType
+      });
+    }
 
     try {
       await createUser(user_data);

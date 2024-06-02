@@ -8,7 +8,6 @@ import CustomSwitch from '../components/inputs/CustomSwitch';
 import { intentions } from '../consts';
 import CustomCheckbox from '../components/inputs/CustomCheckbox';
 import CustomButton from '../components/inputs/CustomButton';
-import { validateData } from '../components/apis/caronasApi';
 import { saveRoute } from '../cruds/route';
 import { getPlaces } from '../cruds/place';
 import CustomTextInput from '../components/inputs/CustomTextInput';
@@ -116,6 +115,28 @@ const RegisterRouteScreen = ({ navigation }) => {
             newIntentions.push(intentionValue);
         }
         setUserIntentions(newIntentions);
+    }
+
+    function validateData(origin, destiny, arriveHour, arriveMinute, weekDays, userIntentions){
+        if(origin === null || origin == ""){
+            throw new Error("Origem não pode ser nula");
+        }
+    
+        if(destiny === null || destiny == ""){
+            throw new Error("Destino não pode ser nulo");
+        }
+    
+        if(arriveHour === null || arriveHour == "" || Number(arriveHour) < 0 || Number(arriveHour) > 23){
+            throw new Error("Verifique o horário de chegada");
+        }
+    
+        if(arriveMinute === null || arriveMinute == "" || Number(arriveMinute) < 0 || Number(arriveMinute) > 59){
+            throw new Error("Verifique o minuto de chegada");
+        }
+    
+        if(userIntentions == []){
+            throw new Error("Intenções não podem ser nulas");
+        }
     }
 
     async function registerRoute() {

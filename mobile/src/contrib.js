@@ -1,4 +1,5 @@
 import { Black, White } from '../assets/colors';
+import env from '../env';
 
 function pickablelize(items = []) {
     let finalItems = [];
@@ -39,4 +40,8 @@ function sanitizeString(str){
     return str.trim();
 }
 
-export { pickablelize, toCheckboxGroupFormat, getFormattedTime, sanitizeString };
+function getImage(partialUrl){
+    return `${env.back_end}${partialUrl}`;
+}
+
+export { pickablelize, toCheckboxGroupFormat, getFormattedTime, sanitizeString, getImage };
