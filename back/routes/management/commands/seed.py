@@ -113,7 +113,7 @@ class Command(BaseCommand):
         users = [
             {"name": "Maria", 'username': 'mar@mar.com', "contact": "insta: @mar", 'password': 'marmar', 'bio': 'Bio de mar', 'email': 'mar@mar.com'},
             {"name": "Guilherme", 'username': 'gui@gui.com', "contact": "insta: @gui", 'password': 'guigui', 'bio': 'Bio de gui', 'email': 'gui@gui.com'},
-            {"name": "Jão", 'username': 'jao@jao.com', "contact": "insta: @jao", 'password': 'jao', 'bio': 'Bio de jao', 'email': 'jao@jao.com'},
+            {"name": "Jão", 'username': 'jao@jao.com', "contact": "insta: @jao", 'password': 'jaojao', 'bio': 'Bio de jao', 'email': 'jao@jao.com'},
         ]
 
         for raw_user in users:

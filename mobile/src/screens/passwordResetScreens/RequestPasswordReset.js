@@ -23,10 +23,10 @@ const RequestPasswordReset = ({ navigation }) => {
           navigation.navigate("Definir nova senha");
         }
       }catch(e){
-        showSnackbar(e.message, 2000);
+        showSnackbar(e.message);
       }
     } else {
-      showSnackbar("Por favor, insira um endereço de email válido.", 2000);
+      showSnackbar("Por favor, insira um endereço de email válido.");
     }
   }
 

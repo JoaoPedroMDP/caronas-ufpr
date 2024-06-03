@@ -2,7 +2,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/layout/Screen";
 import { useCallback, useContext } from "react";
 import { useState } from "react";
-import { Image, View, StyleSheet} from "react-native";
+import { Image, View, StyleSheet, ScrollView} from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
@@ -11,29 +11,6 @@ import { AuthContext } from "../contexts/authContext";
 import { updateUser } from "../cruds/user";
 import env from "../../env";
 import { SnackbarContext } from "../contexts/snackbarContext";
-
-const imageOptions = {
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
-    selectionLimit: 1
-  }
-
-const styles = StyleSheet.create({
-    image: {
-        width: vw / 3,
-        height: vw / 3,
-        borderRadius: 100,
-        alignSelf: "center",
-        marginBottom: 20,
-    },
-    imageSection: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    }
-});
 
 const EditProfileScreen = ({ navigation }) => {
     const {user, refreshUser} = useContext(AuthContext);
@@ -57,7 +34,7 @@ const EditProfileScreen = ({ navigation }) => {
                 setPhoto(user.photo);
                 setEmail(user.email);
             } catch (error) {
-                showSnackbar(error.message, 2000);
+                showSnackbar(error.message);
             }
         }
 
@@ -124,34 +101,67 @@ const EditProfileScreen = ({ navigation }) => {
 
         try {
             await updateUser(form_data, user.id);
-            showSnackbar("Perfil atualizado!!", 2000);
+            showSnackbar("Perfil atualizado!!");
             await refreshUser();
             navigation.navigate("Início");
         } catch (error) {
             console.log("Erro ao atualizar usuário:" + error);
-            showSnackbar(error.message, 2000);
+            showSnackbar(error.message);
         }
     }
 
     return(
-        <Screen title="Alterar cadastro" centralized>
-            <View style={styles.imageSection}>
-                <Image source={sourceImage()} style={styles.image} />
-                <CustomButton alignment="center" label="Alterar foto" onClickHandler={selectImage} />
-            </View>
+        <ScrollView>
+            <Screen title="Alterar cadastro" centralized>
+                <View style={styles.imageSection}>
+                    <Image source={sourceImage()} style={styles.image} />
+                    <CustomButton label="Alterar foto" onClickHandler={selectImage} />
+                </View>
 
-            <CustomTextInput placeholder="Email" text={email} setText={setEmail} />
-            <CustomTextInput placeholder="Nome" text={name} setText={setName} />
-            <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
-            <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
-            <CustomTextInput placeholder="Senha" text={newPassword} setText={setNewPassword} />
-            <CustomTextInput placeholder="Confirmação de Senha" text={newPasswordConfirm} setText={setNewPasswordConfirm} />
-            
-            <View>
-                <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
-            </View>
-        </Screen>
+                <CustomTextInput placeholder="Email" text={email} setText={setEmail} />
+                <CustomTextInput placeholder="Nome" text={name} setText={setName} />
+                <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
+                <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
+                <CustomTextInput placeholder="Senha" text={newPassword} setText={setNewPassword} />
+                <CustomTextInput placeholder="Confirmação de Senha" text={newPasswordConfirm} setText={setNewPasswordConfirm} />
+                
+                <View style={styles.confirmButton}>
+                    <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
+                </View>
+            </Screen>
+        </ScrollView>
     );
 }
+
+const imageOptions = {
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+    selectionLimit: 1
+  }
+
+const styles = StyleSheet.create({
+    image: {
+        width: vw / 3,
+        height: vw / 3,
+        borderRadius: 100,
+        alignSelf: "center",
+        marginBottom: 20,
+    },
+    imageSection: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: 'space-between'
+    },
+    confirmButton: {
+        display: "flex",
+        flexDirection: "row",
+        flexGrow: 1,
+        justifyContent: "flex-end",
+        marginVertical: 25
+    }
+});
 
 export default EditProfileScreen;

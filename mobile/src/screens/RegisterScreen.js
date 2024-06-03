@@ -20,12 +20,12 @@ const RegisterScreen = ({ navigation }) => {
 
   async function handleRegister() {
     if(!name || !email || !password || !passwordConfirmal || !contact){
-      showSnackbar("Preencha todos os campos obrigatórios.", 2000);
+      showSnackbar("Preencha todos os campos obrigatórios.");
       return;
     }
 
     if(password != passwordConfirmal){
-      showSnackbar("As senhas não coincidem.", 2000);
+      showSnackbar("As senhas não coincidem.");
       return;
     }
     
@@ -45,11 +45,11 @@ const RegisterScreen = ({ navigation }) => {
 
     try {
       await createUser(user_data);
-      showSnackbar("Cadastro realizado com sucesso!", 2000);
+      showSnackbar("Cadastro realizado com sucesso!");
       navigation.navigate("Login");
     } catch (error) {
       console.log("Erro no cadastro" + error);
-      showSnackbar(error.message, 2000);
+      showSnackbar(error.message);
     }
   }
 

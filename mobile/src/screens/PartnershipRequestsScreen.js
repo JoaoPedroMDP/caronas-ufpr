@@ -73,11 +73,11 @@ const PartnershipRequestsScreen = ({ navigation }) => {
     async function changeStatus(request, status) {
         try{
             await changePartnershipStatus(request, status);
-            showSnackbar("Status da parceria atualizado com sucesso!", 2000);
+            showSnackbar("Status da parceria atualizado com sucesso!");
             setRefresh(!refresh);
         } catch (error) {
             console.log("Erro ao atualizar status da parceria" + error);
-            showSnackbar(error.message, 2000);
+            showSnackbar(error.message);
         }
     }
 

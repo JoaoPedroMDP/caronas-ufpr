@@ -10,7 +10,7 @@ export const SnackbarProvider = ({ children }) => {
     const [snackbarMessage, setSnackbarMessage] = useState(null);
     const [duration, setDuration] = useState(5000);
 
-    function showSnackbar(message, duration){
+    function showSnackbar(message, duration = 3000){
         setSnackbarMessage(message);
         setDuration(duration);
         setVisible(true);

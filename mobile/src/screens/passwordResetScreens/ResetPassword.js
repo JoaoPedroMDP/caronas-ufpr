@@ -24,10 +24,10 @@ const ResetPassword = ({ navigation }) => {
                     navigation.navigate("Login");
                 }
             } catch (e) {
-                showSnackbar(e.message, 2000);
+                showSnackbar(e.message);
             }
         } else {
-            showSnackbar("A senha e a confirmação de senha devem ser iguais", 2000);
+            showSnackbar("A senha e a confirmação de senha devem ser iguais");
         }
     }
 

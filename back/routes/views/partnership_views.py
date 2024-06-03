@@ -2,9 +2,10 @@ from typing import List
 from rest_framework import generics, permissions
 from rest_framework.request import Request
 from rest_framework.response import Response
+from django.db import models
 
 from config import ACCEPTED, PENDING
-from routes.models import Partnership
+from routes.models import Partnership, Route
 from routes.serializers import PartnershipReadSerializer, PartnershipWriteSerializer
 
 
@@ -18,10 +19,22 @@ class PartnershipListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self) -> List[Partnership]:
         # Retorno todas as parcerias onde o usuário está presente, seja como requested ou requestant
-        
-        return list(self.request.user.partnerships_requestant.all()) + list(self.request.user.partnerships_requested.all())
+        parts: list = list(self.request.user.partnerships_requestant.filter(status=ACCEPTED).all())
+        parts.extend(
+            list(self.request.user.partnerships_requested.filter(status=ACCEPTED).all())
+        )
+        return parts
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: PartnershipWriteSerializer):
+        route: Route = serializer.validated_data['route']
+        # TODO: NÃO SEI SE FUNCIONA DE FATO, PRECISA SER TESTADO POSTERIORMENTE
+        # Se já existe uma parceria para o mesmo trajeto com a mesma pessoa, não permitir criar outra
+        if Partnership.objects.filter(
+            models.Q(requestant=serializer.validated_data['requestant']) | models.Q(requested=serializer.validated_data['requestant']),
+            route__route_hash=route.route_hash
+        ).exists():
+            return Response({'error': 'Já existe uma parceria em andamento com este usuário'}, status=400)
+            
         serializer.save(status=PENDING)
         return super().perform_create(serializer)
 

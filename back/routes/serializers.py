@@ -82,7 +82,8 @@ class RouteSerializer(serializers.ModelSerializer):
         to_place_data = validated_data.pop('to_place')
         from_place = Place.objects.get_or_create(**from_place_data)[0]
         to_place = Place.objects.get_or_create(**to_place_data)[0]
-        route = Route.objects.create(from_place=from_place, to_place=to_place, **validated_data)
+        hash = f"{from_place.id}{to_place.id}"
+        route = Route.objects.create(from_place=from_place, to_place=to_place, route_hash=hash, **validated_data)
         return route
 
     class Meta:

@@ -89,7 +89,7 @@ const RegisterRouteScreen = ({ navigation }) => {
 
             fetchData();      
         }, [])
-      );
+    );
 
     function filterNum(raw_time){
         return raw_time.replace(/[^0-9]/g, '')
@@ -144,10 +144,10 @@ const RegisterRouteScreen = ({ navigation }) => {
         try{
             validateData(origin, destiny, arriveHour, arriveMinute, weekDays, userIntentions);
             await saveRoute(origin, destiny, arriveTime, weekDays, userIntentions);
-            showSnackbar("Rota salva!!", 2000);
+            showSnackbar("Rota salva!!");
             navigation.navigate("Início");
         }catch(error){
-            showSnackbar(error.message, 2000);
+            showSnackbar(error.message);
             return;
         }
     }
@@ -201,12 +201,12 @@ const RegisterRouteScreen = ({ navigation }) => {
                         })}
                     </View>
                 </Section>
-                <CustomButton
-                    containerStyle={{ marginBottom: 10 }}
-                    label="Cadastrar"
-                    onClickHandler={registerRoute}
-                    alignment="end"
-                />
+                <View style={styles.registerButton}>
+                    <CustomButton
+                        label="Cadastrar"
+                        onClickHandler={registerRoute}
+                    />
+                </View>
             </Screen>
         </ScrollView>
     );
@@ -235,7 +235,10 @@ const styles = StyleSheet.create({
     },
     registerButton: {
         display: "flex",
-        marginBottom: 20
+        flexDirection: "row",
+        flexGrow: 1,
+        justifyContent: "flex-end",
+        marginVertical: 25
     }
 })
 

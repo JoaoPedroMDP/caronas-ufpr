@@ -6,6 +6,7 @@ import { ScrollView, FlatList, Text, View, StyleSheet } from 'react-native';
 import CustomButton from '../components/inputs/CustomButton';
 import SubTitle from '../components/textual/Subtitle';
 import gs from '../globalStyles';
+import { useIsFocused } from '@react-navigation/native';
 
 const RoutePartnerships = ({ currentUser, route, partners, navigation}) => {
 
@@ -43,8 +44,11 @@ const RoutePartnerships = ({ currentUser, route, partners, navigation}) => {
 const PartnershipsScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const [partnerships, setPartnerships] = useState({});
-  
+  const isFocused = useIsFocused();
+
   useEffect(() => {
+    if(!isFocused) return;
+    
     async function fetchPartnerships() {
       let result = await listPartnerships();
       let segregatedByRoute = {};
@@ -64,7 +68,7 @@ const PartnershipsScreen = ({ navigation }) => {
     }
 
     fetchPartnerships();
-  }, []);
+  }, [isFocused]);
 
   return (
     <Screen title="Parcerias">

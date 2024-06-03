@@ -3,8 +3,10 @@ from rest_framework import generics, permissions
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from django.db import models
 
-from routes.models import Route, User
+from config import ACCEPTED
+from routes.models import Partnership, Route, User
 from routes.serializers import UserSerializer
 
 
@@ -32,27 +34,33 @@ class GetUsersByRouteView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request: Request, route_id: int):
+        user: User = request.user
         route: Route = Route.objects.get(id=route_id)
         origin = route.from_place
         destiny = route.to_place
 
 
-        similarRoutes: List[Route] = list(
-            Route.objects.filter(
-                from_place=origin,
-                to_place=destiny,
-                arrive_time__lte=route.arrive_time
-            ).exclude(
-                id=route.id
-            ).distinct()
-        )
+        similarRoutes = Route.objects.filter(
+            from_place=origin,
+            to_place=destiny,
+            arrive_time__lte=route.arrive_time
+        ).exclude(
+            id=route.id
+        ).distinct()
+
+        user_partnerships = Partnership.objects.filter(
+            models.Q(requestant=user) | models.Q(requested=user),
+            status=ACCEPTED
+        ).values_list('route_id', flat=True)
+        
+        filtered_routes = similarRoutes.exclude(id__in=user_partnerships)
         
         users: List[User] = [
             {
                 "user": UserSerializer(route.user).data,
                 "intentions": route.intentions,
             }
-            for route in similarRoutes
+            for route in filtered_routes
         ]
 
         return Response(users, status=200)

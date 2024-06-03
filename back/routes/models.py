@@ -47,6 +47,7 @@ class Route(TimestampedModel):
     arrive_time = models.TimeField()
     from_place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='from_routes')
     to_place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='to_routes')
+    route_hash = models.CharField(max_length=200)
 
     class Meta:
         ordering = ['name']

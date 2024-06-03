@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Screen from "../components/layout/Screen";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
@@ -17,10 +17,10 @@ const LoginScreen = ({ route, navigation }) => {
   async function handleSignIn() {
     try{
       await doLogin(email, password);
-      showSnackbar("Login efetuado com sucesso!", 2000);
+      showSnackbar("Login efetuado com sucesso!");
     }catch(error){
       console.log("Erro no login: ", error);
-      showSnackbar("Erro ao efetuar login!", 2000);
+      showSnackbar("Erro ao efetuar login!");
     }
   }
 
@@ -33,10 +33,21 @@ const LoginScreen = ({ route, navigation }) => {
               <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Cadastrar-se")}}/>
               <TextButton text="Esqueceu a senha?" onPressHandler={() => {navigation.navigate("Resetar senha")}}/>
             </View>
-            <CustomButton label="Entrar" onClickHandler={handleSignIn} alignment="end" disabled={email === "" || password === "" }/>
+            <View style={styles.loginButton}>
+              <CustomButton label="Entrar" onClickHandler={handleSignIn} disabled={email === "" || password === "" }/>
+            </View>
           </View>
       </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  loginButton: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+    justifyContent: 'flex-end',
+  }
+});
 
 export default LoginScreen;

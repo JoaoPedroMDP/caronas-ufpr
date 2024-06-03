@@ -39,15 +39,22 @@ async function getRoutes(){
     console.log("Pegando rotas...");
     let config = await getConfig();
 
-    let routes = await axios
-        .get(env.back_end + URIS.getRoutes, config)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            throw Error("Não foi possível carregar as rotas.");
-        });
-    return routes;
+        try{
+            let routes = await axios
+                .get(env.back_end + URIS.getRoutes, config)
+                .then((response) => {
+                    return response.data;
+                })
+                .catch((error) => {
+                    throw error;
+                });
+
+            return routes;
+        }catch(error){
+            console.log("Erro ao pegar as rotas: " + error.message);
+            throw Error(error.message);
+        };
+
 }
 
 async function deleteRoute(route){

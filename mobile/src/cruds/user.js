@@ -86,7 +86,7 @@ async function getUsersByRoute(route_id){
             return response.data;
         })
         .catch((error) => {
-            throw Error("Não foi possível buscar usuários para essa rota.");
+            throw Error(error.message);
         });
     
     return users;

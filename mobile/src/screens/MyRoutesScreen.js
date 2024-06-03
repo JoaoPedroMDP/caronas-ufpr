@@ -19,9 +19,9 @@ const Route = ({route, deleteHandler}) => {
     function convertIntentions(intentions) {
         let converted = [];
         let dictionary = {
-            'receive_ride': 'Receber carona',
-            'offer_ride': 'Oferecer carona',
-            'split_app': 'Dividir aplicativo',
+            'receive_ride': 'Recebe carona',
+            'offer_ride': 'Oferece carona',
+            'split_app': 'Divide aplicativo',
             'bus_pal': 'Companhia de busão',
         }
 
@@ -46,7 +46,7 @@ const Route = ({route, deleteHandler}) => {
                     <Text style={styles.regularText}>{route.name}</Text>
                     <View style={styles.infos}>
                         <Text style={[styles.intentions]}>{intentions_str}</Text>
-                        <Text style={[styles.regularText]}>{getFormattedTime(route.arrive_time)}</Text>
+                        <Text style={[gs.regularText]}>{getFormattedTime(route.arrive_time)}</Text>
                     </View>
                     <View style={styles.button}>
                         <CustomButton label="Remover rota" onClickHandler={() => deleteHandler(route)} small={true} bgColor={Red} txColor={White}/>
@@ -84,11 +84,11 @@ const MyRoutesScreen = ({ navigation }) => {
     async function handleDelete(route) {
         try{
             await deleteRoute(route);
-            showSnackbar("Rota removida!", 2000);
+            showSnackbar("Rota removida!");
             setRefresh(!refresh);
         } catch (error) {
             console.log("Erro ao atualizar status da parceria" + error);
-            showSnackbar(error.message, 2000);
+            showSnackbar(error.message);
         }
     }
 
@@ -136,6 +136,8 @@ let styles = StyleSheet.create({
         fontSize: 15,
         color: DarkGray,
         marginTop: 10,
+        flex: 1,
+        flexWrap: 'wrap'
     },
     button: {
         display: 'flex',
