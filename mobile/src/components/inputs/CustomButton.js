@@ -6,10 +6,13 @@ const styles = StyleSheet.create({
     button: { 
         width: 'fit-content',
         height: 'fit-content',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     regularButton: {
         borderRadius: 10,
-        minWidth: 45,
+        minWidth: 70,
+        minHeight: 40,
     },
     smallButton: {
         borderRadius: 8,
@@ -17,7 +20,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: "InterBold",
-        margin: 10
+        margin: 10,
+        fontSize: 17
     },
     smallText: {
         fontFamily: "InterBold",

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   textButtons: {
-    gap: 10
+    gap: 2
   },
   buttons: {
     marginTop: 10
