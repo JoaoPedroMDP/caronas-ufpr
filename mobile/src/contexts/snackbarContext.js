@@ -1,5 +1,4 @@
-import { createContext } from 'react';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Snackbar, Portal } from 'react-native-paper';
 
 
@@ -25,7 +24,7 @@ export const SnackbarProvider = ({ children }) => {
                     onDismiss={() => setVisible(false)}
                     duration={duration}
                     action={{
-                        label: "Fechar",
+                        label: "Fechar"
                     }}
                     >
                     {snackbarMessage}

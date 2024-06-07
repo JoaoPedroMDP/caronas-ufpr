@@ -1,11 +1,12 @@
 import Screen from '../components/layout/Screen';
 import ListPicker from '../components/inputs/ListPicker';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { useCallback, useState, useEffect, useContext } from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import { useState, useEffect, useContext } from 'react';
 import { Text, FlatList, View, StyleSheet } from 'react-native';
 import Section from '../components/layout/Section';
 import CustomButton from '../components/inputs/CustomButton';
 import { AuthContext } from '../contexts/authContext';
+import { SnackbarContext } from '../contexts/snackbarContext';
 import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
 import SubTitle from '../components/textual/Subtitle';
@@ -39,6 +40,7 @@ const IntentionSection = ({intention, users, navigation, route}) => {
 
 const HomeScreen = ({navigation}) => {
     const { user } = useContext(AuthContext);
+    const {showSnackbar} = useContext(SnackbarContext);
     const [routes, setRoutes] = useState([]);
     const [users, setUsers] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
@@ -66,7 +68,7 @@ const HomeScreen = ({navigation}) => {
       }
 
       fetchUserRoutes();
-    }, [selectedRoute, isFocused]);
+    }, [isFocused]);
 
     // Carrega os usuários que fazem a mesma rota que o usuário quando este seleciona uma rota no ListPicker
     useEffect(() => {

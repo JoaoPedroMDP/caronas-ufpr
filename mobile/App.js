@@ -1,7 +1,7 @@
 import "@expo/metro-runtime";
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider, Snackbar } from 'react-native-paper';
+import { DefaultTheme, PaperProvider, Snackbar } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthProvider } from './src/contexts/authContext';
 import Routes from './src/routes';
@@ -23,7 +23,7 @@ export default function App() {
   }
 
   return (
-    <PaperProvider>
+    <PaperProvider theme={DefaultTheme}>
       <NavigationContainer>
         <AuthProvider>
           <SnackbarProvider>

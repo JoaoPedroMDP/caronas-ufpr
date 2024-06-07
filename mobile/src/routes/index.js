@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/authContext';
 
 const Routes = () => {
   const { logged } = useContext(AuthContext);
-  return logged ? <AppRoutes/> : <AuthRoutes />;
+  return logged ? <AppRoutes/> : <AuthRoutes/>;
 };
 
 export default Routes;

@@ -1,7 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/layout/Screen";
-import { useCallback, useContext } from "react";
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Image, View, StyleSheet, ScrollView} from "react-native";
 import CustomTextInput from "../components/inputs/CustomTextInput";
 import CustomButton from "../components/inputs/CustomButton";
