@@ -1,5 +1,4 @@
-import {useState, useCallback, useContext} from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import {useState, useEffect, useContext} from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { getRoutes } from '../cruds/route';
 import Screen from '../components/layout/Screen';
@@ -9,14 +8,11 @@ import CustomButton from '../components/inputs/CustomButton';
 import { deleteRoute } from '../cruds/route';
 import gs from '../globalStyles';
 import { SnackbarContext } from '../contexts/snackbarContext';
+import RouteCard from '../components/layout/RouteCard';
+import { useIsFocused } from '@react-navigation/native';
 
 const Route = ({route, deleteHandler}) => {
-    const [pressed, setPressed] = useState(false);
-    function handlePress() {
-        setPressed(!pressed);
-    }
-
-    function convertIntentions(intentions) {
+    function convertIntentions() {
         let converted = [];
         let dictionary = {
             'receive_ride': 'Recebe carona',
@@ -25,35 +21,24 @@ const Route = ({route, deleteHandler}) => {
             'bus_pal': 'Companhia de busão',
         }
 
-        intentions.forEach((intention) => {
+        route.intentions.forEach((intention) => {
             converted.push(dictionary[intention]);
         });
 
         return converted;
     }
 
-    if(!route) {
-        return;
-    }
-
-    let intentions_str = convertIntentions(route.intentions).join(', ');
 
     return (
-        <Pressable onPress={handlePress} style={styles.routes}>
-            <Text style={styles.routeName}> {route.name} </Text>
-            {pressed &&
-                <View>
-                    <Text style={styles.regularText}>{route.name}</Text>
-                    <View style={styles.infos}>
-                        <Text style={[styles.intentions]}>{intentions_str}</Text>
-                        <Text style={[gs.regularText]}>{getFormattedTime(route.arrive_time)}</Text>
-                    </View>
-                    <View style={styles.button}>
-                        <CustomButton label="Remover rota" onClickHandler={() => deleteHandler(route)} small={true} bgColor={Red} txColor={White}/>
-                    </View>
-                </View> 
+        <RouteCard
+            route={route}
+            intentions={convertIntentions()}
+            buttons={
+                <View style={styles.button}>
+                    <CustomButton label="Remover rota" onClickHandler={() => deleteHandler(route)} bgColor={Red} txColor={White}/>
+                </View>
             }
-        </Pressable>
+        />
     );
 }
 
@@ -61,9 +46,14 @@ const MyRoutesScreen = ({ navigation }) => {
     const [routes, setRoutes] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const { showSnackbar } = useContext(SnackbarContext);
+    const isFocused = useIsFocused();
 
     // Carrega as rotas de um usuário quando a tela é focada
-    useFocusEffect(useCallback(() => {
+    useEffect(() => {
+        if(!isFocused){
+            setRoutes([]);
+            return;
+        }
         async function fetchUserRoutes(){
           let allRoutes = await getRoutes();
           let formatted = [];
@@ -78,7 +68,7 @@ const MyRoutesScreen = ({ navigation }) => {
         }
   
         fetchUserRoutes();
-      }, [refresh]));
+      }, [isFocused, refresh]);
   
 
     async function handleDelete(route) {
@@ -112,33 +102,6 @@ const MyRoutesScreen = ({ navigation }) => {
 };
 
 let styles = StyleSheet.create({
-    routeName: {
-        fontFamily: "InterBold",
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    routes: {
-        backgroundColor: LightGray,
-        borderRadius: 10,
-        padding: 15,
-        display: 'flex',
-        flexDirection: 'column',
-        marginTop: 10
-    },
-    infos: {
-        display: 'flex',
-        flexDirection: 'row', 
-        flexGrow: 1,
-        justifyContent: 'space-between',
-    },
-    intentions: {
-        fontFamily: "InterRegular",
-        fontSize: 15,
-        color: DarkGray,
-        marginTop: 10,
-        flex: 1,
-        flexWrap: 'wrap'
-    },
     button: {
         display: 'flex',
         flexDirection: 'row',

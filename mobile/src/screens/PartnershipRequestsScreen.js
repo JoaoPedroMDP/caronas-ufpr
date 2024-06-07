@@ -7,25 +7,20 @@ import CustomButton from '../components/inputs/CustomButton';
 import { getFormattedTime } from '../contrib';
 import { changePartnershipStatus } from '../cruds/partnership';
 import { SnackbarContext } from '../contexts/snackbarContext';
+import RouteCard from '../components/layout/RouteCard';
 
 
 const PartnershipRequest = ({ request, changeStatusHandler }) => {
-    const [pressed, setPressed] = useState(false);
-
-    function handlePress() {
-        setPressed(!pressed);
-    }
-
-    function convertIntentions(intentions) {
+    function convertIntentions() {
         let converted = [];
         let dictionary = {
-            'receive_ride': 'Receber carona',
-            'offer_ride': 'Oferecer carona',
-            'split_app': 'Dividir aplicativo',
+            'receive_ride': 'Pede carona',
+            'offer_ride': 'Oferece carona',
+            'split_app': 'Divide aplicativo',
             'bus_pal': 'Companhia de busão',
         }
 
-        intentions.forEach((intention) => {
+        request.route.intentions.forEach((intention) => {
             converted.push(dictionary[intention]);
         });
 
@@ -36,25 +31,18 @@ const PartnershipRequest = ({ request, changeStatusHandler }) => {
         return;
     }
 
-    let intentions_str = convertIntentions(request.route.intentions).join(', ');
-
     return (
-        <Pressable onPress={handlePress} style={styles.requests}>
-            <Text style={styles.requestantName}> {request.requestant.name} </Text>
-            {pressed &&
-                <View>
-                    <Text style={styles.regularText}>{request.route.name}</Text>
-                    <View style={styles.infos}>
-                        <Text style={[styles.intentions]}>{intentions_str}</Text>
-                        <Text style={[styles.regularText]}>{getFormattedTime(request.route.arrive_time)}</Text>
-                    </View>
-                    <View style={styles.buttons}>
-                        <CustomButton label="Recusar" onClickHandler={() => {changeStatusHandler(request, 'REJECTED')}} small={true} bgColor={MediumGray} txColor={Black}/>
-                        <CustomButton label="Aceitar" onClickHandler={() => {changeStatusHandler(request, 'ACCEPTED')}} small={true}/>
-                    </View>
-                </View> 
+        <RouteCard 
+            route={request.route}
+            title={request.requestant.name}
+            buttons={
+                <View style={styles.buttons}>
+                    <CustomButton label="Recusar" onClickHandler={() => {changeStatusHandler(route, 'REJECTED')}} bgColor={MediumGray} txColor={Black}/>
+                    <CustomButton label="Aceitar" onClickHandler={() => {changeStatusHandler(route, 'ACCEPTED')}}/>
+                </View>
             }
-        </Pressable>
+            intentions={convertIntentions()}
+        />
     );
 }
 
@@ -101,26 +89,8 @@ const PartnershipRequestsScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    requests: {
-        backgroundColor: LightGray,
-        borderRadius: 10,
-        padding: 15,
-        display: 'flex',
-        flexDirection: 'column'
-    },
     requestsSection: {
         marginTop: 20,
-    },
-    requestantName: {
-        fontFamily: "InterBold",
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    intentions: {
-        fontFamily: "InterRegular",
-        fontSize: 15,
-        color: DarkGray,
-        marginTop: 10,
     },
     buttons: {
         display: 'flex',
@@ -128,18 +98,6 @@ const styles = StyleSheet.create({
         justifyContent:'flex-end',
         gap: 10
     },
-    regularText: {
-        fontFamily: "InterRegular",
-        fontSize: 20,
-        marginTop: 10,
-        color: DarkGray
-    },
-    infos: {
-        display: 'flex',
-        flexDirection: 'row', 
-        flexGrow: 1,
-        justifyContent: 'space-between',
-    }
 });
 
 export default PartnershipRequestsScreen;
