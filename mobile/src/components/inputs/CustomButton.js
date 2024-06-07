@@ -4,7 +4,8 @@ import { Black, LightGray, MediumGray, White } from '../../../assets/colors';
 
 const styles = StyleSheet.create({
     button: { 
-        width: 'fit-content', 
+        width: 'fit-content',
+        height: 'fit-content',
     },
     regularButton: {
         borderRadius: 10,

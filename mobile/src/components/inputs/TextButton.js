@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         color: Blue,
         marginLeft: 5,
         fontFamily: 'InterRegular',
-        fontSize: 12
+        fontSize: 14
     },
     button: {
       alignSelf: 'flex-start'

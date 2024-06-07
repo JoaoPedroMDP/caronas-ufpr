@@ -28,12 +28,12 @@ const LoginScreen = ({ route, navigation }) => {
       <Screen title="Login" centralized>
           <CustomTextInput text={email} setText={setEmail} placeholder="Email"/>
           <CustomTextInput text={password} setText={setPassword} placeholder="Senha" secureTextEntry={true}/>
-          <View style={gs.flexRow}>
-            <View style={[gs.flexCol, gs.justifyCenter]}>
+          <View style={[gs.flexRow, styles.buttons]}>
+            <View style={[gs.flexCol, gs.justifyCenter, styles.textButtons]}>
               <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Cadastrar-se")}}/>
               <TextButton text="Esqueceu a senha?" onPressHandler={() => {navigation.navigate("Resetar senha")}}/>
             </View>
-            <View style={styles.loginButton}>
+            <View style={[gs.flexRow, styles.loginButton]}>
               <CustomButton label="Entrar" onClickHandler={handleSignIn} disabled={email === "" || password === "" }/>
             </View>
           </View>
@@ -43,10 +43,14 @@ const LoginScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   loginButton: {
-    display: 'flex',
-    flexDirection: 'row',
     flexGrow: 1,
     justifyContent: 'flex-end',
+  },
+  textButtons: {
+    gap: 10
+  },
+  buttons: {
+    marginTop: 10
   }
 });
 
