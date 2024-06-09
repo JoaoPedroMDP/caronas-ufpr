@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
-import CustomTextInput from "../components/inputs/CustomTextInput";
-import Screen from "../components/layout/Screen";
-import CustomButton from "../components/inputs/CustomButton";
+import CustomTextInput from "@/components/inputs/CustomTextInput";
+import Screen from "@/components/layout/Screen";
+import CustomButton from "@/components/inputs/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
 import { createUser } from "../cruds/user";
 import { sanitizeString } from "../contrib";
-import { SnackbarContext } from "../contexts/snackbarContext";
+import { SnackbarContext } from "@contexts/snackbarContext";
 import gs from "../globalStyles";
 
 const RegisterScreen = ({ navigation }) => {

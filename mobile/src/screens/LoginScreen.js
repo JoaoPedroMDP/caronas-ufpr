@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import Screen from "../components/layout/Screen";
-import CustomTextInput from "../components/inputs/CustomTextInput";
-import CustomButton from "../components/inputs/CustomButton";
-import TextButton from '../components/inputs/TextButton';
+import Screen from "@/components/layout/Screen";
+import CustomTextInput from "@/components/inputs/CustomTextInput";
+import CustomButton from "@/components/inputs/CustomButton";
+import TextButton from '@/components/inputs/TextButton';
 import gs from "../globalStyles";
-import { AuthContext } from "../contexts/authContext";
-import { SnackbarContext } from "../contexts/snackbarContext";
+import { AuthContext } from "@contexts/authContext";
+import { SnackbarContext } from "@contexts/snackbarContext";
 
 const LoginScreen = ({ route, navigation }) => {
   const { doLogin } = useContext(AuthContext);

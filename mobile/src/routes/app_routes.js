@@ -1,19 +1,21 @@
 import { useContext } from 'react';
-import { AuthContext } from '../contexts/authContext';
+import { AuthContext } from '@contexts/authContext';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from "../screens/HomeScreen";
-import FirstAccessScreen from "../screens/FirstAccessScreen";
-import RegisterRouteScreen from "../screens/RegisterRouteScreen";
-import EditProfileScreen from "../screens/EditProfileScreen";
-import ResultProfileScreen from '../screens/ResultProfileScreen';
-import PartnershipsScreen from '../screens/PartnershipsScreen';
-import PartnershipRequestsScreen from '../screens/PartnershipRequestsScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import HomeScreen from "@screens/HomeScreen";
+import FirstAccessScreen from "@screens/FirstAccessScreen";
+import RegisterRouteScreen from "@screens/routeScreens/RegisterRouteScreen";
+import EditProfileScreen from "@screens/personalDataScreens/EditProfileScreen";
+import ResultProfileScreen from '@screens/ResultProfileScreen';
+import PartnershipsScreen from '@screens/PartnershipsScreen';
+import PartnershipRequestsScreen from '@screens/PartnershipRequestsScreen';
+import ProfileScreen from '@screens/personalDataScreens/ProfileScreen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import MyRoutesScreen from '../screens/MyRoutesScreen';
+import RoutesScreen from '@screens/routeScreens/RoutesScreen';
 import { Image, Pressable, StyleSheet } from 'react-native';
 import env from '../../env';
+import ChangePasswordScreen from '@screens/personalDataScreens/ChangePasswordScreen';
+import NewPasswordScreen from '@screens/personalDataScreens/NewPasswordScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -67,7 +69,7 @@ const AppRoutes = () => {
             headerTitle: screenTitles,
             headerRight: profile
           }} />
-          <Drawer.Screen name="Minhas rotas" component={MyRoutesScreen} options={{
+          <Drawer.Screen name="Minhas rotas" component={RoutesScreen} options={{
             headerTitle: screenTitles,
             headerRight: profile
           }} />
@@ -94,6 +96,8 @@ const AppRoutes = () => {
       <Stack.Screen name="Resultado" component={ResultProfileScreen} options={{title: "Resultado"}} />
       <Stack.Screen name="Parceiro" component={ProfileScreen} options={{title: "Parceiro"}} />
       <Stack.Screen name="Editar Perfil" component={EditProfileScreen} options={{title: "Editar Perfil"}}/>
+      <Stack.Screen name="Trocar senha" component={ChangePasswordScreen} options={{ title: "" }} />
+      <Stack.Screen name="Definir nova senha" component={NewPasswordScreen} options={{ title: "Definir nova senha" }} />
     </Stack.Navigator>
   );
 };

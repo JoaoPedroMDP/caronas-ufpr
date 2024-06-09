@@ -8,13 +8,12 @@ const styles = StyleSheet.create({
         color: Blue
     },
     button: {
-        alignSelf: 'flex-start',
         borderRadius: 5,
         paddingVertical: 5
     }
 });
 
-const TextButton = ({ text, onPressHandler }) => {
+const TextButton = ({ text, onPressHandler, alignment }) => {
 
     function getStyles(pressed) {
         return [
@@ -25,7 +24,7 @@ const TextButton = ({ text, onPressHandler }) => {
 
     return (
         <Pressable style={({pressed}) => getStyles(pressed)} onPress={onPressHandler}>
-            <Text style={styles.option}>{text}</Text>
+            <Text style={[styles.option, {textAlign: alignment}]}>{text}</Text>
         </Pressable>
     );
 }

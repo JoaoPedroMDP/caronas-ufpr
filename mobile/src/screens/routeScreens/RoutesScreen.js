@@ -1,14 +1,13 @@
 import {useState, useEffect, useContext} from 'react';
-import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
-import { getRoutes } from '../cruds/route';
-import Screen from '../components/layout/Screen';
-import { DarkGray, LightGray, Red, White } from '../../assets/colors';
-import { getFormattedTime } from '../contrib';
-import CustomButton from '../components/inputs/CustomButton';
-import { deleteRoute } from '../cruds/route';
-import gs from '../globalStyles';
-import { SnackbarContext } from '../contexts/snackbarContext';
-import RouteCard from '../components/layout/RouteCard';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { getRoutes } from '@cruds/route';
+import Screen from '@/components/layout/Screen';
+import { Red, White } from '@assets/colors';
+import CustomButton from '@/components/inputs/CustomButton';
+import { deleteRoute } from '@cruds/route';
+import gs from '@/globalStyles';
+import { SnackbarContext } from '@contexts/snackbarContext';
+import RouteCard from '@/components/layout/RouteCard';
 import { useIsFocused } from '@react-navigation/native';
 
 const Route = ({route, deleteHandler}) => {
@@ -28,7 +27,6 @@ const Route = ({route, deleteHandler}) => {
         return converted;
     }
 
-
     return (
         <RouteCard
             route={route}
@@ -42,7 +40,7 @@ const Route = ({route, deleteHandler}) => {
     );
 }
 
-const MyRoutesScreen = ({ navigation }) => {
+const RoutesScreen = ({ navigation }) => {
     const [routes, setRoutes] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const { showSnackbar } = useContext(SnackbarContext);
@@ -110,4 +108,4 @@ let styles = StyleSheet.create({
     },
 });
 
-export default MyRoutesScreen;
+export default RoutesScreen;

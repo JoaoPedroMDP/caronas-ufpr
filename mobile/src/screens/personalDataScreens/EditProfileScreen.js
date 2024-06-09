@@ -1,16 +1,19 @@
 import { useFocusEffect } from "@react-navigation/native";
-import Screen from "../components/layout/Screen";
+import Screen from "@/components/layout/Screen";
 import { useCallback, useContext, useState } from "react";
-import { Image, View, StyleSheet, ScrollView} from "react-native";
-import CustomTextInput from "../components/inputs/CustomTextInput";
-import CustomButton from "../components/inputs/CustomButton";
+import { Image, View, Text, StyleSheet} from "react-native";
+import CustomTextInput from "@inputs/CustomTextInput";
+import CustomButton from "@inputs/CustomButton";
+import TextButton from "@inputs/TextButton";
+import CustomScrollView from "@/components/layout/CustomScrollView";
 import * as ImagePicker from 'expo-image-picker';
-import { vw } from "../consts";
-import { AuthContext } from "../contexts/authContext";
-import { updateUser } from "../cruds/user";
-import env from "../../env";
-import { SnackbarContext } from "../contexts/snackbarContext";
-import gs from "../globalStyles";
+import { vw } from "@/consts";
+import { AuthContext } from "@contexts/authContext";
+import { SnackbarContext } from "@contexts/snackbarContext";
+import { updateUser } from "@cruds/user";
+import env from "env";
+import gs from "src/globalStyles";
+
 
 const EditProfileScreen = ({ navigation }) => {
     const {user, refreshUser} = useContext(AuthContext);
@@ -19,8 +22,6 @@ const EditProfileScreen = ({ navigation }) => {
     const [bio, setBio] = useState("");
     const [contact, setContact] = useState("");
     const [email, setEmail] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     // Photo é o que vem do backend
     const [photo, setPhoto] = useState(null);
     const [newPhoto, setNewPhoto] = useState({});
@@ -65,7 +66,7 @@ const EditProfileScreen = ({ navigation }) => {
         } else if(photo) {
             return {uri: getImage(photo)};
         }else {
-            return require("../../assets/images/profile.png");
+            return require("assets/images/profile.png");
         }
     }
 
@@ -95,10 +96,6 @@ const EditProfileScreen = ({ navigation }) => {
             });
         }
 
-        if(newPassword && newPassword != "" && newPassword == newPasswordConfirm){
-            form_data.append('password', newPassword);
-        }
-
         try {
             await updateUser(form_data, user.id);
             showSnackbar("Perfil atualizado!!");
@@ -111,7 +108,7 @@ const EditProfileScreen = ({ navigation }) => {
     }
 
     return(
-        <ScrollView>
+        <CustomScrollView>
             <Screen title="Alterar cadastro" centralized>
                 <View style={styles.imageSection}>
                     <Image source={sourceImage()} style={styles.image} />
@@ -122,14 +119,15 @@ const EditProfileScreen = ({ navigation }) => {
                 <CustomTextInput placeholder="Nome" text={name} setText={setName} />
                 <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
                 <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
-                <CustomTextInput placeholder="Senha" text={newPassword} setText={setNewPassword} />
-                <CustomTextInput placeholder="Confirmação de Senha" text={newPasswordConfirm} setText={setNewPasswordConfirm} />
-                
+                <View style={[gs.flexRow, gs.alignCenter]}>
+                    <Text style={gs.textCenter}>Para alterar sua senha,</Text>
+                    <TextButton text={"clique aqui"} onPressHandler={() => navigation.navigate("Trocar senha")} alignSelf="start"/>
+                </View>
                 <View style={styles.confirmButton}>
                     <CustomButton alignment="end" label="Alterar" onClickHandler={update} />
                 </View>
             </Screen>
-        </ScrollView>
+        </CustomScrollView>
     );
 }
 

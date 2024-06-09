@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import CustomTextInput from "../../components/inputs/CustomTextInput";
-import CustomButton from "../../components/inputs/CustomButton";
-import Screen from "../../components/layout/Screen";
-import SubTitle from "../../components/textual/Subtitle";
-import Comment from "../../components/textual/Comment";
-import TextButton from "../../components/inputs/TextButton";
+import CustomTextInput from "@/components/inputs/CustomTextInput";
+import CustomButton from "@/components/inputs/CustomButton";
+import Screen from "@/components/layout/Screen";
+import SubTitle from "@/components/textual/Subtitle";
+import Comment from "@/components/textual/Comment";
+import TextButton from "@/components/inputs/TextButton";
 import { requestPasswordReset } from "../../cruds/auth";
-import { SnackbarContext } from "../../contexts/snackbarContext";
+import { SnackbarContext } from "@contexts/snackbarContext";
 import gs from "../../globalStyles";
 
 
-const RequestPasswordReset = ({ navigation }) => {
+const RequestPasswordResetScreen = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const { showSnackbar } = useContext(SnackbarContext);
 
@@ -32,7 +32,7 @@ const RequestPasswordReset = ({ navigation }) => {
   }
 
   return (
-    <Screen title="Recuperar senha" centralized>
+    <Screen title="Recuperar senha">
       <SubTitle subtitle="Acontece nas melhores famílias" centralized={true} />
       <Comment
         centralized={true}
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RequestPasswordReset;
+export default RequestPasswordResetScreen;

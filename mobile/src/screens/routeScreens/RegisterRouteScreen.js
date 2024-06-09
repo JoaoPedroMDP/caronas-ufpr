@@ -1,19 +1,20 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useState, useCallback, useContext } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import Section from '../components/layout/Section';
-import ListPicker from '../components/inputs/ListPicker';
-import Screen from '../components/layout/Screen';
-import CustomSwitch from '../components/inputs/CustomSwitch';
-import { intentions } from '../consts';
-import CustomCheckbox from '../components/inputs/CustomCheckbox';
-import CustomButton from '../components/inputs/CustomButton';
-import { saveRoute } from '../cruds/route';
-import { getPlaces } from '../cruds/place';
-import CustomTextInput from '../components/inputs/CustomTextInput';
-import WeekDaySelector from '../components/inputs/WeekDaySelector';
-import { SnackbarContext } from '../contexts/snackbarContext';
-import gs from '../globalStyles';
+import Section from '@/components/layout/Section';
+import ListPicker from '@/components/inputs/ListPicker';
+import Screen from '@/components/layout/Screen';
+import CustomSwitch from '@/components/inputs/CustomSwitch';
+import { intentions } from '@/consts';
+import CustomCheckbox from '@/components/inputs/CustomCheckbox';
+import CustomButton from '@/components/inputs/CustomButton';
+import { saveRoute } from '@cruds/route';
+import { getPlaces } from '@cruds/place';
+import CustomTextInput from '@/components/inputs/CustomTextInput';
+import WeekDaySelector from '@/components/inputs/WeekDaySelector';
+import { SnackbarContext } from '@contexts/snackbarContext';
+import gs from '@/globalStyles';
+import CustomScrollView from '@/components/layout/CustomScrollView';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeIsCampus, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState(null);
@@ -154,7 +155,7 @@ const RegisterRouteScreen = ({ navigation }) => {
     }
 
     return (
-        <ScrollView>
+        <CustomScrollView>
             <Screen title="Cadastrar Rota">
                 <Section title="A ideia é simples: nos conte de onde sai, e pra onde vai :)" description="Ps: nos horários, dê preferência para múltiplos de meia hora. Ex: 18h30, 19h, 19h30, 20h. Vai ser mais fácil de achar alguém :D" />
                 <Section title="Saída">
@@ -208,7 +209,7 @@ const RegisterRouteScreen = ({ navigation }) => {
                     />
                 </View>
             </Screen>
-        </ScrollView>
+        </CustomScrollView>
     );
 }
 

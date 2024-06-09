@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import CustomButton from "../inputs/CustomButton";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/authContext";
+import { AuthContext } from "@contexts/authContext";
 
 const LogoutButton = () => {
   const { doLogout } = useContext(AuthContext);

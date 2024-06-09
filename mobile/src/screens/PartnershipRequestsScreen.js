@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { listPartnershipRequests } from '../cruds/partnership';
-import Screen from '../components/layout/Screen';
+import Screen from '@/components/layout/Screen';
 import { Text, Pressable, StyleSheet, View, UIManager, Platform, FlatList} from 'react-native';
 import { Black, DarkGray, LightGray, MediumGray} from '../../assets/colors';
-import CustomButton from '../components/inputs/CustomButton';
+import CustomButton from '@/components/inputs/CustomButton';
 import { getFormattedTime } from '../contrib';
 import { changePartnershipStatus } from '../cruds/partnership';
-import { SnackbarContext } from '../contexts/snackbarContext';
-import RouteCard from '../components/layout/RouteCard';
+import { SnackbarContext } from '@contexts/snackbarContext';
+import RouteCard from '@/components/layout/RouteCard';
 
 
 const PartnershipRequest = ({ request, changeStatusHandler }) => {

@@ -1,13 +1,13 @@
 import { Image, Text, StyleSheet, View } from 'react-native';
-import Screen from '../components/layout/Screen';
+import Screen from '@/components/layout/Screen';
 import { getImage } from '../contrib';
-import Title from '../components/textual/Title';
+import Title from '@/components/textual/Title';
 import { LightGray } from '../../assets/colors';
-import CustomButton from '../components/inputs/CustomButton';
+import CustomButton from '@/components/inputs/CustomButton';
 import { useContext } from 'react';
-import { AuthContext } from '../contexts/authContext';
+import { AuthContext } from '@contexts/authContext';
 import { askPartnership } from '../cruds/partnership';
-import { SnackbarContext } from '../contexts/snackbarContext';
+import { SnackbarContext } from '@contexts/snackbarContext';
 
 const styles = StyleSheet.create({
     image: {

@@ -34,6 +34,9 @@ const gs = StyleSheet.create({
   },
   alignEnd: {
     alignItems: 'flex-end'
+  },
+  textCenter: {
+    textAlign: 'center'
   }
 })
 

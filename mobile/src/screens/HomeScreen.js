@@ -1,15 +1,15 @@
-import Screen from '../components/layout/Screen';
-import ListPicker from '../components/inputs/ListPicker';
+import Screen from '@/components/layout/Screen';
+import ListPicker from '@/components/inputs/ListPicker';
 import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect, useContext } from 'react';
 import { Text, FlatList, View, StyleSheet } from 'react-native';
-import Section from '../components/layout/Section';
-import CustomButton from '../components/inputs/CustomButton';
-import { AuthContext } from '../contexts/authContext';
-import { SnackbarContext } from '../contexts/snackbarContext';
+import Section from '@/components/layout/Section';
+import CustomButton from '@/components/inputs/CustomButton';
+import { AuthContext } from '@contexts/authContext';
+import { SnackbarContext } from '@contexts/snackbarContext';
 import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
-import SubTitle from '../components/textual/Subtitle';
+import SubTitle from '@/components/textual/Subtitle';
 import gs from '../globalStyles';
 
 

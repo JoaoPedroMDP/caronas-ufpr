@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from 'react';
-import { AuthContext } from '../contexts/authContext';
+import { AuthContext } from '@contexts/authContext';
 import { listPartnerships } from '../cruds/partnership';
-import Screen from '../components/layout/Screen';
-import { ScrollView, FlatList, Text, View, StyleSheet } from 'react-native';
-import CustomButton from '../components/inputs/CustomButton';
-import SubTitle from '../components/textual/Subtitle';
+import Screen from '@/components/layout/Screen';
+import { FlatList, Text, View, StyleSheet } from 'react-native';
+import CustomButton from '@/components/inputs/CustomButton';
+import SubTitle from '@/components/textual/Subtitle';
 import { useIsFocused } from '@react-navigation/native';
-import Comment from '../components/textual/Comment';
+import Comment from '@/components/textual/Comment';
 import gs from '../globalStyles';
 
 

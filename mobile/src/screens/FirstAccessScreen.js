@@ -1,10 +1,10 @@
-import { ScrollView } from "react-native-gesture-handler";
-import CustomButton from "../components/inputs/CustomButton";
-import Screen from "../components/layout/Screen";
-import Section from "../components/layout/Section";
-import Vspacer from "../components/layout/Vspacer";
+import CustomButton from "@/components/inputs/CustomButton";
+import Screen from "@/components/layout/Screen";
+import Section from "@/components/layout/Section";
+import Vspacer from "@/components/layout/Vspacer";
 import { StyleSheet, View, Text } from "react-native";
 import gs from "../globalStyles";
+import CustomScrollView from "@/components/layout/CustomScrollView";
 
 const FirstAccessScreen = ({ navigation }) => {
     let vocative = "Acabou de chegar?? Veja como funciona o app:";
@@ -22,7 +22,7 @@ const FirstAccessScreen = ({ navigation }) => {
     let end = "E pra finalizar: este app foi feito por estudantes, para estudantes. Embora desejamos entregar o melhor para vocês, ainda estamos em processo de aprendizado!! Ficaremos felizes em receber feedbacks e sugestões de melhorias!!";
 
     return (
-        <ScrollView>
+        <CustomScrollView>
             <Screen title="Caronas UFPR">
                 <Section title={vocative}>
                     {steps.map((step, index) => {
@@ -48,7 +48,7 @@ const FirstAccessScreen = ({ navigation }) => {
                     <CustomButton label="Começar" onClickHandler={() => {navigation.navigate("Cadastrar-se")}}/>
                 </View>
             </Screen>
-        </ScrollView>
+        </CustomScrollView>
     );
 };
 

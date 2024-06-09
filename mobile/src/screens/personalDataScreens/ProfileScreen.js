@@ -1,12 +1,12 @@
 import { Image, Text, StyleSheet, View } from 'react-native';
-import Screen from '../components/layout/Screen';
-import { getImage } from '../contrib';
-import Title from '../components/textual/Title';
-import Subtitle from '../components/textual/Subtitle';
-import { LightGray } from '../../assets/colors';
+import Screen from '@/components/layout/Screen';
+import { getImage } from '../../contrib';
+import Title from '@/components/textual/Title';
+import Subtitle from '@/components/textual/Subtitle';
+import { LightGray } from '../../../assets/colors';
 import { useContext, useEffect } from 'react';
-import { AuthContext } from '../contexts/authContext';
-import CustomButton from '../components/inputs/CustomButton';
+import { AuthContext } from '@contexts/authContext';
+import CustomButton from '@/components/inputs/CustomButton';
 
 const styles = StyleSheet.create({
     image: {
