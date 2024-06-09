@@ -1,13 +1,14 @@
 import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { useState } from 'react';
 import { Black, LightGray, MediumGray, White } from '../../../assets/colors';
+import gs from '../../globalStyles';
 
 const styles = StyleSheet.create({
-    button: { 
-        flexDirection: 'row',
+    button: {
+        ...gs.flexRow,
+        ...gs.alignCenter,
         alignSelf: 'center',
         justifyContent: 'center',
-        alignItems: 'center',
     },
     regularButton: {
         borderRadius: 10,

@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { createUser } from "../cruds/user";
 import { sanitizeString } from "../contrib";
 import { SnackbarContext } from "../contexts/snackbarContext";
+import gs from "../globalStyles";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -117,10 +118,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   imageSection: {
-    display: "flex",
+    ...gs.flexRow,
+    ...gs.alignCenter,
     flexWrap: "wrap",
-    flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
   }
 });

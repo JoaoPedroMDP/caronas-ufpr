@@ -3,7 +3,7 @@ import { Black } from '../../../assets/colors';
 
 const style = StyleSheet.create({
     comment: {
-        fontFamily: "InterMedium",
+        fontFamily: "InterBold",
         fontSize: 12,
         color: Black
     },

@@ -10,6 +10,7 @@ import { AuthContext } from "../contexts/authContext";
 import { updateUser } from "../cruds/user";
 import env from "../../env";
 import { SnackbarContext } from "../contexts/snackbarContext";
+import gs from "../globalStyles";
 
 const EditProfileScreen = ({ navigation }) => {
     const {user, refreshUser} = useContext(AuthContext);
@@ -149,9 +150,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     imageSection: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        ...gs.flexRow,
+        ...gs.alignCenter,
         justifyContent: 'space-between'
     },
     confirmButton: {

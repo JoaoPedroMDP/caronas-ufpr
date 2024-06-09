@@ -8,6 +8,7 @@ import Comment from "../../components/textual/Comment";
 import TextButton from "../../components/inputs/TextButton";
 import { requestPasswordReset } from "../../cruds/auth";
 import { SnackbarContext } from "../../contexts/snackbarContext";
+import gs from "../../globalStyles";
 
 
 const RequestPasswordReset = ({ navigation }) => {
@@ -44,7 +45,7 @@ const RequestPasswordReset = ({ navigation }) => {
         }}
         value={email}
       />
-      <View style={styles.buttons}>
+      <View style={[gs.flexRow, gs.alignCenter]}>
         <TextButton onPressHandler={() => {navigation.navigate("Login")}} text="Lembrei!" />
         <CustomButton
           label={"Recuperar"}
@@ -58,11 +59,6 @@ const RequestPasswordReset = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  buttons: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-  },
   validation: {
     color: "red",
   }

@@ -67,10 +67,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     time: {
-        display: 'flex',
-        flexDirection: 'row',
+        ...gs.flexRow,
+        ...gs.alignCenter,
         justifyContent: 'flex-start',
-        alignItems: 'center',
         marginBottom: 10
     }
 });

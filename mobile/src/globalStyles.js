@@ -20,6 +20,12 @@ const gs = StyleSheet.create({
       marginTop: 10,
       color: DarkGray
   },
+  alignStart: {
+    alignItems: 'flex-start'
+  },
+  alignCenter: {
+    alignItems: 'center'
+  }
 })
 
 export default gs;

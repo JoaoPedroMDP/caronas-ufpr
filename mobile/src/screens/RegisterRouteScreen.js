@@ -13,6 +13,7 @@ import { getPlaces } from '../cruds/place';
 import CustomTextInput from '../components/inputs/CustomTextInput';
 import WeekDaySelector from '../components/inputs/WeekDaySelector';
 import { SnackbarContext } from '../contexts/snackbarContext';
+import gs from '../globalStyles';
 
 const EndpointLayout = ({ placesOptions, setPlace, placeIsCampus, switchPlaceType }) => {
     const [listPickerValue, setListPickerValue] = useState(null);
@@ -214,9 +215,9 @@ const RegisterRouteScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     endpoint: {
-        flexDirection: "row",
+        ...gs.flexRow,
+        ...gs.alignCenter,
         justifyContent: "space-between",
-        alignItems: "center"
     },
     endpointTypeSwitch: {
         marginLeft: 10
@@ -225,8 +226,8 @@ const styles = StyleSheet.create({
         width: "60%"
     },
     endpointType: {
-        flexDirection: "row",
-        alignItems: "center",
+        ...gs.flexRow,
+        ...gs.alignCenter,
         alignSelf: "center"
     },
     endpointTypeText: {
@@ -234,8 +235,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     registerButton: {
-        display: "flex",
-        flexDirection: "row",
+        ...gs.flexRow,
         flexGrow: 1,
         justifyContent: "flex-end",
         marginVertical: 25

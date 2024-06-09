@@ -130,7 +130,7 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   header: {
-    alignItems: 'flex-start',
+    ...gs.alignStart,
     gap: 10
   }
 });
