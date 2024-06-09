@@ -1,12 +1,15 @@
 import { TextInput, StyleSheet, View, Text } from 'react-native';
 import { Black, PlaceholderGray, White } from '../../../assets/colors';
+import gs from '@/globalStyles';
 
 const CustomTextInput = ({ label, placeholder, text, setText, secureTextEntry, bigText, mandatory}) => {
     return (
         <View>
-            <Text style={styles.label}>{
-                (mandatory ? label + "*" : label) ?? placeholder
-            }</Text>
+            <View style={styles.labelContainer}>
+                <Text style={styles.label}>{
+                    (mandatory ? label + "*" : label) ?? placeholder
+                }</Text>
+            </View>
             <TextInput
                 style={[styles.input, bigText ? {height: 100} : 35]}
                 onChangeText={setText}
@@ -27,17 +30,22 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         fontFamily: "InterRegular",
         padding: 10,
-        marginVertical: 5
+        marginVertical: 5,
+        top: -15
     },
     label: {
-        position: 'absolute',
+        flexShrink: 1,
+        position: 'relative',
         backgroundColor: White,
-        top: -4,
         color: Black,
         paddingHorizontal: 3,
-        marginLeft: 10,
+        marginHorizontal: 10,
         fontFamily: "InterBold",
+    },
+    labelContainer: {
+        ...gs.flexRow,
         zIndex: 1
+
     }
 })
 

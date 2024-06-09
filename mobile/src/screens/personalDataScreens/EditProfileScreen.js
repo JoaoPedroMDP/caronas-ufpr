@@ -120,7 +120,7 @@ const EditProfileScreen = ({ navigation }) => {
                 <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
                 <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
                 <View style={[gs.flexRow, gs.alignCenter]}>
-                    <Text style={gs.textCenter}>Para alterar sua senha,</Text>
+                    <Text style={gs.textCenter}>Para alterar sua senha, </Text>
                     <TextButton text={"clique aqui"} onPressHandler={() => navigation.navigate("Trocar senha")} alignSelf="start"/>
                 </View>
                 <View style={styles.confirmButton}>

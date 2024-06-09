@@ -11,6 +11,7 @@ import { getRoutes } from '../cruds/route';
 import { getUsersByRoute } from '../cruds/user';
 import SubTitle from '@/components/textual/Subtitle';
 import gs from '../globalStyles';
+import TextButton from '@/components/inputs/TextButton';
 
 
 const IntentionSection = ({intention, users, navigation, route}) => {
@@ -91,7 +92,10 @@ const HomeScreen = ({navigation}) => {
                     <ListPicker style={styles.picker} value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute} placeholder={"Selecione uma rota"}/>
                   </View>
                 
-                : <SubTitle subtitle={"Você ainda não cadastrou nenhuma rota! 😱"} />
+                : <View style={gs.flexCol}>
+                    <SubTitle subtitle={"Você ainda não cadastrou nenhuma rota! 😱"} />
+                    <TextButton text={"Clique aqui para cadastrar uma rota"} onPressHandler={() => navigation.navigate("Cadastrar Rota")}/>
+                  </View>
             }
             {users.length > 0 &&
               <View>

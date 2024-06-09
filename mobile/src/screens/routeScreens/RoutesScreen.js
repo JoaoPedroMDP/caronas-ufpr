@@ -83,7 +83,7 @@ const RoutesScreen = ({ navigation }) => {
     return (
         <Screen title={"Minhas rotas"}>
             <Text style={gs.regularText}>Clique nas rotas para ver mais detalhes</Text>
-            <View>
+            <View style={styles.mainContent}>
                 {routes.length === 0 && <Text style={gs.regularText}>Você ainda não possui rotas cadastradas.</Text>}
                 <FlatList
                     data={routes}
@@ -106,6 +106,9 @@ let styles = StyleSheet.create({
         justifyContent:'flex-end',
         gap: 10
     },
+    mainContent: {
+        paddingTop: 20
+    }
 });
 
 export default RoutesScreen;

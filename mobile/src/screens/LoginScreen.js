@@ -28,8 +28,8 @@ const LoginScreen = ({ route, navigation }) => {
       <Screen title="Login" centralized>
           <CustomTextInput text={email} setText={setEmail} label="Email" placeholder="fulano@ufpr.br"/>
           <CustomTextInput text={password} setText={setPassword} label="Senha" secureTextEntry={true}/>
-          <View style={[gs.flexRow, styles.buttons]}>
-            <View style={[gs.flexCol, gs.justifyCenter, styles.textButtons]}>
+          <View style={[gs.flexRow]}>
+            <View style={[gs.flexCol, gs.justifyCenter]}>
               <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Instruções")}}/>
               <TextButton text="Esqueceu a senha?" onPressHandler={() => {navigation.navigate("Resetar senha")}}/>
             </View>
@@ -45,12 +45,6 @@ const styles = StyleSheet.create({
   loginButton: {
     flexGrow: 1,
     justifyContent: 'flex-end',
-  },
-  textButtons: {
-    gap: 2
-  },
-  buttons: {
-    marginTop: 10
   }
 });
 

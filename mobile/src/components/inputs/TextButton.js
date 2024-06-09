@@ -2,7 +2,6 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { Black, Blue, White } from '../../../assets/colors';
 const styles = StyleSheet.create({
     option: {
-        marginLeft: 5,
         fontFamily: 'InterRegular',
         fontSize: 14,
         color: Blue
