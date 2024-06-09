@@ -51,8 +51,8 @@ class GetUsersByRouteView(generics.RetrieveAPIView):
         user_partnerships = Partnership.objects.filter(
             models.Q(requestant=user) | models.Q(requested=user),
             route__route_hash=route.route_hash
-        ).values_list('route_hash', flat=True)
-        filtered_routes = similarRoutes.exclude(route__route_hash__in=user_partnerships).all()
+        ).values_list('route__route_hash', flat=True)
+        filtered_routes = similarRoutes.exclude(route_hash__in=user_partnerships).all()
         
         users: List[User] = [
             {

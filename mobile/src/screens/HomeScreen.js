@@ -93,8 +93,9 @@ const HomeScreen = ({navigation}) => {
                 
                 : <SubTitle subtitle={"Você ainda não cadastrou nenhuma rota! 😱"} />
             }
-            {users.length > 0 && 
+            {users.length > 0 &&
               <View>
+                <Text style={gs.regularText}>Clique no nome de um usuário para ver seu perfil</Text> 
                 <IntentionSection 
                   intention="Oferecem carona"
                   navigation={navigation}
