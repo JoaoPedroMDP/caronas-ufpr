@@ -56,7 +56,6 @@ const ResetPassword = ({ navigation }) => {
                     setToken(value);
                 }}
                 value={token}
-                secureTextEntry
             />
             <View style={styles.buttons}>
                 <TextButton onPressHandler={() => { navigation.navigate("Login") }} text="Cancelar" />
