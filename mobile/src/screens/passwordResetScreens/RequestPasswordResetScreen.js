@@ -19,8 +19,8 @@ const RequestPasswordResetScreen = ({ route, navigation }) => {
     if (email) {
       try{
         let response = await requestPasswordReset(email);
-        console.log(response.status);
         if(response.status == 200){
+          showSnackbar("Pedido feito! Redirecionando para tela de nova senha...")
           navigation.navigate("Definir nova senha");
         }
       }catch(e){

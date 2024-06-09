@@ -21,7 +21,8 @@ const ResetPasswordScreen = ({ navigation }) => {
         if (password && passwordConfirmation) {
             try {
                 let response = await resetPassword(token, password, passwordConfirmation);
-                if (response.status) {
+                if (response.status == 200) {
+                    showSnackbar("Senha alterada com sucesso!");
                     navigation.navigate("Login");
                 }
             } catch (e) {

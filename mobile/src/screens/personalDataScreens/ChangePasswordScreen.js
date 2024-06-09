@@ -19,6 +19,7 @@ const ChangePasswordScreen = ({ route, navigation }) => {
         let response = await requestPasswordReset(email.toLowerCase());
         console.log(response.status);
         if(response.status == 200){
+          showSnackbar("Pedido feito com sucesso! Redirecionando para a alteração de senha...")
           navigation.navigate("Definir nova senha");
         }
       }catch(e){
