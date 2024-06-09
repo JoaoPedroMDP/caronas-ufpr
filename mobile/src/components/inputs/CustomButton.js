@@ -1,4 +1,4 @@
-import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Pressable, Text } from 'react-native';
 import { useState } from 'react';
 import { Black, LightGray, MediumGray, White } from '../../../assets/colors';
 import gs from '../../globalStyles';
@@ -42,8 +42,6 @@ const CustomButton = ({ label, onClickHandler, disabled, inverted, small, bgColo
     let textColor = txColor ?? White;
     let backgroundColor = bgColor ?? Black;
 
-    if (disabled) textColor = MediumGray;
-
     if (clicked || inverted != undefined) {
       textColor = LightGray;
       backgroundColor = Black; 
@@ -54,7 +52,13 @@ const CustomButton = ({ label, onClickHandler, disabled, inverted, small, bgColo
             disabled={disabled}
             onPressIn={() => setClicked(true)}
             onPressOut={clickButton}
-            style={[small ? styles.smallButton : styles.regularButton, styles.button, {backgroundColor: backgroundColor}]}
+            style={[
+                small ? styles.smallButton : styles.regularButton, 
+                styles.button, 
+                {
+                    backgroundColor: backgroundColor,
+                    opacity: disabled ? 0.5 : 1
+                }]}
         >
             <Text style={[small ? styles.smallText : styles.text, { color: textColor }]}>{label}</Text>
         </Pressable>

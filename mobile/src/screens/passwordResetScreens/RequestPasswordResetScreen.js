@@ -44,6 +44,7 @@ const RequestPasswordResetScreen = ({ route, navigation }) => {
           setEmail(value);
         }}
         value={email}
+        mandatory
       />
       <View style={[gs.flexRow, gs.alignCenter, gs.justifyBetween, {marginTop: 10}]}>
         <TextButton onPressHandler={() => {navigation.navigate("Login")}} text="Lembrei!" />

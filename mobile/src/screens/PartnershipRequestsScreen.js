@@ -4,10 +4,10 @@ import Screen from '@/components/layout/Screen';
 import { Text, Pressable, StyleSheet, View, UIManager, Platform, FlatList} from 'react-native';
 import { Black, DarkGray, LightGray, MediumGray} from '../../assets/colors';
 import CustomButton from '@/components/inputs/CustomButton';
-import { getFormattedTime } from '../contrib';
 import { changePartnershipStatus } from '../cruds/partnership';
 import { SnackbarContext } from '@contexts/snackbarContext';
 import RouteCard from '@/components/layout/RouteCard';
+import gs from '@/globalStyles';
 
 
 const PartnershipRequest = ({ request, changeStatusHandler }) => {
@@ -73,7 +73,8 @@ const PartnershipRequestsScreen = ({ navigation }) => {
     return(
         <Screen title="Pedidos de parceria">
             <View style={styles.requestsSection}>
-                {requests.length === 0 && <Text style={styles.regularText}>Você ainda não possui pedidos de parcerias</Text>}
+                <Text style={gs.regularText}>Sempre que alguém pedir parceria com você, aparecerá aqui</Text>
+                {requests.length === 0 && <Text style={gs.regularText}>Você ainda não possui pedidos de parceria 😢</Text>}
                 <FlatList
                     data={requests}
                     keyExtractor={(item) => item.id.toString()}

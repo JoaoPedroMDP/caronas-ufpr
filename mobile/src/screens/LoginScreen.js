@@ -26,8 +26,8 @@ const LoginScreen = ({ route, navigation }) => {
 
   return (
       <Screen title="Login" centralized>
-          <CustomTextInput text={email} setText={setEmail} placeholder="Email"/>
-          <CustomTextInput text={password} setText={setPassword} placeholder="Senha" secureTextEntry={true}/>
+          <CustomTextInput text={email} setText={setEmail} label="Email" placeholder="fulano@ufpr.br"/>
+          <CustomTextInput text={password} setText={setPassword} label="Senha" secureTextEntry={true}/>
           <View style={[gs.flexRow, styles.buttons]}>
             <View style={[gs.flexCol, gs.justifyCenter, styles.textButtons]}>
               <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Instruções")}}/>

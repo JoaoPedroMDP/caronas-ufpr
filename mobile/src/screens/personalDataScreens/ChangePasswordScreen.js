@@ -38,6 +38,7 @@ const ChangePasswordScreen = ({ route, navigation }) => {
           setEmail(value);
         }}
         value={email}
+        mandatory
       />
       <View style={[gs.flexRow, gs.alignCenter, gs.justifyEnd, {marginTop: 10}]}>
         <CustomButton

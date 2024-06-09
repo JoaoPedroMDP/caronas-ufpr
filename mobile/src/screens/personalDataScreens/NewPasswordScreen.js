@@ -41,6 +41,7 @@ const NewPasswordScreen = ({ navigation }) => {
                 }}
                 value={password}
                 secureTextEntry
+                mandatory
             />
             <CustomTextInput
                 placeholder={"Confirme a nova senha"}
@@ -49,6 +50,7 @@ const NewPasswordScreen = ({ navigation }) => {
                 }}
                 value={passwordConfirmation}
                 secureTextEntry
+                mandatory
             />
             <CustomTextInput
                 placeholder={"Token de confirmação recebido por email"}
@@ -56,6 +58,7 @@ const NewPasswordScreen = ({ navigation }) => {
                     setToken(value);
                 }}
                 value={token}
+                mandatory
             />
             <View style={styles.buttons}>
                 <CustomButton

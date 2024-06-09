@@ -42,6 +42,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                 }}
                 value={password}
                 secureTextEntry
+                mandatory
             />
             <CustomTextInput
                 placeholder={"Confirme a nova senha"}
@@ -50,6 +51,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                 }}
                 value={passwordConfirmation}
                 secureTextEntry
+                mandatory
             />
             <CustomTextInput
                 placeholder={"Token de confirmação recebido por email"}
@@ -57,6 +59,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     setToken(value);
                 }}
                 value={token}
+                mandatory
             />
             <View style={styles.buttons}>
                 <TextButton onPressHandler={() => { navigation.navigate("Login") }} text="Cancelar" />

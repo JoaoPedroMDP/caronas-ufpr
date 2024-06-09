@@ -8,6 +8,7 @@ import { createUser } from "../cruds/user";
 import { sanitizeString } from "../contrib";
 import { SnackbarContext } from "@contexts/snackbarContext";
 import gs from "../globalStyles";
+import CustomScrollView from "@/components/layout/CustomScrollView";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -75,36 +76,40 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <Screen title="Cadastro" centralized>
-      <View style={styles.imageSection}>
-        <Image source={sourceImage()} style={styles.image} />
-        <CustomButton alignment='center' label="Selecionar foto" onClickHandler={selectImage} />
-      </View>
-      <CustomTextInput placeholder="Nome" text={name} setText={(value) => setName(value)} />
-      <CustomTextInput placeholder="Email" text={email} setText={(value) => setEmail(value)} />
-      <CustomTextInput 
-        placeholder="Senha" 
-        text={password} 
-        setText={(value) => setPassword(value)}
-        secureTextEntry
-      />
-      <CustomTextInput 
-        placeholder="Confirme a senha" 
-        text={passwordConfirmal} 
-        setText={(value) => setPasswordConfirmal(value)}
-        secureTextEntry
-      />
-
-      <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
-      <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText/>
-      <View style={[gs.flexRow, styles.button]}>
-        <CustomButton
-          label="Cadastrar"
-          onClickHandler={handleRegister}
-          disabled={email === "" || password === "" || name === "" || contact === ""}
+    <CustomScrollView>
+      <Screen title="Cadastro" centralized>
+        <View style={styles.imageSection}>
+          <Image source={sourceImage()} style={styles.image} />
+          <CustomButton alignment='center' label="Selecionar foto" onClickHandler={selectImage} />
+        </View>
+        <CustomTextInput label="Nome" placeholder="Fulano da Silva" text={name} setText={(value) => setName(value)} mandatory/>
+        <CustomTextInput label="Email" placeholder="fulano@ufpr.br" text={email} setText={(value) => setEmail(value)} mandatory/>
+        <CustomTextInput 
+          label="Senha" 
+          text={password} 
+          setText={(value) => setPassword(value)}
+          secureTextEntry
+          mandatory
         />
-      </View>
-    </Screen>
+        <CustomTextInput 
+          label="Confirme a senha" 
+          text={passwordConfirmal} 
+          setText={(value) => setPasswordConfirmal(value)}
+          secureTextEntry
+          mandatory
+        />
+
+        <CustomTextInput label="Contato" placeholder="Instagram: @foo.lano" text={contact} setText={setContact} mandatory/>
+        <CustomTextInput label="Biografia" placeholder="Curso Engenharia da pesca e amo peixes (deer)" text={bio} setText={setBio} bigText/>
+        <View style={[gs.flexRow, styles.button]}>
+          <CustomButton
+            label="Cadastrar"
+            onClickHandler={handleRegister}
+            disabled={email === "" || password === "" || name === "" || contact === ""}
+          />
+        </View>
+      </Screen>
+    </CustomScrollView>
   );
 };
 

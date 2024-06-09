@@ -1,10 +1,13 @@
-import { ScrollView } from "react-native"
+import { vh } from "@/consts";
+import { ScrollView, View } from "react-native"
 
 
 const CustomScrollView = ({children}) => {
     return(
-        <ScrollView contentContainerStyle={{flex:1}}>
-            {children}
+        <ScrollView>
+            <View style={{minHeight: vh}}>
+                {children}
+            </View>
         </ScrollView>
     )
 }
