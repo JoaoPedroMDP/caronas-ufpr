@@ -8,6 +8,7 @@ import SubTitle from "../../components/textual/Subtitle";
 import TextButton from "../../components/inputs/TextButton";
 import { resetPassword } from "../../cruds/auth";
 import { SnackbarContext } from "../../contexts/snackbarContext";
+import gs from "../../globalStyles";
 
 
 const ResetPassword = ({ navigation }) => {
@@ -71,8 +72,8 @@ const ResetPassword = ({ navigation }) => {
 
 let styles = StyleSheet.create({
     buttons: {
-        flexDirection: "row",
-        justifyContent: "space-between",
+        ...gs.flexRow,
+        ...gs.justifyBetween,
         marginTop: 20,
     },
 });

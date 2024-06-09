@@ -1,8 +1,10 @@
+import { ScrollView } from "react-native-gesture-handler";
 import CustomButton from "../components/inputs/CustomButton";
 import Screen from "../components/layout/Screen";
 import Section from "../components/layout/Section";
 import Vspacer from "../components/layout/Vspacer";
 import { StyleSheet, View, Text } from "react-native";
+import gs from "../globalStyles";
 
 const FirstAccessScreen = ({ navigation }) => {
     let vocative = "Acabou de chegar?? Veja como funciona o app:";
@@ -20,31 +22,33 @@ const FirstAccessScreen = ({ navigation }) => {
     let end = "E pra finalizar: este app foi feito por estudantes, para estudantes. Embora desejamos entregar o melhor para vocês, ainda estamos em processo de aprendizado!! Ficaremos felizes em receber feedbacks e sugestões de melhorias!!";
 
     return (
-        <Screen title="Caronas UFPR" centralized>
-            <Section title={vocative}>
-                {steps.map((step, index) => {
-                    return (
-                        <Text key={index}>{(index + 1).toString() + ". " + step}</Text>
-                    );
-                })}
-            </Section>
-            <Vspacer h={10} />
-            <Section title={"Importante!!"}>
-                {importantPoints.map((point, index) => {
-                    return (
-                        <View key={index}>
-                            <Text key={index}>{(index + 1).toString() + ". " + point}</Text>
-                            <Vspacer h={5} />
-                        </View>
-                    );
-                })}
-            </Section>
-            <Vspacer h={20} />
-            <Text style={styles.end}>{end}</Text>
-            <View>
-                <CustomButton label="Começar" alignment="end" onClickHandler={() => {navigation.navigate("Início")}}/>
-            </View>
-        </Screen>
+        <ScrollView>
+            <Screen title="Caronas UFPR">
+                <Section title={vocative}>
+                    {steps.map((step, index) => {
+                        return (
+                            <Text key={index}>{(index + 1).toString() + ". " + step}</Text>
+                        );
+                    })}
+                </Section>
+                <Vspacer h={10} />
+                <Section title={"Importante!!"}>
+                    {importantPoints.map((point, index) => {
+                        return (
+                            <View key={index}>
+                                <Text key={index}>{(index + 1).toString() + ". " + point}</Text>
+                                <Vspacer h={5} />
+                            </View>
+                        );
+                    })}
+                </Section>
+                <Vspacer h={20} />
+                <Text style={styles.end}>{end}</Text>
+                <View style={[gs.flexRow, gs.justifyEnd, {marginBottom: 10}]}>
+                    <CustomButton label="Começar" onClickHandler={() => {navigation.navigate("Cadastrar-se")}}/>
+                </View>
+            </Screen>
+        </ScrollView>
     );
 };
 

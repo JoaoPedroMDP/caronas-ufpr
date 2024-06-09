@@ -97,11 +97,10 @@ const RegisterScreen = ({ navigation }) => {
 
       <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
       <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText/>
-      <View>
+      <View style={[gs.flexRow, styles.button]}>
         <CustomButton
           label="Cadastrar"
           onClickHandler={handleRegister}
-          alignment="end"
           disabled={email === "" || password === "" || name === "" || contact === ""}
         />
       </View>
@@ -120,8 +119,11 @@ const styles = StyleSheet.create({
   imageSection: {
     ...gs.flexRow,
     ...gs.alignCenter,
+    ...gs.justifyBetween,
     flexWrap: "wrap",
-    justifyContent: "space-between",
+  },
+  button: {
+    justifyContent: 'flex-end'
   }
 });
 

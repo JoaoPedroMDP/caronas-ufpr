@@ -45,12 +45,11 @@ const RequestPasswordReset = ({ navigation }) => {
         }}
         value={email}
       />
-      <View style={[gs.flexRow, gs.alignCenter]}>
+      <View style={[gs.flexRow, gs.alignCenter, gs.justifyBetween, {marginTop: 10}]}>
         <TextButton onPressHandler={() => {navigation.navigate("Login")}} text="Lembrei!" />
         <CustomButton
           label={"Recuperar"}
           onClickHandler={passwordReset}
-          alignment="end"
         />
       </View>
     </Screen>

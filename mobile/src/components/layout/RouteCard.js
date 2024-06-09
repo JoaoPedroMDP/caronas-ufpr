@@ -43,10 +43,9 @@ const RouteCard = ({route, additionalInfo, buttons, intentions, handlePress, tit
 
 const styles = StyleSheet.create({
     intentions: {
-        display: 'flex',
-        flexDirection: 'row', 
-        flexGrow: 1,
-        justifyContent: 'space-between',
+        ...gs.flexRow,
+        ...gs.justifyBetween,
+        flexGrow: 1
     },
     intentionsText: {
         fontFamily: "InterRegular",
@@ -55,11 +54,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     route: {
+        ...gs.flexCol,
         backgroundColor: LightGray,
         borderRadius: 10,
         padding: 15,
-        display: 'flex',
-        flexDirection: 'column'
     },
     title: {
         fontFamily: "InterBold",

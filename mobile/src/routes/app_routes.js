@@ -54,7 +54,10 @@ const AppRoutes = () => {
   
   function Home(){
     return(
-      <Drawer.Navigator initialRouteName="Home" drawerContent={drawerContent}>
+      <Drawer.Navigator initialRouteName="Início" drawerContent={drawerContent}>
+          <Drawer.Screen name="Instruções" component={FirstAccessScreen} options={{
+            headerRight: profile
+          }} />
           <Drawer.Screen name="Início" component={HomeScreen} options={{
             headerTitle: "",
             headerRight: profile
@@ -80,12 +83,6 @@ const AppRoutes = () => {
           
           <Drawer.Screen name="Perfil" component={ProfileScreen} options={{
             headerTitle: screenTitles,
-          }} />
-
-          
-          <Drawer.Screen name="Instruções" component={FirstAccessScreen} options={{
-            headerTitle: screenTitles,
-            headerRight: profile
           }} />
       </Drawer.Navigator>
     );

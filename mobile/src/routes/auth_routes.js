@@ -4,6 +4,7 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import RequestPasswordReset from '../screens/passwordResetScreens/RequestPasswordReset';
 import ResetPassword from '../screens/passwordResetScreens/ResetPassword';
+import FirstAccessScreen from '../screens/FirstAccessScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ const AuthRoutes = () => (
         <Stack.Screen name="Resetar senha" component={RequestPasswordReset} options={{ title: "Recuperar Senha" }} />
         <Stack.Screen name="Definir nova senha" component={ResetPassword} options={{ title: "Definir nova senha" }} />
         <Stack.Screen name="Cadastrar-se" component={RegisterScreen} options={{ title: "Cadastrar" }}/>
+        <Stack.Screen name="Instruções" component={FirstAccessScreen} options={{ title: "Cadastrar" }}/>
   </Stack.Navigator>
 );
 

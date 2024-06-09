@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthProvider } from './src/contexts/authContext';
 import Routes from './src/routes';
 import { SnackbarProvider } from "./src/contexts/snackbarContext";
+import { SafeAreaView, Platform, StyleSheet, StatusBar } from "react-native";
 
 const Stack = createStackNavigator();
 Stack.Group
@@ -23,14 +24,23 @@ export default function App() {
   }
 
   return (
-    <PaperProvider theme={DefaultTheme}>
-      <NavigationContainer>
-        <AuthProvider>
-          <SnackbarProvider>
-            <Routes />
-          </SnackbarProvider>
-        </AuthProvider>
-      </NavigationContainer>
-    </PaperProvider>
+    <SafeAreaView style={styles.AndroidSafeArea}>
+      <PaperProvider theme={DefaultTheme}>
+        <NavigationContainer>
+          <AuthProvider>
+            <SnackbarProvider>
+              <Routes />
+            </SnackbarProvider>
+          </AuthProvider>
+        </NavigationContainer>
+      </PaperProvider>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  AndroidSafeArea: {
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+  }
+});

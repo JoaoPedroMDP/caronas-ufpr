@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     imageSection: {
         ...gs.flexRow,
         ...gs.alignCenter,
-        justifyContent: 'space-between'
+        ...gs.justifyBetween
     },
     confirmButton: {
         display: "flex",

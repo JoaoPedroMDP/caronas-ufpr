@@ -14,6 +14,12 @@ const gs = StyleSheet.create({
   justifyCenter: {
     justifyContent: "center",
   },
+  justifyEnd: {
+    justifyContent: 'flex-end',
+  },
+  justifyBetween: {
+    justifyContent: 'space-between'
+  },
   regularText: {
     fontFamily: "InterRegular",
     fontSize: 20,
@@ -25,6 +31,9 @@ const gs = StyleSheet.create({
   },
   alignCenter: {
     alignItems: 'center'
+  },
+  alignEnd: {
+    alignItems: 'flex-end'
   }
 })
 

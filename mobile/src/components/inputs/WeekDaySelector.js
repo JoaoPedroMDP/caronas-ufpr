@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     days: {
         ...gs.flexRow,
         ...gs.alignCenter,
-        justifyContent: "space-between",
+        ...gs.justifyBetween,
         marginVertical: 5,
         width: "100%"
     }

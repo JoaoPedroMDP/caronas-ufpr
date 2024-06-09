@@ -30,7 +30,7 @@ const LoginScreen = ({ route, navigation }) => {
           <CustomTextInput text={password} setText={setPassword} placeholder="Senha" secureTextEntry={true}/>
           <View style={[gs.flexRow, styles.buttons]}>
             <View style={[gs.flexCol, gs.justifyCenter, styles.textButtons]}>
-              <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Cadastrar-se")}}/>
+              <TextButton text="Cadastre-se!" onPressHandler={() => {navigation.navigate("Instruções")}}/>
               <TextButton text="Esqueceu a senha?" onPressHandler={() => {navigation.navigate("Resetar senha")}}/>
             </View>
             <View style={[gs.flexRow, styles.loginButton]}>

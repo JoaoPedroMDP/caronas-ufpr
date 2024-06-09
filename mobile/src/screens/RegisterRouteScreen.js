@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     endpoint: {
         ...gs.flexRow,
         ...gs.alignCenter,
-        justifyContent: "space-between",
+        ...gs.justifyBetween
     },
     endpointTypeSwitch: {
         marginLeft: 10

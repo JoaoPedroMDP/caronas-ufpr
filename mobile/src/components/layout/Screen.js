@@ -1,12 +1,14 @@
 import { View, StyleSheet, ScrollView } from "react-native";
 import Title from "../textual/Title";
+import { White } from "../../../assets/colors";
 
 
 const styles = StyleSheet.create({
     screen: {
         paddingHorizontal: 30,
-        paddingTop: 40,
-        height: "100%"
+        paddingTop: 30,
+        height: "100%",
+        backgroundColor: White
     }
 })
 
