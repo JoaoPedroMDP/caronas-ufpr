@@ -45,8 +45,12 @@ async function createUser(userData) {
         let response = await axios.post(env.back_end + URIS.createUser, userData, config);
         return response.data;
     } catch (error) {
-        console.log("Erro ao criar usuário: ", error);
-        throw new Error("Impossível criar o usuário.");
+        if(error.response.status == 400 && 'data' in error.response){
+            throw new Error("Revise os campos a seguir: " + Object.keys(error.response.data).join(","));
+        }else{
+            console.log("Erro ao criar usuário: ", error);
+            throw new Error("Impossível criar o usuário.");
+        }
     }
 }
 
