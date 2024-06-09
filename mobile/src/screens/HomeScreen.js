@@ -86,8 +86,9 @@ const HomeScreen = ({navigation}) => {
     return(
         <Screen title={`Olá, ${user.name}`}>
             {routes.length > 0 ? 
-                  <View style={styles.picker}>
-                    <ListPicker value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute} placeholder={"Selecione uma rota"}/>
+                  <View style={styles.header}>
+                    {selectedRoute ? "" : <SubTitle subtitle={"Para encontrar usuários com rotas semelhantes, selecione uma rota no botão abaixo"} />}
+                    <ListPicker style={styles.picker} value={selectedRoute?.name} list={routes} returnValue={setSelectedRoute} placeholder={"Selecione uma rota"}/>
                   </View>
                 
                 : <SubTitle subtitle={"Você ainda não cadastrou nenhuma rota! 😱"} />
@@ -128,11 +129,9 @@ const HomeScreen = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
-  picker: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'start',
-    marginTop: 20
+  header: {
+    alignItems: 'flex-start',
+    gap: 10
   }
 });
 export default HomeScreen;
