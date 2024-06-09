@@ -5,6 +5,7 @@ import Vspacer from "@/components/layout/Vspacer";
 import { StyleSheet, View, Text } from "react-native";
 import gs from "../globalStyles";
 import CustomScrollView from "@/components/layout/CustomScrollView";
+import TextButton from "@/components/inputs/TextButton";
 
 const FirstAccessScreen = ({ navigation }) => {
     let vocative = "Acabou de chegar?? Veja como funciona o app:";
@@ -44,7 +45,8 @@ const FirstAccessScreen = ({ navigation }) => {
                 </Section>
                 <Vspacer h={20} />
                 <Text style={styles.end}>{end}</Text>
-                <View style={[gs.flexRow, gs.justifyEnd, {marginBottom: 10}]}>
+                <View style={[gs.flexRow, gs.justifyBetween, {marginVertical: 10}]}>
+                    <TextButton text={"Voltar"} onPressHandler={() => navigation.goBack()} />
                     <CustomButton label="Começar" onClickHandler={() => {navigation.navigate("Cadastrar-se")}}/>
                 </View>
             </Screen>

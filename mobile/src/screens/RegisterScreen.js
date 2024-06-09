@@ -9,6 +9,7 @@ import { sanitizeString } from "../contrib";
 import { SnackbarContext } from "@contexts/snackbarContext";
 import gs from "../globalStyles";
 import CustomScrollView from "@/components/layout/CustomScrollView";
+import TextButton from "@/components/inputs/TextButton";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -102,6 +103,7 @@ const RegisterScreen = ({ navigation }) => {
         <CustomTextInput label="Contato" placeholder="Instagram: @foo.lano" text={contact} setText={setContact} mandatory/>
         <CustomTextInput label="Biografia" placeholder="Curso Engenharia da pesca e amo peixes (deer)" text={bio} setText={setBio} bigText/>
         <View style={[gs.flexRow, styles.button]}>
+          <TextButton text={"Cancelar"} onPressHandler={() => navigation.navigate("Login")} />
           <CustomButton
             label="Cadastrar"
             onClickHandler={handleRegister}
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   button: {
-    justifyContent: 'flex-end'
+    ...gs.justifyBetween
   }
 });
 
