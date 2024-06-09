@@ -7,6 +7,7 @@ import CustomButton from '../components/inputs/CustomButton';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/authContext';
 import { askPartnership } from '../cruds/partnership';
+import { SnackbarContext } from '../contexts/snackbarContext';
 
 const styles = StyleSheet.create({
     image: {
@@ -32,10 +33,16 @@ const styles = StyleSheet.create({
 
 const ResultProfileScreen = ({ route, navigation }) => {
     const {user} = useContext(AuthContext);
+    const {showSnackbar} = useContext(SnackbarContext);
 
     async function handleAskPartnership() {
-        await askPartnership(user, route.params?.user, route.params?.route);
-        navigation.goBack();
+        try{
+            await askPartnership(user, route.params?.user, route.params?.route);
+            showSnackbar("Parceria pedida!");
+            navigation.goBack();
+        }catch(error){
+            showSnackbar(error.message);
+        }
     }
 
     return(

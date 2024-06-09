@@ -58,6 +58,7 @@ async function changePartnershipStatus(request, status) {
         let response = await axios.patch(env.back_end + URIS.changePartStatus + request.id, data, config);
         return response.data;
     } catch (error) {
+        console.log(error);
         throw new Error("Não foi possível mudar o status da parceria.");
     }
 }

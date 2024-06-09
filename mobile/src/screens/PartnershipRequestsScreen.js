@@ -37,8 +37,8 @@ const PartnershipRequest = ({ request, changeStatusHandler }) => {
             title={request.requestant.name}
             buttons={
                 <View style={styles.buttons}>
-                    <CustomButton label="Recusar" onClickHandler={() => {changeStatusHandler(route, 'REJECTED')}} bgColor={MediumGray} txColor={Black}/>
-                    <CustomButton label="Aceitar" onClickHandler={() => {changeStatusHandler(route, 'ACCEPTED')}}/>
+                    <CustomButton label="Recusar" onClickHandler={() => {changeStatusHandler(request, 'REJECTED')}} bgColor={MediumGray} txColor={Black}/>
+                    <CustomButton label="Aceitar" onClickHandler={() => {changeStatusHandler(request, 'ACCEPTED')}}/>
                 </View>
             }
             intentions={convertIntentions()}
@@ -50,6 +50,7 @@ const PartnershipRequestsScreen = ({ navigation }) => {
     const [refresh, setRefresh] = useState(false);
     const [requests, setRequests] = useState([]);
     const { showSnackbar } = useContext(SnackbarContext);
+
     useEffect(() => {
         async function fetchRequests() {
             let result = await listPartnershipRequests();
@@ -64,7 +65,7 @@ const PartnershipRequestsScreen = ({ navigation }) => {
             showSnackbar("Status da parceria atualizado com sucesso!");
             setRefresh(!refresh);
         } catch (error) {
-            console.log("Erro ao atualizar status da parceria" + error);
+            console.log(error);
             showSnackbar(error.message);
         }
     }

@@ -111,9 +111,9 @@ class Command(BaseCommand):
             Place.objects.create(**campus)
 
         users = [
-            {"name": "Maria", 'username': 'mar@mar.com', "contact": "insta: @mar", 'password': 'marmar', 'bio': 'Bio de mar', 'email': 'mar@mar.com'},
-            {"name": "Guilherme", 'username': 'gui@gui.com', "contact": "insta: @gui", 'password': 'guigui', 'bio': 'Bio de gui', 'email': 'gui@gui.com'},
-            {"name": "Jão", 'username': 'jao@jao.com', "contact": "insta: @jao", 'password': 'jaojao', 'bio': 'Bio de jao', 'email': 'jao@jao.com'},
+            {"name": "Maria", 'username': 'mar@mar.com', "contact": "insta: @mar", 'password': 'MARMAR', 'bio': 'Bio de mar', 'email': 'mar@mar.com'},
+            {"name": "Guilherme", 'username': 'gui@gui.com', "contact": "insta: @gui", 'password': 'GUIGUI', 'bio': 'Bio de gui', 'email': 'gui@gui.com'},
+            {"name": "Jão", 'username': 'jao@jao.com', "contact": "insta: @jao", 'password': 'JAOJAO', 'bio': 'Bio de jao', 'email': 'jao@jao.com'},
         ]
 
         for raw_user in users:
