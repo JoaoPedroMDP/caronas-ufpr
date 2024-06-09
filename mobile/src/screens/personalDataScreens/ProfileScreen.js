@@ -29,27 +29,24 @@ const styles = StyleSheet.create({
     }
 });
 
-const ProfileScreen = ({ route, navigation }) => {
+const ProfileScreen = ({ navigation }) => {
     const { user } = useContext(AuthContext);
 
-    let isLoggedUser = route.params?.user == null;
-    let userToShow = route.params?.user ?? user;
-    let photo = route.params?.user ? route.params?.user.photo : getImage(user.photo) 
+    let photo = user ? user.photo : getImage(user.photo)
+    let bio = user.bio == null || user.bio == "" ? "Você não possui bio" : user.bio;
     return(
         <Screen full>
-            {userToShow.photo != null && 
+            {user.photo != null && 
                 <Image source={{ uri: photo }} style={styles.image} />
             }
-            <Title title={userToShow.name} centralized expand />
-            <Subtitle subtitle={"Contato: " + userToShow.contact} centralized />
+            <Title title={user.name} centralized expand />
+            <Subtitle subtitle={"Contato: " + user.contact} centralized />
             <View style={styles.bioBox}>
-                <Text>{userToShow.bio ?? "Este usuário não possui bio"}</Text>
+                <Text>{bio}</Text>
             </View>
-            {isLoggedUser && 
             <View style={styles.editProfileButton}>
                 <CustomButton label={"Editar perfil"} onClickHandler={() => navigation.navigate("Editar Perfil")} />
             </View>
-            }
         </Screen>
     );
 }

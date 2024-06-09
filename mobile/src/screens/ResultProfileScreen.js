@@ -45,6 +45,7 @@ const ResultProfileScreen = ({ route, navigation }) => {
         }
     }
 
+    let bio = route.params?.user.bio == null || route.params?.user.bio == "" ? "Este usuário não possui bio" : route.params?.user.bio;
     return(
         <Screen>
             {route.params?.user.photo != null && 
@@ -52,7 +53,7 @@ const ResultProfileScreen = ({ route, navigation }) => {
             }
             <Title title={route.params?.user.name} centralized />
             <View style={styles.bioBox}>
-                <Text>{route.params?.user.bio ?? "Este usuário não possui bio"}</Text>
+                <Text>{bio}</Text>
             </View>
             <View style={styles.askButton}>
                 <CustomButton label="Pedir parceria" onClickHandler={handleAskPartnership}/>
