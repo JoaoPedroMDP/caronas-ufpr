@@ -175,10 +175,9 @@ const RegisterRouteScreen = ({ navigation }) => {
                 </Section>
                 <Section title="Horário de chegada">
                     <View style={{ flexDirection: "row", justifyContent: "start" }}>
-                        <View style={{ width: 50 }}>
+                        <View style={gs.flexRow}>
                             <CustomTextInput placeholder={"hh"} text={arriveHour} setText={setArriveHourNumber} />
-                        </View>
-                        <View style={{ width: 50, marginLeft: 10 }}>
+                            <Text style={gs.regularText}> : </Text>
                             <CustomTextInput placeholder={"mm"} text={arriveMinute} setText={setArriveMinuteNumber} />
                         </View>
                     </View>
