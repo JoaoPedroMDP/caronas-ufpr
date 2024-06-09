@@ -20,7 +20,7 @@ const LoginScreen = ({ route, navigation }) => {
       showSnackbar("Login efetuado com sucesso!");
     }catch(error){
       console.log("Erro no login: ", error);
-      showSnackbar("Erro ao efetuar login!");
+      showSnackbar(error.message);
     }
   }
 

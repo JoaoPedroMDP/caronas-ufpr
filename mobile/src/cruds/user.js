@@ -11,85 +11,71 @@ const URIS = {
     getUserByRoute: '/routes/users/by_route/',
 };
 
-async function getLoggedUser(){
+async function getLoggedUser() {
     console.log("Pegando usuário logado...");
     let config = await getConfig();
-    let result = axios
-        .get(env.back_end + URIS.getLoggedUser, config)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            if (error.response && error.response.status === 401) {
-                console.log('Token inválido.');
-                AsyncStorage.setItem(TOKEN_STORAGE_KEY, '');
-                return null;
-            }else if(error.response.status === 500){
-                console.log('Erro interno no servidor. Tente novamente mais tarde.');
-                throw new Error('Erro interno no servidor. Tente novamente mais tarde.');
-            }
-        });
 
-    return result;
+    try {
+        let response = await axios.get(env.back_end + URIS.getLoggedUser, config);
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            console.log('Token inválido.');
+            await AsyncStorage.setItem(TOKEN_STORAGE_KEY, '');
+            return null;
+        } else if (error.response && error.response.status === 500) {
+            console.log('Erro interno no servidor. Tente novamente mais tarde.');
+            throw new Error('Erro interno no servidor. Tente novamente mais tarde.');
+        } else {
+            console.log('Erro desconhecido ao pegar usuário logado: ', error);
+            throw new Error('Erro ao pegar usuário logado.');
+        }
+    }
 }
 
-
-async function createUser(userData){
+async function createUser(userData) {
     console.log("Criando usuário...");
     let config = {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
-    }
+    };
 
-    let data = await axios
-        .post(env.back_end + URIS.createUser, userData, config)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-            console.log("Erro ao criar usuário no banco local: " + error);
-            throw Error("Impossível criar o usuário");
-        });
-    
-    return data;
+    try {
+        let response = await axios.post(env.back_end + URIS.createUser, userData, config);
+        return response.data;
+    } catch (error) {
+        console.log("Erro ao criar usuário: ", error);
+        throw new Error("Impossível criar o usuário.");
+    }
 }
 
-
-async function updateUser(userFormData, userId){
+async function updateUser(userFormData, userId) {
     console.log("Atualizando usuário...");
     let config = await getConfig();
     config.headers['Content-Type'] = 'multipart/form-data';
 
-    let data = await axios
-        .put(env.back_end + URIS.updateUser + `/${userId}`, userFormData, config)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-            throw error;
-        });
-    
-    return data;
+    try {
+        let response = await axios.put(env.back_end + URIS.updateUser + `/${userId}`, userFormData, config);
+        return response.data;
+    } catch (error) {
+        console.log("Erro ao atualizar usuário: ", error);
+        throw new Error("Impossível atualizar o usuário.");
+    }
 }
 
-
-async function getUsersByRoute(route_id){
+async function getUsersByRoute(route_id) {
     console.log("Buscando usuários para a rota...");
     let config = await getConfig();
 
-    let users = await axios
-        .get(env.back_end + URIS.getUserByRoute + route_id, config)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            throw Error(error.message);
-        });
-    
-    return users;
+    try {
+        let response = await axios.get(env.back_end + URIS.getUserByRoute + route_id, config);
+        return response.data;
+    } catch (error) {
+        console.log("Erro ao buscar usuários para a rota: ", error);
+        throw new Error("Erro ao buscar usuários para a rota.");
+    }
 }
+
 
 export { getLoggedUser, createUser, updateUser, getUsersByRoute };

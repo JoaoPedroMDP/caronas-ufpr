@@ -78,13 +78,10 @@ const AppRoutes = () => {
             headerRight: profile
           }} />
           
-          <Drawer.Screen name="Editar Perfil" component={EditProfileScreen} options={{
-            headerTitle: screenTitles,
-            headerRight: profile
-          }} />
           <Drawer.Screen name="Perfil" component={ProfileScreen} options={{
             headerTitle: screenTitles,
           }} />
+
           
           <Drawer.Screen name="Instruções" component={FirstAccessScreen} options={{
             headerTitle: screenTitles,
@@ -99,6 +96,7 @@ const AppRoutes = () => {
       <Stack.Screen name="HomeRoutes" component={Home} options={{headerShown: false}} />
       <Stack.Screen name="Resultado" component={ResultProfileScreen} options={{title: "Resultado"}} />
       <Stack.Screen name="Parceiro" component={ProfileScreen} options={{title: "Parceiro"}} />
+      <Stack.Screen name="Editar Perfil" component={EditProfileScreen} options={{title: "Editar Perfil"}}/>
     </Stack.Navigator>
   );
 };

@@ -4,8 +4,8 @@ import { Black, LightGray, MediumGray, White } from '../../../assets/colors';
 
 const styles = StyleSheet.create({
     button: { 
-        width: 'fit-content',
-        height: 'fit-content',
+        flexDirection: 'row',
+        alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },

@@ -6,6 +6,7 @@ import Subtitle from '../components/textual/Subtitle';
 import { LightGray } from '../../assets/colors';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/authContext';
+import CustomButton from '../components/inputs/CustomButton';
 
 const styles = StyleSheet.create({
     image: {
@@ -21,11 +22,17 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 20,
     },
+    editProfileButton: {
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        marginTop: 10
+    }
 });
 
 const ProfileScreen = ({ route, navigation }) => {
     const { user } = useContext(AuthContext);
 
+    let isLoggedUser = route.params?.user == null;
     let userToShow = route.params?.user ?? user;
     let photo = route.params?.user ? route.params?.user.photo : getImage(user.photo) 
     return(
@@ -38,6 +45,11 @@ const ProfileScreen = ({ route, navigation }) => {
             <View style={styles.bioBox}>
                 <Text>{userToShow.bio ?? "Este usuário não possui bio"}</Text>
             </View>
+            {isLoggedUser && 
+            <View style={styles.editProfileButton}>
+                <CustomButton label={"Editar perfil"} onClickHandler={() => navigation.navigate("Editar Perfil")} />
+            </View>
+            }
         </Screen>
     );
 }

@@ -12,51 +12,51 @@ const URIS = {
 };
 
 
-function login(username, password){
+async function login(username, password){
     console.log("Realizando login...");
-    let result = axios.post(env.back_end + URIS['login'], { username, password })
-    .then(async (response) => {
+    try{
+        let response = await axios.post(env.back_end + URIS['login'], { username, password });
         return response.data;
-    })
-    .catch((error) => {
+    }catch(error){
+        console.log(error.message);
         if (error.response && error.response.status === 401) {
             throw new Error('Email ou senha inválidos');
         }else if(error.response.status === 500){
             throw new Error('Erro interno no servidor. Tente novamente mais tarde.');
+        }else if(error.response.status == 404){
+            throw new Error("Não foi possível encontrar o servidor. Os administradores já foram notificados");
+        }else{
+            throw new Error("Erro desconhecido. Tente novamente mais tarde.");
         }
-    });
+    }
 
     return result;
 }
 
-const logout = async () => {
+async function logout() {
     console.log("Realizando logout...");
-    let result = axios.post(env.back_end + URIS['logout'], { refresh_token: await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY) })
-    .then(async () => {
+    let refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
+
+    try{
+        let result = await axios.post(env.back_end + URIS['logout'], { refresh_token: refreshToken})
         return true;
-    })
-    .catch((error) => {
+    }catch(error){
         console.log('Erro ao realizar logout:', error);
         return false;
-    });
-
-    return result;
+    }
 };
 
-const refresh = async () => {
+async function refresh() {
     console.log("Realizando refresh...");
     let refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
-    let result = axios
-        .post(env.back_end + URIS['refresh'], { refresh: refreshToken })
-        .then(async (response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log('Erro ao renovar token:', error);
-            throw new Error('Erro ao renovar token');
-        });
-
-    return result;
+    
+    try{
+        let response = await axios.post(env.back_end + URIS['refresh'], { refresh: refreshToken })
+        return response.data;
+    }catch(error){
+        console.log('Erro ao renovar token:', error);
+        throw new Error('Erro ao renovar token');
+    }
 
 }
 
@@ -65,17 +65,13 @@ const requestPasswordReset = async (email) => {
         params: { email: email }
     }
 
-    let result = axios
-        .get(env.back_end + URIS['requestPassReset'], config)
-        .then(async (response) => {
-            return response;
-        })
-        .catch((error) => {
-            console.log('Erro ao tentar resetar a senha:', error);
-            throw new Error('Erro ao tentar resetar a senha');
-        });
-
-    return result;
+    try{
+        let response = axios.get(env.back_end + URIS['requestPassReset'], config)
+        return response;
+    }catch(error){
+        console.log('Erro ao tentar resetar a senha:', error);
+        throw new Error('Erro ao tentar resetar a senha');
+    }
 }
 
 
@@ -85,17 +81,13 @@ const resetPassword = async (token ,password) => {
         token: token
     }
 
-    let result = axios
-        .post(env.back_end + URIS['resetPass'], data)
-        .then(async (response) => {
-            return response;
-        })  
-        .catch((error) => {
-            console.log('Erro ao tentar resetar a senha:', error);
-            throw new Error('Erro ao tentar resetar a senha');
-        });
-
-    return result;
+    try{
+        let response = axios.post(env.back_end + URIS['resetPass'], data)
+        return response;
+    }catch(error){
+        console.log('Erro ao tentar resetar a senha:', error);
+        throw new Error('Erro ao tentar resetar a senha');
+    }
 }
 
 export { login, logout, refresh, requestPasswordReset, resetPassword };

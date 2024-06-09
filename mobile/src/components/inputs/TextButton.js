@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
 const TextButton = ({ text, onPressHandler }) => {
 
     function getStyles(pressed) {
-        console.log(pressed);
         return [
             styles.button,
             pressed == true ? {backgroundColor: White, color: Black} : {color: Blue}

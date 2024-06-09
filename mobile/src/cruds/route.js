@@ -9,8 +9,8 @@ const URIS = {
 };
 
 
-async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions) {
-    console.log("Salvando rota...")
+async function saveRoute(origin, destiny, arriveTime, weekDays, userIntentions) {
+    console.log("Salvando rota...");
     let data = {
         "name": `${origin.name} -> ${destiny.name}`,
         "intentions": userIntentions,
@@ -22,54 +22,38 @@ async function saveRoute (origin, destiny, arriveTime, weekDays, userIntentions)
 
     let config = await getConfig();
 
-    try{
-        axios.post(env.back_end + URIS.saveRoute, data, config)
-            .catch((error) => {
-                console.log("Não foi possível criar a rota: " + error)
-                throw Error("Não foi possível criar a rota.");
-            });
-    }catch(error){
-        console.log("Erro ao salvar a rota: " + error.message);
-        throw Error(error.message);
+    try {
+        await axios.post(env.back_end + URIS.saveRoute, data, config);
+    } catch (error) {
+        console.log("Não foi possível criar a rota: " + error.message);
+        throw new Error("Não foi possível criar a rota.");
     }
 }
 
-
-async function getRoutes(){
+async function getRoutes() {
     console.log("Pegando rotas...");
     let config = await getConfig();
 
-        try{
-            let routes = await axios
-                .get(env.back_end + URIS.getRoutes, config)
-                .then((response) => {
-                    return response.data;
-                })
-                .catch((error) => {
-                    throw error;
-                });
-
-            return routes;
-        }catch(error){
-            console.log("Erro ao pegar as rotas: " + error.message);
-            throw Error(error.message);
-        };
-
+    try {
+        let response = await axios.get(env.back_end + URIS.getRoutes, config);
+        return response.data;
+    } catch (error) {
+        console.log("Erro ao pegar as rotas: " + error.message);
+        throw new Error("Erro ao pegar as rotas.");
+    }
 }
 
-async function deleteRoute(route){
+async function deleteRoute(route) {
     console.log("Deletando rota...");
     let config = await getConfig();
 
-    try{
-        axios.delete(env.back_end + URIS.deleteRoute + `${route.id}`, config)
-            .catch((error) => {
-                console.log("Não foi possível deletar a rota: " + error)
-                throw Error("Não foi possível deletar a rota.");
-            });
-    }catch(error){
-        console.log("Erro ao deletar a rota: " + error.message);
-        throw Error(error.message);
+    try {
+        await axios.delete(env.back_end + URIS.deleteRoute + `${route.id}`, config);
+    } catch (error) {
+        console.log("Não foi possível deletar a rota: " + error.message);
+        throw new Error("Não foi possível deletar a rota.");
     }
 }
+
+
 export { saveRoute, getRoutes, deleteRoute };
