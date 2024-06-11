@@ -12,10 +12,11 @@ import PartnershipRequestsScreen from '@screens/PartnershipRequestsScreen';
 import ProfileScreen from '@screens/personalDataScreens/ProfileScreen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import RoutesScreen from '@screens/routeScreens/RoutesScreen';
-import { Image, Pressable, StyleSheet } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import env from '../../env';
 import ChangePasswordScreen from '@screens/personalDataScreens/ChangePasswordScreen';
 import NewPasswordScreen from '@screens/personalDataScreens/NewPasswordScreen';
+import UserScreen from '@/screens/UserScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -98,6 +99,7 @@ const AppRoutes = () => {
       <Stack.Screen name="Editar Perfil" component={EditProfileScreen} options={{title: "Editar Perfil"}}/>
       <Stack.Screen name="Trocar senha" component={ChangePasswordScreen} options={{ title: "" }} />
       <Stack.Screen name="Definir nova senha" component={NewPasswordScreen} options={{ title: "Definir nova senha" }} />
+      <Stack.Screen name="Usuário" component={UserScreen} options={{ title: "" }} />
     </Stack.Navigator>
   );
 };

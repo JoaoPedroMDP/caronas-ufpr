@@ -34,7 +34,8 @@ const ChangePasswordScreen = ({ route, navigation }) => {
     <Screen title="Trocar senha" centTitle>
       <SubTitle subtitle="Insira o email que usou para se cadastrar" />
       <CustomTextInput
-        placeholder={"Email"}
+        label={"Email"}
+        placeholder={"fulano@ufpr.br"}
         setText={(value) => {
           setEmail(value);
         }}

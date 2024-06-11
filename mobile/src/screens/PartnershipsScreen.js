@@ -13,8 +13,8 @@ import gs from '../globalStyles';
 const RoutePartnerships = ({ currentUser, route, partners, navigation}) => {
 
   function seePartner(partnership){
-    let part = getPartner(partnership);
-    navigation.navigate('Perfil', {user: part});
+    let partner = getPartner(partnership);
+    navigation.navigate('Usuário', {user: partner});
   }
 
   function getPartner(partnership){
@@ -77,7 +77,9 @@ const PartnershipsScreen = ({ navigation }) => {
       {Object.keys(partnerships).length === 0 ? 
         <SubTitle subtitle="Você ainda não fez nenhuma parceria! 🙁 Cadastre uma rota e a selecione na tela inicial para ver potenciais parcerias :D" />
         : <SubTitle subtitle="Para ver o contato de seus parceiros, é só clicar no nome deles ;)" />}
-      <Comment comment={"Os usuários só aparecerão aqui depois que a parceria for aceita"}/>
+      <View style={styles.warning}>
+        <Comment comment={"Os usuários só aparecerão aqui depois que a parceria for aceita"}/>
+      </View>
       <View style={styles.partnerships}>
         {Object.keys(partnerships).map((routeId) => {
           const { route, partners } = partnerships[routeId];
@@ -100,6 +102,9 @@ const styles = StyleSheet.create({
   },
   partnerships: {
     marginTop: 20
+  },
+  warning:{
+    marginTop: 10
   }
 });
 

@@ -36,7 +36,7 @@ const NewPasswordScreen = ({ navigation }) => {
         <Screen title="Defina sua nova senha" centTitle>
             <SubTitle subtitle="Lembre-se de escolher uma senha bem segura ;)" />
             <CustomTextInput
-                placeholder={"Nova senha"}
+                label="Nova senha"
                 setText={(value) => {
                     setPassword(value);
                 }}
@@ -45,7 +45,7 @@ const NewPasswordScreen = ({ navigation }) => {
                 mandatory
             />
             <CustomTextInput
-                placeholder={"Confirme a nova senha"}
+                label={"Confirme a nova senha"}
                 setText={(value) => {
                     setPasswordConfirmation(value);
                 }}
@@ -54,7 +54,8 @@ const NewPasswordScreen = ({ navigation }) => {
                 mandatory
             />
             <CustomTextInput
-                placeholder={"Token de confirmação recebido por email"}
+                label={"Token de confirmação recebido por email"}
+                placeholder={"xxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
                 setText={(value) => {
                     setToken(value);
                 }}

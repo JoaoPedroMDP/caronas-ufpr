@@ -37,7 +37,7 @@ const ResetPasswordScreen = ({ navigation }) => {
         <Screen title="Defina sua nova senha" centralized>
             <SubTitle subtitle="Agora é só escolher uma senha bem segura!" centralized={true} />
             <CustomTextInput
-                placeholder={"Nova senha"}
+                label={"Nova senha"}
                 setText={(value) => {
                     setPassword(value);
                 }}
@@ -46,7 +46,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                 mandatory
             />
             <CustomTextInput
-                placeholder={"Confirme a nova senha"}
+                label={"Confirme a nova senha"}
                 setText={(value) => {
                     setPasswordConfirmation(value);
                 }}
@@ -55,7 +55,8 @@ const ResetPasswordScreen = ({ navigation }) => {
                 mandatory
             />
             <CustomTextInput
-                placeholder={"Token de confirmação recebido por email"}
+                label={"Token de confirmação recebido por email"}
+                placeholder={"xxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
                 setText={(value) => {
                     setToken(value);
                 }}

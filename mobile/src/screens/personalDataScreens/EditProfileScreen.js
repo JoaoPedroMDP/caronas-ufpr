@@ -109,16 +109,16 @@ const EditProfileScreen = ({ navigation }) => {
 
     return(
         <CustomScrollView>
-            <Screen title="Alterar cadastro" centralized>
+            <Screen title="Editar perfil" centralized>
                 <View style={styles.imageSection}>
                     <Image source={sourceImage()} style={styles.image} />
                     <CustomButton label="Alterar foto" onClickHandler={selectImage} />
                 </View>
 
-                <CustomTextInput placeholder="Email" text={email} setText={setEmail} />
-                <CustomTextInput placeholder="Nome" text={name} setText={setName} />
-                <CustomTextInput placeholder="Contato" text={contact} setText={setContact} />
-                <CustomTextInput placeholder="Biografia" text={bio} setText={setBio} bigText />
+                <CustomTextInput label="Email" text={email} setText={setEmail} />
+                <CustomTextInput label="Nome" text={name} setText={setName} />
+                <CustomTextInput label="Contato" text={contact} setText={setContact} />
+                <CustomTextInput label="Biografia" text={bio} setText={setBio} bigText />
                 <View style={[gs.flexRow, gs.alignCenter]}>
                     <Text style={gs.textCenter}>Para alterar sua senha, </Text>
                     <TextButton text={"clique aqui"} onPressHandler={() => navigation.navigate("Trocar senha")} alignSelf="start"/>

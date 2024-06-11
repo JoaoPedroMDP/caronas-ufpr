@@ -81,7 +81,7 @@ class RequestPasswordResetView(APIView):
         
         send_mail(
             subject='Redefinição de senha',
-            message=f'Copie este token para redefinir sua senha {token} (sim ele é bem feio, mas pode confiar ;)',
+            message=f'Copie este código para redefinir sua senha: {token}',
             from_email=GMAIL_APP_EMAIL,
             recipient_list=[email],
             fail_silently=False,

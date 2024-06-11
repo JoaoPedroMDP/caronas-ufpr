@@ -1,8 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useState } from 'react' 
 import gs from "../../globalStyles";
-import { DarkGray, LightGray } from "../../../assets/colors";
+import { Black, DarkGray, LightGray } from "../../../assets/colors";
 import { getFormattedTime } from "../../contrib";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const RouteCard = ({route, additionalInfo, buttons, intentions, handlePress, title = null}) => {
     const [pressed, setPressed] = useState(false);
@@ -19,7 +20,10 @@ const RouteCard = ({route, additionalInfo, buttons, intentions, handlePress, tit
 
     return (
         <Pressable onPress={handlePress} style={styles.route}>
-            <Text style={styles.title}> {title == null ? route.name: title} </Text>
+            <View style={[gs.flexRow, gs.justifyCenter, gs.alignCenter, {gap: 15}]}>
+                <Text style={styles.title}> {title == null ? route.name: title} </Text>
+                <Icon name={pressed ? "chevron-up" : "chevron-down"} size={20}/>
+            </View>
             {pressed &&
                 <View>
                     {title != null &&
@@ -58,6 +62,8 @@ const styles = StyleSheet.create({
         backgroundColor: LightGray,
         borderRadius: 10,
         padding: 15,
+        borderWidth: 2,
+        borderColor: Black
     },
     title: {
         fontFamily: "InterBold",

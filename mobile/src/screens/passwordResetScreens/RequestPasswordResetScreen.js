@@ -39,7 +39,8 @@ const RequestPasswordResetScreen = ({ route, navigation }) => {
         comment="Faz assim: conte para gente qual endereço de email você usou para se cadastrar aqui, e te enviaremos um email de recuperação de senha ;)"
       />
       <CustomTextInput
-        placeholder={"Email"}
+        label={"Email"}
+        placeholder={"fulano@ufpr.br"}
         setText={(value) => {
           setEmail(value);
         }}
