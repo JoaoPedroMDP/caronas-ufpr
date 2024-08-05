@@ -1,11 +1,12 @@
-// import 'react-native-gesture-handler';
-import { StyleSheet, ScrollView } from 'react-native';
+import "@expo/metro-runtime";
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider } from 'react-native-paper';
-import ResultProfileScreen from './src/screens/ResultProfileScreen';
+import { DefaultTheme, PaperProvider, Snackbar } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
-import RootNavigator from './src/screens/navigators/RootNavigator';
+import { AuthProvider } from './src/contexts/authContext';
+import Routes from './src/routes';
+import { SnackbarProvider } from "./src/contexts/snackbarContext";
+import { SafeAreaView, Platform, StyleSheet, StatusBar } from "react-native";
 
 const Stack = createStackNavigator();
 Stack.Group
@@ -23,23 +24,23 @@ export default function App() {
   }
 
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="RootNavigator" component={RootNavigator} options={{headerShown: false}}/>
-          <Stack.Screen name="ResultProfileScreen" component={ResultProfileScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <SafeAreaView style={styles.AndroidSafeArea}>
+      <PaperProvider theme={DefaultTheme}>
+        <NavigationContainer>
+          <AuthProvider>
+            <SnackbarProvider>
+              <Routes />
+            </SnackbarProvider>
+          </AuthProvider>
+        </NavigationContainer>
+      </PaperProvider>
+    </SafeAreaView>
   );
 }
 
-
 const styles = StyleSheet.create({
-  container: {
+  AndroidSafeArea: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+  }
 });

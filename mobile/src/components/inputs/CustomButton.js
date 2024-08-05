@@ -1,63 +1,46 @@
-import { StyleSheet, Pressable, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Pressable, Text } from 'react-native';
 import { useState } from 'react';
 import { Black, LightGray, MediumGray, White } from '../../../assets/colors';
+import gs from '../../globalStyles';
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        alignSelf: "flex-start",
-        marginVertical: 5,
-    },
     button: {
+        ...gs.flexRow,
+        ...gs.alignCenter,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    regularButton: {
         borderRadius: 10,
-        minWidth: 45,
+        minWidth: 70,
+        minHeight: 40,
+    },
+    smallButton: {
+        borderRadius: 8,
+        minWidth: 30,
     },
     text: {
         fontFamily: "InterBold",
-        margin: 10
+        margin: 10,
+        fontSize: 17
     },
-    teste: {
-        display: 'flex',
-        flexGrow: 1,
-        flexDirection: 'row'
+    smallText: {
+        fontFamily: "InterBold",
+        margin: 5,
+        fontSize: 14
     }
 })
 
-const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignment, inverted }) => {
-    // label: string; // Texto do botão
-    // onClickHandler: function; // Função a ser executada ao clicar no botão
-    // disabled: boolean; // Se o botão está desabilitado
-    // containerStyle: object; // Estilo do container do botão
-    /* alignment: string; // Alinhamento do botão (start, center, end). Para que o alignment funcione, 
-        basta envelopar o botão em um View, sem necessidade de estilos
-    */
+const CustomButton = ({ label, onClickHandler, disabled, inverted, small, bgColor, txColor }) => {
     const [clicked, setClicked] = useState(false);
-    const alignmentStyle = determineAlignment();
-    let aligStyle = {
-        justifyContent: alignmentStyle
-    };
-
-    function determineAlignment() {
-        if (alignment != null) {
-            if (alignment === "center") {
-                return "center";
-            }else{
-                return "flex-" + alignment;
-            }
-        } else {
-            return null;
-        }
-    }
 
     function clickButton() {
         setClicked(false);
         onClickHandler(clicked);
     }
 
-    let textColor = White;
-    let backgroundColor = Black;
-
-    if (disabled) textColor = MediumGray;
+    let textColor = txColor ?? White;
+    let backgroundColor = bgColor ?? Black;
 
     if (clicked || inverted != undefined) {
       textColor = LightGray;
@@ -65,18 +48,20 @@ const CustomButton = ({ label, onClickHandler, disabled, containerStyle, alignme
     }
 
     return (
-      <View style={[styles.teste, aligStyle]}>
-          <Pressable
-              disabled={disabled}
-              onPressIn={() => setClicked(true)}
-              onPressOut={clickButton}
-              style={[styles.container, containerStyle]}
-          >
-              <View style={[styles.button, { backgroundColor: backgroundColor }]}>
-                  <Text style={[styles.text, { color: textColor }]}>{label}</Text>
-              </View>
-          </Pressable>
-      </View>
+        <Pressable
+            disabled={disabled}
+            onPressIn={() => setClicked(true)}
+            onPressOut={clickButton}
+            style={[
+                small ? styles.smallButton : styles.regularButton, 
+                styles.button, 
+                {
+                    backgroundColor: backgroundColor,
+                    opacity: disabled ? 0.5 : 1
+                }]}
+        >
+            <Text style={[small ? styles.smallText : styles.text, { color: textColor }]}>{label}</Text>
+        </Pressable>
     );
 }
 

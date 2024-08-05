@@ -1,22 +1,30 @@
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
-import { Blue } from '../../../assets/colors';
+import { Pressable, StyleSheet, Text } from "react-native";
+import { Black, Blue, White } from '../../../assets/colors';
 const styles = StyleSheet.create({
     option: {
-        color: Blue,
-        marginLeft: 5,
         fontFamily: 'InterRegular',
-        fontSize: 12
+        fontSize: 14,
+        color: Blue
     },
     button: {
-      alignSelf: 'flex-start'
+        borderRadius: 5,
+        paddingVertical: 5
     }
 });
 
-const TextButton = ({ text, onPressHandler }) => {
+const TextButton = ({ text, onPressHandler, alignment }) => {
+
+    function getStyles(pressed) {
+        return [
+            styles.button,
+            pressed == true ? {backgroundColor: White, color: Black} : {color: Blue}
+        ];
+    }
+
     return (
-        <TouchableOpacity style={styles.button} onPress={onPressHandler}>
-            <Text style={styles.option}>{text}</Text>
-        </TouchableOpacity>
+        <Pressable style={({pressed}) => getStyles(pressed)} onPress={onPressHandler}>
+            <Text style={[styles.option, {textAlign: alignment}]}>{text}</Text>
+        </Pressable>
     );
 }
 

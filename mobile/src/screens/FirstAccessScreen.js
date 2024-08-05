@@ -1,19 +1,22 @@
-import CustomButton from "../components/inputs/CustomButton";
-import Screen from "../components/layout/Screen";
-import Section from "../components/layout/Section";
-import Vspacer from "../components/layout/Vspacer";
-import Comment from "../components/textual/Comment";
-import SubTitle from "../components/textual/Subtitle";
-import { StyleSheet, View } from "react-native";
-
-const styles = StyleSheet.create({});
+import CustomButton from "@/components/inputs/CustomButton";
+import Screen from "@/components/layout/Screen";
+import Section from "@/components/layout/Section";
+import Vspacer from "@/components/layout/Vspacer";
+import { StyleSheet, View, Text } from "react-native";
+import gs from "../globalStyles";
+import CustomScrollView from "@/components/layout/CustomScrollView";
+import TextButton from "@/components/inputs/TextButton";
+import { AuthContext } from "@/contexts/authContext";
+import { useContext } from "react";
 
 const FirstAccessScreen = ({ navigation }) => {
+    const { user } = useContext(AuthContext);
     let vocative = "Acabou de chegar?? Veja como funciona o app:";
     let steps = [
         "Você cadastra suas rotas e os horários",
         "Te mostramos as pessoas que fazem o mesmo trajeto",
-        "Você economiza e ainda ganha uma companhia!"
+        "Você pede uma parceria, e...",
+        "Se a pessoa aceitar, vocês combinam como farão o trajeto!"
     ];
     let importantPoints = [
         "Não pedimos o endereço exato da sua casa: Por hora, vamos nos preocupar apenas com o bairro. Preferimos deixar que você decida se revelará seu endereço, ou se marcará um ponto de encontro em comum",
@@ -23,37 +26,46 @@ const FirstAccessScreen = ({ navigation }) => {
     let end = "E pra finalizar: este app foi feito por estudantes, para estudantes. Embora desejamos entregar o melhor para vocês, ainda estamos em processo de aprendizado!! Ficaremos felizes em receber feedbacks e sugestões de melhorias!!";
 
     return (
-        <Screen title="Caronas UFPR" centralized>
-            <Section title={vocative}>
-                {steps.map((step, index) => {
-                    return (
-                        <Comment
-                            key={index}
-                            comment={(index + 1).toString() + ". " + step}
-                        />
-                    );
-                })}
-            </Section>
-            <Vspacer h={10} />
-            <SubTitle subtitle={"Importante!!"} />
-            {importantPoints.map((point, index) => {
-                return (
-                    <View key={index}>
-                        <Comment
-                            key={index}
-                            comment={(index + 1).toString() + ". " + point}
-                        />
-                        <Vspacer h={5} />
+        <CustomScrollView>
+            <Screen title="Caronas UFPR">
+                <Section title={vocative}>
+                    {steps.map((step, index) => {
+                        return (
+                            <Text key={index}>{(index + 1).toString() + ". " + step}</Text>
+                        );
+                    })}
+                </Section>
+                <Vspacer h={10} />
+                <Section title={"Importante!!"}>
+                    {importantPoints.map((point, index) => {
+                        return (
+                            <View key={index}>
+                                <Text key={index}>{(index + 1).toString() + ". " + point}</Text>
+                                <Vspacer h={5} />
+                            </View>
+                        );
+                    })}
+                </Section>
+                <Vspacer h={20} />
+                <Text style={styles.end}>{end}</Text>
+                {user ? "" :
+                    <View style={[gs.flexRow, gs.justifyBetween, {marginVertical: 10}]}>
+                        <TextButton text={"Voltar"} onPressHandler={() => navigation.navigate("Login")} />
+                        <CustomButton label="Começar" onClickHandler={() => navigation.navigate("Cadastrar-se")}/>
                     </View>
-                );
-            })}
-            <Vspacer h={10} />
-            <SubTitle subtitle={end} justify />
-            <View>
-                <CustomButton label="Começar" alignment="end" onClickHandler={() => {navigation.navigate("HomeScreen")}}/>
-            </View>
-        </Screen>
+                }
+            </Screen>
+        </CustomScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    end: {
+        textAlign: "left",
+        fontSize: 15,
+        fontFamily: "InterBold",
+    }
+});
+
 
 export default FirstAccessScreen;

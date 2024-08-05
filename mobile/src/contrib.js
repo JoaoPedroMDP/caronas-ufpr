@@ -1,4 +1,5 @@
 import { Black, White } from '../assets/colors';
+import env from '../env';
 
 function pickablelize(items = []) {
     let finalItems = [];
@@ -29,15 +30,18 @@ function toCheckboxGroupFormat(data) {
     return finalData;
 }
 
-function getFormattedDateTimeString(date) {
-    "YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]"
-    year = date.getFullYear().toString();
-    month = (date.getMonth() + 1).toString().padStart(2, "0");
-    day = date.getDate().toString().padStart(2, "0");
-    hour = date.getHours().toString().padStart(2, "0");
-    minute = date.getMinutes().toString().padStart(2, "0");
-    
-    return `${year}-${month}-${day}T${hour}:${minute}`;
+function getFormattedTime(time) {
+    // Time vem como 00:00:00. Quero tirar os dois últmos zeros
+    return time.substring(0, time.length - 3);
 }
 
-export { pickablelize, toCheckboxGroupFormat, getFormattedDateTimeString };
+function sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
+}
+
+function getImage(partialUrl){
+    return `${env.back_end}${partialUrl}`;
+}
+
+export { pickablelize, toCheckboxGroupFormat, getFormattedTime, sanitizeString, getImage };

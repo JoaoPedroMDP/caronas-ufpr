@@ -1,6 +1,7 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { useState } from 'react';
 import { Black, LightGray } from '../../../assets/colors';
+import gs from '../../globalStyles';
 
 const CustomSwitchButton = ({ label, onClickHandler, disabled, containerStyle }) => {
     const [clicked, setClicked] = useState(false);
@@ -25,9 +26,9 @@ const CustomSwitchButton = ({ label, onClickHandler, disabled, containerStyle })
 
 const styles = StyleSheet.create({
     button: {
+        ...gs.alignCenter,
         borderRadius: 10,
         justifyContent: 'center',
-        alignItems: 'center',
         marginVertical: 5,
         width: "auto",
         minWidth: 30,

@@ -1,7 +1,8 @@
 import { Switch } from 'react-native-switch';
 import { LightGray, Black } from '../../../assets/colors';
+import { View, StyleSheet, Text } from 'react-native';
 
-const CustomSwitch = ({ switchValue, onSwitchHandler }) => {
+const CustomSwitch = ({ activeText, inactiveText, switchValue, onSwitchHandler }) => {
     if (switchValue === undefined) {
         switchValue = false;
     }
@@ -11,6 +12,19 @@ const CustomSwitch = ({ switchValue, onSwitchHandler }) => {
         onSwitchHandler();
     }
 
+    const circleText = () => {
+        let text = <Text style={[styles.inactiveText, styles.circleText]}>{inactiveText}</Text>;
+        if (switchValue){
+            text = <Text style={[styles.activeText, styles.circleText]}>{activeText}</Text>
+        }
+
+        return(
+            <View style={styles.circleTextContainer}>
+                {text}
+            </View>
+        );
+    }
+
     return (
         <Switch
             onValueChange={changeValue}
@@ -18,6 +32,7 @@ const CustomSwitch = ({ switchValue, onSwitchHandler }) => {
             circleInActiveColor={Black}
             backgroundActive={Black}
             backgroundInactive={LightGray}
+            renderInsideCircle={circleText}
             renderActiveText={false}
             renderInActiveText={false}
             value={switchValue}
@@ -25,4 +40,13 @@ const CustomSwitch = ({ switchValue, onSwitchHandler }) => {
     );
 }
 
+const styles = StyleSheet.create({
+    inactiveText: {
+        color: LightGray,
+        textAlign: 'center',
+    },
+    activeText: {
+        color: Black,
+    }
+});
 export default CustomSwitch;

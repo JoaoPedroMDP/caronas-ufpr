@@ -1,4 +1,4 @@
-const PlaceholderGray = "#949494";
+const PlaceholderGray = "#808080";
 const Black = "#1D1A1A";
 const LightGray = "#D9D9D9";
 const MediumGray = "#A0A0A0";

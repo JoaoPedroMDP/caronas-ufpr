@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import CustomSwitchButton from './CustomSwitchButton';
 import { availableWeekDays } from '../../consts';
+import gs from '../../globalStyles';
 
 const WeekDaySelector = ({ weekDays, returnWeekDays }) => {
     function selectDay(day) {
@@ -32,9 +33,9 @@ const WeekDaySelector = ({ weekDays, returnWeekDays }) => {
 
 const styles = StyleSheet.create({
     days: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
+        ...gs.flexRow,
+        ...gs.alignCenter,
+        ...gs.justifyBetween,
         marginVertical: 5,
         width: "100%"
     }
