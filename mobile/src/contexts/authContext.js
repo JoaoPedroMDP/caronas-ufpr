@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         }, MINUTE_MS);
     }, []);
 
-async function doLogin(username, password) {
+    async function doLogin(username, password) {
         const response = await login(username, password);
         await AsyncStorage.setItem(TOKEN_STORAGE_KEY, response.access)
         await AsyncStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, response.refresh)
